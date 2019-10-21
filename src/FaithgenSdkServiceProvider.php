@@ -1,6 +1,6 @@
 <?php
 
-namespace FaithGen\SDK\Providers;
+namespace FaithGen\SDK;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -13,7 +13,11 @@ class FaithgenSdkServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadMigrationsFrom(__DIR__."/database/migrations");
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->mergeConfigFrom(__DIR__ . '/config/faithgen-sdk.php', 'faithgen-sdk');
+        $this->publishes([
+            __DIR__ . '/config/faithgen-sdk.php' => config_path('faithgen-sdk.php'),
+        ]);
     }
 
     /**
