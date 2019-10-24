@@ -44,7 +44,7 @@ class FaithgenSdkServiceProvider extends ServiceProvider
             ], 'faithgen-migrations');
 
             $this->publishes([
-                __DIR__ . '/storage/profile/' => storage_path('app/public'),
+                __DIR__ . '/storage/profile/' => storage_path('app/public/profile'),
             ]);
         }
 
