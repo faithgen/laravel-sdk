@@ -2,8 +2,9 @@
 
 namespace FaithGen\SDK\Models;
 
-use App\Traits\Relationships\Belongs\BelongsToUserTrait;
 
+
+use FaithGen\SDK\Traits\Relationships\Belongs\BelongsToUserTrait;
 
 class Comment extends UuidModel
 {
