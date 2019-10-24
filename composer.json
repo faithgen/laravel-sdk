@@ -10,7 +10,11 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+        "webpatser/laravel-uuid": "^3.0",
+        "intervention/image": "^2.5",
+        "laravel/passport": "^7.4",
+    },
     "autoload": {
         "psr-4": {
             "FaithGen\\SDK\\": "src/"
@@ -23,7 +27,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "FaithGen\\SDK\\Providers\\FaithgenSdkServiceProvider"
+                "FaithGen\\SDK\\FaithgenSdkServiceProvider",
+                "FaithGen\\SDK\\Providers\\AppServiceProvider"
             ]
         }
     }
