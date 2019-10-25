@@ -19,27 +19,29 @@ class FaithGenSDKServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
         $this->mergeConfigFrom(__DIR__ . '/config/faithgen-sdk.php', 'faithgen-sdk');
 
+        $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         $this->registerAuthRoutes();
         $this->registerApiRoutes();
         $this->registerParentRoutes();
-        $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
-
 
         if ($this->app->runningInConsole()) {
+            $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+
             $this->publishes([
                 __DIR__ . '/config/faithgen-sdk.php' => config_path('faithgen-sdk.php'),
-            ], 'faithgen-config');
+            ], 'faithgen-sdk-config');
 
-            $this->publishes([
-                __DIR__ . '/database/migrations/' => database_path('migrations'),
-            ], 'faithgen-migrations');
+            if (config('faithgen-sdk.source')) {
+                $this->publishes([
+                    __DIR__ . '/database/migrations/' => database_path('migrations'),
+                ], 'faithgen-sdk-migrations');
 
-            $this->publishes([
-                __DIR__ . '/storage/profile/' => storage_path('app/public/profile'),
-            ]);
+                $this->publishes([
+                    __DIR__ . '/storage/profile/' => storage_path('app/public/profile'),
+                ]);
+            }
         }
 
         app('router')->aliasMiddleware('ministry.activated', ActivatedMinistryMiddleware::class);
@@ -81,9 +83,10 @@ class FaithGenSDKServiceProvider extends ServiceProvider
 
     private function registerParentRoutes()
     {
-        Route::group($this->parentRouteConfiguration(), function () {
-            $this->loadRoutesFrom(__DIR__ . '/routes/source.php');
-        });
+        if (config('faithgen-sdk.source'))
+            Route::group($this->parentRouteConfiguration(), function () {
+                $this->loadRoutesFrom(__DIR__ . '/routes/source.php');
+            });
     }
 
 
