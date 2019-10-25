@@ -147,4 +147,9 @@ class MinistryController extends Controller
         $_links = ['website', 'facebook', 'youtube', 'twitter', 'instagram'];
         return array_key_exists($links, $_links);
     }
+
+    function accountType()
+    {
+        return auth()->user()->account->level;
+    }
 }
