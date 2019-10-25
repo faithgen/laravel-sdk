@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Traits;
+namespace FaithGen\SDK\Traits;
 
 
 trait TitleTrait
