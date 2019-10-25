@@ -28,8 +28,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "FaithGen\\SDK\\FaithgenSdkServiceProvider",
-                "FaithGen\\SDK\\Providers\\AppServiceProvider"
+                "FaithGen\\SDK\\FaithGenSDKServiceProvider",
+                "FaithGen\\SDK\\Providers\\EventServiceProvider"
             ]
         }
     }
