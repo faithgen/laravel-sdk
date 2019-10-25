@@ -5,6 +5,7 @@ namespace FaithGen\SDK\Helpers;
 
 
 use FaithGen\SDK\Models\Ministry;
+use FaithGen\SDK\SDK;
 
 class MinistryHelper extends Helper
 {
@@ -16,11 +17,11 @@ class MinistryHelper extends Helper
         if (!$imageName) {
             if (!$dimen)
                 $dimen = 'original';
-            return asset('images/logo-' . $dimen . '.png');
+            return SDK::getAsset('images/logo-' . $dimen . '.png');
         }
         if (!$dimen)
-            return asset('storage/profile/original/' . $imageName);
+            return SDK::getAsset('storage/profile/original/' . $imageName);
         else
-            return asset('storage/profile/' . $dimen . '-' . $dimen . '/' . $imageName);
+            return SDK::getAsset('storage/profile/' . $dimen . '-' . $dimen . '/' . $imageName);
     }
 }
