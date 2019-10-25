@@ -2,8 +2,8 @@
 
 namespace FaithGen\SDK\Http\Controllers;
 
-use FaithGen\SDK\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use FaithGen\SDK\Helpers\Helper;
 use FaithGen\SDK\Http\Requests\Ministry\CreateRequest;
 use FaithGen\SDK\Http\Requests\Ministry\ForgotPasswordRequest;
 use FaithGen\SDK\Http\Requests\Ministry\LoginRequest;
@@ -57,9 +57,8 @@ class AuthController extends Controller
         return $this->authService->attemptLogin();
     }
 
-    function activateAccount($ministry, $code)
+    function activateAccount(Ministry $ministry, $code)
     {
-        $ministry = Ministry::findOrFail($ministry);
         if (strcmp($ministry->activation->code, $code) == 0) {
             $activation = $ministry->activation;
             $activation->active = true;

@@ -55,7 +55,8 @@ class FaithGenSDKServiceProvider extends ServiceProvider
             'namespace' => $this->namespace,
             'middleware' => [
                 'auth:api',
-                'ministry.activated'
+                'ministry.activated',
+                'bindings'
             ]
         ];
     }
@@ -76,7 +77,8 @@ class FaithGenSDKServiceProvider extends ServiceProvider
             'middleware' => [
                 'auth:api',
                 'ministry.activated',
-                'source.site'
+                'source.site',
+                'bindings'
             ]
         ];
     }
@@ -95,6 +97,7 @@ class FaithGenSDKServiceProvider extends ServiceProvider
         return [
             'prefix' => config('faithgen-sermons.prefix'),
             'namespace' => $this->namespace,
+            'middleware' => ['bindings']
         ];
     }
 
