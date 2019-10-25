@@ -65,7 +65,7 @@ class AuthController extends Controller
             try {
                 $activation->save();
                 $ministry->notify(new AccountActivated($ministry));
-                return redirect()->away(Helper::$ministryBackend);
+                return redirect()->away(config('faithgen-sdk.ministriesDomain'));
             } catch (\Exception $e) {
                 abort(500, $e->getMessage());
             }
