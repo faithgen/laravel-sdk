@@ -51,7 +51,7 @@ class FaithGenSDKServiceProvider extends ServiceProvider
     private function apiRouteConfiguration()
     {
         return [
-            'prefix' => config('faithgen-sermons.prefix'),
+            'prefix' => config('faithgen-sdk.prefix'),
             'namespace' => $this->namespace,
             'middleware' => [
                 'auth:api',
@@ -72,7 +72,7 @@ class FaithGenSDKServiceProvider extends ServiceProvider
     private function parentRouteConfiguration()
     {
         return [
-            'prefix' => config('faithgen-sermons.prefix'),
+            'prefix' => config('faithgen-sdk.prefix'),
             'namespace' => $this->namespace,
             'middleware' => [
                 'auth:api',
@@ -95,7 +95,7 @@ class FaithGenSDKServiceProvider extends ServiceProvider
     private function authRouteConfiguration()
     {
         return [
-            'prefix' => config('faithgen-sermons.prefix'),
+            'prefix' => config('faithgen-sdk.prefix'),
             'namespace' => $this->namespace,
             'middleware' => ['bindings']
         ];
