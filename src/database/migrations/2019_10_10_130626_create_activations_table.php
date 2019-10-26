@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateActivationsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('activations', function (Blueprint $table) {
+            $table->string('id')->index();
+            $table->string('ministry_id', 150)->unique()->index();
+            $table->string('code')->unique();
+            $table->boolean('active')->default(false);
+            $table->timestamps();
+
+            $table->foreign('ministry_id')->references('id')->on('ministries')->onDelete('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('activations');
+    }
+}
