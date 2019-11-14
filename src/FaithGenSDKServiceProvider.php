@@ -40,7 +40,7 @@ class FaithGenSDKServiceProvider extends ServiceProvider
 
                 $this->publishes([
                     __DIR__ . '/storage/profile/' => storage_path('app/public/profile'),
-                ]);
+                ], 'faithgen-sdk-storage');
             }
         }
 
