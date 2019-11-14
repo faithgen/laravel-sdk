@@ -3,6 +3,8 @@
 
 namespace FaithGen\SDK\Services;
 
+use InnoFlash\LaraStart\Services\CRUDServices;
+
 
 class ProfileService extends CRUDServices
 {
@@ -11,8 +13,7 @@ class ProfileService extends CRUDServices
     {
         try {
             $this->profile = auth(config('faithgen-sdk.guard'))->user()->profile;
-        } catch (\Exception $e) {
-        }
+        } catch (\Exception $e) { }
     }
 
     /**

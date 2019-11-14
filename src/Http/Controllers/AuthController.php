@@ -2,16 +2,16 @@
 
 namespace FaithGen\SDK\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use FaithGen\SDK\Helpers\Helper;
-use FaithGen\SDK\Http\Requests\Ministry\CreateRequest;
-use FaithGen\SDK\Http\Requests\Ministry\ForgotPasswordRequest;
-use FaithGen\SDK\Http\Requests\Ministry\LoginRequest;
 use FaithGen\SDK\Models\Ministry;
-use FaithGen\SDK\Notifications\Ministry\AccountActivated;
+use App\Http\Controllers\Controller;
+use InnoFlash\LaraStart\Services\AuthService;
+use FaithGen\SDK\Http\Requests\Ministry\LoginRequest;
+use FaithGen\SDK\Http\Requests\Ministry\CreateRequest;
 use FaithGen\SDK\Notifications\Ministry\AccountCreated;
 use FaithGen\SDK\Notifications\Ministry\ForgotPassword;
-use FaithGen\SDK\Services\AuthService;
+use FaithGen\SDK\Notifications\Ministry\AccountActivated;
+use FaithGen\SDK\Http\Requests\Ministry\ForgotPasswordRequest;
 
 class AuthController extends Controller
 {

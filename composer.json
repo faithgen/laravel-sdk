@@ -14,7 +14,8 @@
         "webpatser/laravel-uuid": "^3.0",
         "intervention/image": "^2.5",
         "laravel/passport": "^7.4",
-        "crazybooot/base64-validation": "^1.0"
+        "crazybooot/base64-validation": "^1.0",
+        "innoflash/larastart": "^1.0"
     },
     "autoload": {
         "psr-4": {
