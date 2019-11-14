@@ -2,12 +2,12 @@
 
 namespace FaithGen\SDK\Models;
 
-use App\Traits\MinistryUserCommonsTrait;
 use FaithGen\SDK\Models\Pivots\MinistryUser;
+use FaithGen\SDK\Traits\Relationships\Has\ManyMinistryUser;
 
 class User extends UuidModel
 {
-    use  MinistryUserCommonsTrait;
+    use  MinistryUserCommonsTrait, ManyMinistryUser;
 
     //****************************************************************************//
     //***************************** MODEL ATTRIBUTES *****************************//
