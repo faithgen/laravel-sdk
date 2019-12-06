@@ -4,6 +4,7 @@ namespace FaithGen\SDK\Http\Controllers;
 
 use FaithGen\SDK\Events\Ministry\Profile\ImageSaved;
 use App\Http\Controllers\Controller;
+use FaithGen\SDK\Http\Requests\IndexRequest;
 use FaithGen\SDK\Http\Requests\Ministry\DeleteRequest;
 use FaithGen\SDK\Http\Requests\Ministry\Social\GetRequest;
 use FaithGen\SDK\Http\Requests\Ministry\Social\UpdateRequest;
@@ -12,9 +13,12 @@ use FaithGen\SDK\Http\Requests\Ministry\UpdatePasswordRequest;
 use FaithGen\SDK\Http\Requests\Ministry\UpdateProfileRequest;
 use FaithGen\SDK\Http\Resources\Profile as ProfileResource;
 use FaithGen\SDK\Http\Resources\Ministry as MinistryResource;
+use FaithGen\SDK\Http\Resources\MinistryUser as ResourcesMinistryUser;
+use FaithGen\SDK\Models\Pivots\MinistryUser;
 use FaithGen\SDK\Services\ProfileService;
 use FaithGen\SDK\Traits\FileTraits;
 use Illuminate\Support\Facades\Hash;
+use InnoFlash\LaraStart\Http\Helper;
 use Intervention\Image\ImageManager;
 
 class MinistryController extends Controller
@@ -151,5 +155,16 @@ class MinistryController extends Controller
     function accountType()
     {
         return auth()->user()->account->level;
+    }
+
+    public function users(IndexRequest $request)
+    {
+        $ministryUsers = MinistryUser::with(['user' => function ($user) use ($request) {
+            return $user->where('name', 'LIKE', '%' . $request->filter_text . '%')
+                ->orWhere('email', 'LIKE', '%' . $request->filter_text . '%');
+        }])
+            ->latest()
+            ->paginate(Helper::getLimit($request));
+        return ResourcesMinistryUser::collection($ministryUsers);
     }
 }

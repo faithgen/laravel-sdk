@@ -4,4 +4,3 @@ Route::name('ministry.')->prefix('ministry/')->group(function () {
     Route::get('profile', 'MinistryController@getProfile');
     Route::get('account-type', 'MinistryController@accountType');
 });
-

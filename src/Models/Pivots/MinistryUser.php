@@ -9,4 +9,6 @@ use FaithGen\SDK\Traits\Relationships\Belongs\BelongsToUserTrait;
 class MinistryUser extends UuidModel
 {
     use BelongsToUserTrait, BelongsToMinistryTrait;
+
+    protected $table = 'ministry_users';
 }
