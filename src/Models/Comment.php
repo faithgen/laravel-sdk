@@ -2,15 +2,18 @@
 
 namespace FaithGen\SDK\Models;
 
-
-
 use FaithGen\SDK\Traits\Relationships\Belongs\BelongsToUserTrait;
 
 class Comment extends UuidModel
 {
-    use  BelongsToUserTrait;
+    //   use  BelongsToUserTrait;
 
     function commentable()
+    {
+        return $this->morphTo();
+    }
+
+    function creatable()
     {
         return $this->morphTo();
     }

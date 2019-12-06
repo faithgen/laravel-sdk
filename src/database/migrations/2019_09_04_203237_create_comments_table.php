@@ -15,13 +15,14 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->string('id', 150);
-            $table->string('user_id', 150)->index();
+            $table->string('creatable_id', 150)->index();
+            $table->string('creatable_type');
             $table->string('commentable_id', 150)->index();
             $table->string('commentable_type');
             $table->text('comment');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            //     $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -4,10 +4,11 @@ namespace FaithGen\SDK\Models;
 
 use FaithGen\SDK\Models\Pivots\MinistryUser;
 use FaithGen\SDK\Traits\Relationships\Has\ManyMinistryUser;
+use FaithGen\SDK\Traits\Relationships\Morphs\CreatableTrait;
 
 class User extends UuidModel
 {
-    use  MinistryUserCommonsTrait, ManyMinistryUser;
+    use ManyMinistryUser, CreatableTrait;
 
     //****************************************************************************//
     //***************************** MODEL ATTRIBUTES *****************************//

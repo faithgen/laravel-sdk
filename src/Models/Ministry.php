@@ -7,6 +7,7 @@ use FaithGen\SDK\Models\Ministry\Activation;
 use FaithGen\SDK\Models\Ministry\APIKey;
 use FaithGen\SDK\Models\Ministry\Profile;
 use FaithGen\SDK\Traits\Relationships\Has\ManyMinistryUser;
+use FaithGen\SDK\Traits\Relationships\Morphs\CreatableTrait;
 use FaithGen\SDK\Traits\Relationships\Morphs\ImageableTrait;
 use FaithGen\SDK\Traits\StorageTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,7 +16,7 @@ use Laravel\Passport\HasApiTokens;
 
 class Ministry extends Authenticatable
 {
-    use HasApiTokens, Notifiable, ImageableTrait, StorageTrait, ManyMinistryUser;
+    use HasApiTokens, Notifiable, ImageableTrait, StorageTrait, ManyMinistryUser, CreatableTrait;
 
     protected $guarded = ['id'];
     public $incrementing = false;
