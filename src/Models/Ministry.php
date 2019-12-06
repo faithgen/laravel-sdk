@@ -106,4 +106,11 @@ class Ministry extends Authenticatable
     {
         return $this->image->name;
     }
+
+    public function getUsersAttribute()
+    {
+        return User::whereHas('ministryUsers', function ($minUser) {
+            return $minUser->where('minstry_id', $this->id);
+        });
+    }
 }

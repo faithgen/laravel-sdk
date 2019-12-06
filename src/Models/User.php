@@ -32,8 +32,10 @@ class User extends UuidModel
         return $this->hasMany(Comment::class);
     }
 
-    function ministries()
+    function getMinistriesAttribute()
     {
-        return $this->belongsToMany(Ministry::class)->using(MinistryUser::class);
+        return Ministry::whereHas('ministryUsers', function ($minUser) {
+            return $minUser->where('user_id', $this->id);
+        });
     }
 }
