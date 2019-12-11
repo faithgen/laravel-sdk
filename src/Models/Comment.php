@@ -6,8 +6,6 @@ use FaithGen\SDK\Traits\Relationships\Belongs\BelongsToUserTrait;
 
 class Comment extends UuidModel
 {
-    //   use  BelongsToUserTrait;
-
     function commentable()
     {
         return $this->morphTo();
@@ -16,5 +14,10 @@ class Comment extends UuidModel
     function creatable()
     {
         return $this->morphTo();
+    }
+
+    public function getCommentAttribute($val)
+    {
+        return ucfirst($val);
     }
 }

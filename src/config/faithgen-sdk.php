@@ -15,7 +15,7 @@ return [
      * @Bool
      * If parent it exposes the update and delete routes, if not it will show only the select query routes
      */
-    'source' => true,
+    'source' => false,
 
     /**
      * @string
