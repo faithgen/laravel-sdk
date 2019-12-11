@@ -2,13 +2,21 @@
 
 namespace FaithGen\SDK\Models;
 
-use FaithGen\SDK\Models\Pivots\MinistryUser;
 use FaithGen\SDK\Traits\Relationships\Has\ManyMinistryUser;
 use FaithGen\SDK\Traits\Relationships\Morphs\CreatableTrait;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends UuidModel
+class User extends Authenticatable
 {
     use ManyMinistryUser, CreatableTrait;
+
+    protected $guarded = ['id'];
+    public $incrementing = false;
+    protected $hidden = [
+        'password',
+        'created_at',
+        'updated_at',
+    ];
 
     //****************************************************************************//
     //***************************** MODEL ATTRIBUTES *****************************//

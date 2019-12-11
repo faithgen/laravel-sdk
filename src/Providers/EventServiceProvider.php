@@ -4,9 +4,11 @@ namespace FaithGen\SDK\Providers;
 
 use FaithGen\SDK\Models\Image;
 use FaithGen\SDK\Models\Ministry;
+use FaithGen\SDK\Models\User;
 use FaithGen\SDK\Observers\ImageObserver;
 use FaithGen\SDK\Observers\Ministry\ActivationObserver;
 use FaithGen\SDK\Observers\MinistryObserver;
+use FaithGen\SDK\Observers\UserObserver;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -34,6 +36,7 @@ class EventServiceProvider extends ServiceProvider
         Ministry::observe(MinistryObserver::class);
         Image::observe(ImageObserver::class);
         Ministry\Activation::observe(ActivationObserver::class);
+        User::observe(UserObserver::class);
     }
 
     /**
