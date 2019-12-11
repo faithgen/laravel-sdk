@@ -26,7 +26,7 @@ class CommentHelper
                 ]);
             return response()->json([
                 'success' => true,
-                'message' => 'Commented posted'
+                'message' => 'Comment posted'
             ], 200);
         } catch (\Exception $e) {
             abort(500, $e->getMessage());
