@@ -45,7 +45,10 @@ class MinistryObserver
      */
     public function updated(Ministry $ministry)
     {
-        //
+        // dump('has services');
+        if (request()->has('services')) {
+            $ministry->services()->insert(request()->services);
+        }
     }
 
     /**
@@ -62,7 +65,6 @@ class MinistryObserver
 
         try {
             $this->deleteFiles($ministry);
-        } catch (\Exception $e) {
-        }
+        } catch (\Exception $e) { }
     }
 }

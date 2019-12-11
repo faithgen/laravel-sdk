@@ -5,6 +5,7 @@ namespace FaithGen\SDK\Models;
 use FaithGen\SDK\Models\Ministry\Account;
 use FaithGen\SDK\Models\Ministry\Activation;
 use FaithGen\SDK\Models\Ministry\APIKey;
+use FaithGen\SDK\Models\Ministry\DailyService;
 use FaithGen\SDK\Models\Ministry\Profile;
 use FaithGen\SDK\Traits\Relationships\Has\ManyMinistryUser;
 use FaithGen\SDK\Traits\Relationships\Morphs\CreatableTrait;
@@ -68,6 +69,11 @@ class Ministry extends Authenticatable
     function apiKey()
     {
         return $this->hasOne(APIKey::class);
+    }
+
+    public function services()
+    {
+        return $this->hasMany(DailyService::class);
     }
 
 

@@ -12,6 +12,15 @@ class Helper
     public static $titleValidation = 'required|string|min:2';
 
     public static $freeMessagesCount = 10;
+    public static $weekDays = [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday',
+    ];
 
     public static function getDates(Carbon $date)
     {

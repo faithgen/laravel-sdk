@@ -2,24 +2,28 @@
 
 namespace FaithGen\SDK\Http\Controllers;
 
-use FaithGen\SDK\Events\Ministry\Profile\ImageSaved;
-use App\Http\Controllers\Controller;
-use FaithGen\SDK\Http\Requests\IndexRequest;
-use FaithGen\SDK\Http\Requests\Ministry\DeleteRequest;
-use FaithGen\SDK\Http\Requests\Ministry\Social\GetRequest;
-use FaithGen\SDK\Http\Requests\Ministry\Social\UpdateRequest;
-use FaithGen\SDK\Http\Requests\Ministry\UpdateImageRequest;
-use FaithGen\SDK\Http\Requests\Ministry\UpdatePasswordRequest;
-use FaithGen\SDK\Http\Requests\Ministry\UpdateProfileRequest;
-use FaithGen\SDK\Http\Resources\Profile as ProfileResource;
-use FaithGen\SDK\Http\Resources\Ministry as MinistryResource;
-use FaithGen\SDK\Http\Resources\MinistryUser as ResourcesMinistryUser;
-use FaithGen\SDK\Models\Pivots\MinistryUser;
-use FaithGen\SDK\Services\ProfileService;
+use Webpatser\Uuid\Uuid;
+use Illuminate\Http\Request;
+use FaithGen\SDK\Models\Ministry;
 use FaithGen\SDK\Traits\FileTraits;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use InnoFlash\LaraStart\Http\Helper;
 use Intervention\Image\ImageManager;
+use FaithGen\SDK\Services\ProfileService;
+use FaithGen\SDK\Http\Requests\IndexRequest;
+use FaithGen\SDK\Models\Pivots\MinistryUser;
+use FaithGen\SDK\Events\Ministry\Profile\ImageSaved;
+use FaithGen\SDK\Http\Requests\Ministry\DeleteRequest;
+use FaithGen\SDK\Http\Requests\Ministry\Social\GetRequest;
+use FaithGen\SDK\Http\Requests\Ministry\UpdateImageRequest;
+use FaithGen\SDK\Http\Resources\Profile as ProfileResource;
+use FaithGen\SDK\Http\Requests\Ministry\Social\UpdateRequest;
+use FaithGen\SDK\Http\Requests\Ministry\UpdateProfileRequest;
+use FaithGen\SDK\Http\Resources\Ministry as MinistryResource;
+use FaithGen\SDK\Http\Requests\Ministry\UpdatePasswordRequest;
+use FaithGen\SDK\Http\Resources\MinistryUser as ResourcesMinistryUser;
+use Illuminate\Support\Facades\DB;
 
 class MinistryController extends Controller
 {
@@ -143,7 +147,24 @@ class MinistryController extends Controller
             $params = array_merge($params, [
                 'location' => $request->location
             ]);
+        $this->saveServices($request, auth()->user());
         return $this->profileService->update($params, 'Profile updated successfully!');
+    }
+
+    private function saveServices(Request $request, Ministry $ministry)
+    {
+        if ($request->has('services')) {
+            DB::table('daily_services')->whereIn('id', $ministry->services()->pluck('id')->toArray())->delete();
+            $services = array_map(function ($service) {
+                return array_merge($service, [
+                    'id' => str_shuffle((string) Uuid::generate()),
+                    'ministry_id' => auth()->user()->id,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }, $request->services);
+            $ministry->services()->insert($services);
+        }
     }
 
     function getLinks($links)

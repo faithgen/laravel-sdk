@@ -18,7 +18,7 @@ class UuidModel extends Model
     {
         parent::boot();
         self::creating(function ($user) {
-            $user->id = str_shuffle((string)Uuid::generate());
+            $user->id = str_shuffle((string) Uuid::generate());
         });
     }
 }

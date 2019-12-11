@@ -20,7 +20,7 @@ class Profile extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'active' => (boolean)$this->activation->active,
+            'active' => (bool) $this->activation->active,
             'api_key' => $this->apiKey->api_key,
             'avatar' => [
                 '_50' => $this->image()->exists() ? MinistryHelper::getImageLink($this->image->name, 50) : MinistryHelper::getImageLink(null, 50),
@@ -43,11 +43,12 @@ class Profile extends JsonResource
                 'phones' => $this->phones,
                 'emails' => $this->emails,
             ],
+            'services' => DailyService::collection($this->services),
             'statement' => [
                 'vision' => $this->profile->vision,
                 'mission' => $this->profile->mission,
                 'about_us' => $this->profile->about_us,
-            ]
+            ],
         ];
     }
 }

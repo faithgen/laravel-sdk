@@ -2,6 +2,7 @@
 
 namespace FaithGen\SDK\Http\Requests\Ministry;
 
+use FaithGen\SDK\Helpers\Helper;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateProfileRequest extends FormRequest
@@ -35,6 +36,11 @@ class UpdateProfileRequest extends FormRequest
             'emails' => 'array',
             'phones' => 'array',
             'emails.*' => 'email',
+            'services' => 'array',
+            'services.*.day' => 'required|in:' . implode(',', Helper::$weekDays),
+            'services.*.start' => ['required', 'date_format:H:i', 'regex:/^((([01]?[0-9]|2[0-3]):[0-5][0-9])?)$/'],
+            'services.*.finish' => ['required', 'date_format:H:i', 'regex:/^((([01]?[0-9]|2[0-3]):[0-5][0-9])?)$/'],
+            'services.*.alias' => 'nullable',
         ];
     }
 }
