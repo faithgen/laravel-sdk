@@ -23,8 +23,7 @@ class FaithGenSDKServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/config/faithgen-sdk.php', 'faithgen-sdk');
 
-        $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
-        $this->registerAuthRoutes();
+
         $this->registerApiRoutes();
         $this->registerParentRoutes();
 
@@ -90,10 +89,15 @@ class FaithGenSDKServiceProvider extends ServiceProvider
 
     private function registerParentRoutes()
     {
-        if (config('faithgen-sdk.source'))
+        if (config('faithgen-sdk.source')) {
             Route::group($this->parentRouteConfiguration(), function () {
                 $this->loadRoutesFrom(__DIR__ . '/routes/source.php');
             });
+
+            $this->registerAuthRoutes();
+
+            $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
+        }
     }
 
 
