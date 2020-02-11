@@ -6,7 +6,6 @@ use Webpatser\Uuid\Uuid;
 use Illuminate\Http\Request;
 use FaithGen\SDK\Models\Ministry;
 use FaithGen\SDK\Traits\FileTraits;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use InnoFlash\LaraStart\Http\Helper;
 use Intervention\Image\ImageManager;
@@ -23,11 +22,16 @@ use FaithGen\SDK\Http\Requests\Ministry\UpdateProfileRequest;
 use FaithGen\SDK\Http\Resources\Ministry as MinistryResource;
 use FaithGen\SDK\Http\Requests\Ministry\UpdatePasswordRequest;
 use FaithGen\SDK\Http\Resources\MinistryUser as ResourcesMinistryUser;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use InnoFlash\LaraStart\Traits\APIResponses;
 
 class MinistryController extends Controller
 {
-    use FileTraits;
+    use FileTraits, AuthorizesRequests, APIResponses, ValidatesRequests, DispatchesJobs;
 
     /**
      * @var ProfileService

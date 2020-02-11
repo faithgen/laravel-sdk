@@ -4,7 +4,7 @@ namespace FaithGen\SDK\Http\Controllers;
 
 use FaithGen\SDK\Helpers\Helper;
 use FaithGen\SDK\Models\Ministry;
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use InnoFlash\LaraStart\Services\AuthService;
 use FaithGen\SDK\Http\Requests\Ministry\LoginRequest;
 use FaithGen\SDK\Http\Requests\Ministry\CreateRequest;
@@ -12,10 +12,12 @@ use FaithGen\SDK\Notifications\Ministry\AccountCreated;
 use FaithGen\SDK\Notifications\Ministry\ForgotPassword;
 use FaithGen\SDK\Notifications\Ministry\AccountActivated;
 use FaithGen\SDK\Http\Requests\Ministry\ForgotPasswordRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use InnoFlash\LaraStart\Traits\APIResponses;
 
 class AuthController extends Controller
 {
-
+    use AuthorizesRequests, APIResponses;
     /**
      * @var AuthService
      */
