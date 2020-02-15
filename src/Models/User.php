@@ -49,4 +49,11 @@ class User extends Authenticatable
             return $minUser->where('user_id', $this->id);
         });
     }
+
+    public function getActiveAttribute(): bool
+    {
+        if ($this->ministryUsers()->where('ministry_id', auth()->user()->id)->first()->active)
+            return true;
+        return false;
+    }
 }

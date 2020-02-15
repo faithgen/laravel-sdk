@@ -12,12 +12,14 @@ class CommentHelper
     static function createComment($model, Request $request)
     {
         try {
-            if (auth('web')->user())
-                $comment = $model->comments()->create([
-                    'comment' => $request->comment,
-                    'creatable_id' => auth('web')->user()->id,
-                    'creatable_type' => get_class(auth('web')->user()),
-                ]);
+            if ($user = auth('web')->user())
+                if (!$user->active)
+                    $comment = $model->comments()->create([
+                        'comment' => $request->comment,
+                        'creatable_id' => auth('web')->user()->id,
+                        'creatable_type' => get_class(auth('web')->user()),
+                    ]);
+                else abort(403, 'You are not permitted to comment on this');
             else
                 $comment = $model->comments()->create([
                     'comment' => $request->comment,
