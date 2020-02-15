@@ -43,7 +43,8 @@
     "laravel": {
       "providers": [
         "FaithGen\\SDK\\FaithGenSDKServiceProvider",
-        "FaithGen\\SDK\\Providers\\EventServiceProvider"
+        "FaithGen\\SDK\\Providers\\EventServiceProvider",
+        "FaithGen\\SDK\\Providers\\AuthServiceProvider"
       ]
     }
   }

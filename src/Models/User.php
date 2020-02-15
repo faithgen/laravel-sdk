@@ -52,8 +52,8 @@ class User extends Authenticatable
 
     public function getActiveAttribute(): bool
     {
-        if ($this->ministryUsers()->where('ministry_id', auth()->user()->id)->first()->active)
-            return true;
+        if ($user = $this->ministryUsers()->where('ministry_id', auth()->user()->id)->first())
+            if ($user->active) return true;
         return false;
     }
 }
