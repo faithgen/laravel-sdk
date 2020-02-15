@@ -17,6 +17,7 @@ class CreateMinistryUsersTable extends Migration
             $table->string('id', 150)->primary();
             $table->string('ministry_id', 150)->index();
             $table->string('user_id', 150)->index();
+            $table->boolean('active')->default(true);
             $table->timestamps();
 
             $table->foreign('ministry_id')->references('id')->on('ministries')->onDelete('cascade');
