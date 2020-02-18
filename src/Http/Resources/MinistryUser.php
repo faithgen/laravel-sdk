@@ -11,6 +11,7 @@ class MinistryUser extends JsonResource
     {
         return [
             'id' => $this->user_id,
+            'active' => (bool) $this->active,
             'name' => $this->user->name,
             'email' => $this->user->email,
             'provider' => $this->user->provider,

@@ -184,13 +184,18 @@ class MinistryController extends Controller
 
     public function users(IndexRequest $request)
     {
-        $ministryUsers = MinistryUser::whereHas('user', function ($user) use ($request) {
-            return $user->where('name', 'LIKE', '%' . $request->filter_text . '%')
-                ->orWhere('email', 'LIKE', '%' . $request->filter_text . '%');
-        })
-            //       ->with('user')
+        $ministryUsers = auth()->user()
+            ->ministryUsers()
+            ->where(function ($ministryUser) use ($request) {
+                return $ministryUser->whereHas('user', function ($user) use ($request) {
+                    return $user->where('name', 'LIKE', '%' . $request->filter_text . '%')
+                        ->orWhere('email', 'LIKE', '%' . $request->filter_text . '%');
+                });
+            })
+            ->with('user')
             ->latest()
             ->paginate(Helper::getLimit($request));
+        ResourcesMinistryUser::wrap('users');
         return ResourcesMinistryUser::collection($ministryUsers);
     }
 }
