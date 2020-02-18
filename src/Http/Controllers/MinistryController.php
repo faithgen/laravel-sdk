@@ -21,6 +21,7 @@ use FaithGen\SDK\Http\Requests\Ministry\Social\UpdateRequest;
 use FaithGen\SDK\Http\Requests\Ministry\UpdateProfileRequest;
 use FaithGen\SDK\Http\Resources\Ministry as MinistryResource;
 use FaithGen\SDK\Http\Requests\Ministry\UpdatePasswordRequest;
+use FaithGen\SDK\Http\Requests\ToggleActivityRequest;
 use FaithGen\SDK\Http\Resources\MinistryUser as ResourcesMinistryUser;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -197,5 +198,20 @@ class MinistryController extends Controller
             ->paginate(Helper::getLimit($request));
         ResourcesMinistryUser::wrap('users');
         return ResourcesMinistryUser::collection($ministryUsers);
+    }
+
+    /**
+     * Blocks or unblock a user
+     *
+     * @return void
+     */
+    public function toggleActivity(ToggleActivityRequest $request)
+    {
+        $ministryUser = auth()->user()->ministryUsers()->where('user_id', $request->user_id)->first();
+        if ($ministryUser) {
+            $ministryUser->update($request->validated());
+            return $this->successResponse('This user`s active status has been changed');
+        }
+        return abort(403, 'You are not allowed to alter that user, they do not belong to your following');
     }
 }

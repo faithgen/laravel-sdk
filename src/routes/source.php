@@ -9,5 +9,6 @@ Route::name('ministry.')->prefix('ministry/')->group(function () {
     Route::post('profile', [MinistryController::class, 'updateProfile']);
     Route::post('photo', [MinistryController::class, 'updatePhoto']);
     Route::post('password', [MinistryController::class, 'updatePassword']);
+    Route::post('users/toggle-activity', [MinistryController::class, 'toggleActivity']);
     Route::delete('/', [MinistryController::class, 'deleteProfile']);
 });
