@@ -39,7 +39,8 @@ final class AuthServiceProvider extends ServiceProvider
         if (!config('faithgen-sdk.source'))
             Auth::viaRequest('api-key', function ($request) {
                 $api_key = request()->headers->get('x-api-key');
-                return Ministry::whereHas('apiKey', function ($apiKey) use ($api_key) {
+                $class = config('auth.providers.ministries.model');
+                return $class::whereHas('apiKey', function ($apiKey) use ($api_key) {
                     return $apiKey->where('api_key', $api_key);
                 })->first();
             });
