@@ -2,7 +2,6 @@
 
 namespace FaithGen\SDK\Providers;
 
-use FaithGen\SDK\Models\Ministry;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
