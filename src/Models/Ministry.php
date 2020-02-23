@@ -13,11 +13,11 @@ use FaithGen\SDK\Traits\Relationships\Morphs\ImageableTrait;
 use FaithGen\SDK\Traits\StorageTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Ministry extends Authenticatable
+class Ministry extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, Notifiable, ImageableTrait, StorageTrait, ManyMinistryUser, CreatableTrait;
+    use Notifiable, ImageableTrait, StorageTrait, ManyMinistryUser, CreatableTrait;
 
     protected $guarded = ['id'];
     public $incrementing = false;
@@ -26,6 +26,16 @@ class Ministry extends Authenticatable
         'created_at',
         'updated_at',
     ];
+
+    function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    function getJWTCustomClaims()
+    {
+        return [];
+    }
 
     /**
      * MODEL ATTRIBUTES
