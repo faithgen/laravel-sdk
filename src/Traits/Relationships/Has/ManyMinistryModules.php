@@ -1,10 +1,8 @@
 <?php
 
-
 namespace FaithGen\SDK\Traits\Relationships\Has;
 
-
-use App\MinistryModule;
+use FaithGen\SDK\Models\Pivots\MinistryModule;
 
 trait ManyMinistryModules
 {
