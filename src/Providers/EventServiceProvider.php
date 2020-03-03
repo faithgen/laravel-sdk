@@ -2,9 +2,11 @@
 
 namespace FaithGen\SDK\Providers;
 
+use FaithGen\SDK\Models\Comment;
 use FaithGen\SDK\Models\Image;
 use FaithGen\SDK\Models\Ministry;
 use FaithGen\SDK\Models\User;
+use FaithGen\SDK\Observers\CommentObserver;
 use FaithGen\SDK\Observers\ImageObserver;
 use FaithGen\SDK\Observers\Ministry\ActivationObserver;
 use FaithGen\SDK\Observers\MinistryObserver;
@@ -37,6 +39,7 @@ class EventServiceProvider extends ServiceProvider
         Image::observe(ImageObserver::class);
         Ministry\Activation::observe(ActivationObserver::class);
         User::observe(UserObserver::class);
+        Comment::observe(CommentObserver::class);
     }
 
     /**
