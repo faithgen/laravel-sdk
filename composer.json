@@ -1,50 +1,51 @@
 {
-  "name": "faithgen/sdk",
-  "description": "This is the SDK for the FaithGen system",
-  "type": "library",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "innoflash",
-      "email": "innocentmazando@gmail.com"
+    "name": "faithgen/sdk",
+    "description": "This is the SDK for the FaithGen system",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "innoflash",
+            "email": "innocentmazando@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.4",
+        "webpatser/laravel-uuid": "^3.0",
+        "intervention/image": "^2.5",
+        "laravel/passport": "^7.4",
+        "crazybooot/base64-validation": "^1.0",
+        "innoflash/larastart": "^1.1",
+        "illuminate/support": "^6.0",
+        "illuminate/database": "^6.0",
+        "illuminate/queue": "^6.0",
+        "illuminate/contracts": "^6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.4@dev",
+        "mockery/mockery": "^1.0@dev",
+        "orchestra/testbench": "^3.8@dev",
+        "orchestra/database": "^3.8@dev",
+        "illuminate/support": "^5.8@dev",
+        "fzaninotto/faker": "^1.9@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "FaithGen\\SDK\\": "src/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "FaithGen\\SDK\\FaithGenSDKServiceProvider",
+                "FaithGen\\SDK\\Providers\\EventServiceProvider",
+                "FaithGen\\SDK\\Providers\\AuthServiceProvider"
+            ]
+        }
     }
-  ],
-  "minimum-stability": "dev",
-  "require": {
-    "webpatser/laravel-uuid": "^3.0",
-    "intervention/image": "^2.5",
-    "laravel/passport": "^7.4",
-    "crazybooot/base64-validation": "^1.0",
-    "innoflash/larastart": "^1.1",
-    "illuminate/support": "^6.0",
-    "illuminate/database": "^6.0",
-    "illuminate/queue": "^6.0",
-    "illuminate/contracts": "^6.0"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^7.4@dev",
-    "mockery/mockery": "^1.0@dev",
-    "orchestra/testbench": "^3.8@dev",
-    "orchestra/database": "^3.8@dev",
-    "illuminate/support": "^5.8@dev",
-    "fzaninotto/faker": "^1.9@dev"
-  },
-  "autoload": {
-    "psr-4": {
-      "FaithGen\\SDK\\": "src/"
-    }
-  },
-  "config": {
-    "preferred-install": "dist",
-    "sort-packages": true
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "FaithGen\\SDK\\FaithGenSDKServiceProvider",
-        "FaithGen\\SDK\\Providers\\EventServiceProvider",
-        "FaithGen\\SDK\\Providers\\AuthServiceProvider"
-      ]
-    }
-  }
 }

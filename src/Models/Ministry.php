@@ -7,7 +7,8 @@ use FaithGen\SDK\Models\Ministry\Activation;
 use FaithGen\SDK\Models\Ministry\APIKey;
 use FaithGen\SDK\Models\Ministry\DailyService;
 use FaithGen\SDK\Models\Ministry\Profile;
-use FaithGen\SDK\Traits\Relationships\Has\ManyMinistryUser;
+use FaithGen\SDK\Traits\Relationships\Has\ManyMinistryModules;
+use FaithGen\SDK\Traits\Relationships\Has\ManyMinistryUsers;
 use FaithGen\SDK\Traits\Relationships\Morphs\CreatableTrait;
 use FaithGen\SDK\Traits\Relationships\Morphs\ImageableTrait;
 use FaithGen\SDK\Traits\StorageTrait;
@@ -17,7 +18,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Ministry extends Authenticatable implements JWTSubject
 {
-    use Notifiable, ImageableTrait, StorageTrait, ManyMinistryUser, CreatableTrait;
+    use Notifiable, ImageableTrait, StorageTrait, ManyMinistryUsers, CreatableTrait, ManyMinistryModules;
 
     protected $guarded = ['id'];
     public $incrementing = false;
@@ -125,8 +126,20 @@ class Ministry extends Authenticatable implements JWTSubject
 
     public function getUsersAttribute()
     {
-        return User::whereHas('ministryUsers', function ($minUser) {
-            return $minUser->where('minstry_id', $this->id);
-        });
+        return $this->ministryUsers()
+            ->map(fn($minUser) => $minUser->user)
+            ->flatten();
+    }
+
+    /**
+     * The modules this ministry is gonna be using on the app
+     *
+     * @return mixed
+     */
+    public function modules()
+    {
+        return $this->ministryModules()
+            ->map(fn($minModule) => $minModule->module)
+            ->flatten();
     }
 }

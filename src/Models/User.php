@@ -2,7 +2,7 @@
 
 namespace FaithGen\SDK\Models;
 
-use FaithGen\SDK\Traits\Relationships\Has\ManyMinistryUser;
+use FaithGen\SDK\Traits\Relationships\Has\ManyMinistryUsers;
 use FaithGen\SDK\Traits\Relationships\Morphs\CreatableTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,7 +10,7 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use ManyMinistryUser, CreatableTrait, HasApiTokens, Notifiable;
+    use ManyMinistryUsers, CreatableTrait, HasApiTokens, Notifiable;
 
     protected $guarded = ['id'];
     public $incrementing = false;
