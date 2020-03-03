@@ -136,10 +136,8 @@ class Ministry extends Authenticatable implements JWTSubject
      *
      * @return mixed
      */
-    public function modules()
+    public function getModulesAttribute()
     {
-        return $this->ministryModules()
-            ->map(fn($minModule) => $minModule->module)
-            ->flatten();
+
     }
 }

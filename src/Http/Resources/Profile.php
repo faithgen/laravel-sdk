@@ -10,7 +10,7 @@ class Profile extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -20,7 +20,7 @@ class Profile extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'active' => (bool) $this->activation->active,
+            'active' => (bool)$this->activation->active,
             'api_key' => $this->apiKey->api_key,
             'avatar' => [
                 '_50' => $this->image()->exists() ? MinistryHelper::getImageLink($this->image->name, 50) : MinistryHelper::getImageLink(null, 50),
