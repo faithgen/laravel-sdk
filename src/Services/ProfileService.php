@@ -1,10 +1,8 @@
 <?php
 
-
 namespace FaithGen\SDK\Services;
 
 use InnoFlash\LaraStart\Services\CRUDServices;
-
 
 class ProfileService extends CRUDServices
 {
