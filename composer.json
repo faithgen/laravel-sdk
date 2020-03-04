@@ -14,21 +14,16 @@
         "php": "^7.4",
         "webpatser/laravel-uuid": "^3.0",
         "intervention/image": "^2.5",
-        "laravel/passport": "^7.4",
         "crazybooot/base64-validation": "^1.0",
-        "innoflash/larastart": "^1.1",
-        "illuminate/support": "^6.0",
-        "illuminate/database": "^6.0",
-        "illuminate/queue": "^6.0",
-        "illuminate/contracts": "^6.0"
+        "innoflash/larastart": "^2.0",
+        "illuminate/support": "^6.0|^7.0",
+        "illuminate/database": "^6.0|^7.0",
+        "illuminate/queue": "^6.0|^7.0",
+        "illuminate/contracts": "^6.0|^7.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.4@dev",
-        "mockery/mockery": "^1.0@dev",
-        "orchestra/testbench": "^3.8@dev",
-        "orchestra/database": "^3.8@dev",
-        "illuminate/support": "^5.8@dev",
-        "fzaninotto/faker": "^1.9@dev"
+        "orchestra/testbench": "^5.0",
+        "phpunit/phpunit": "^9.0"
     },
     "autoload": {
         "psr-4": {
