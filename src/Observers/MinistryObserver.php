@@ -6,7 +6,7 @@ use FaithGen\SDK\Models\Ministry;
 use FaithGen\SDK\Notifications\Ministry\AccountCreated;
 use FaithGen\SDK\Traits\FileTraits;
 use Illuminate\Support\Facades\Hash;
-use Webpatser\Uuid\Uuid;
+use Illuminate\Support\Str;
 
 class MinistryObserver
 {
@@ -15,7 +15,7 @@ class MinistryObserver
     function creating(Ministry $ministry)
     {
         $ministry->password = Hash::make(request()->password);
-        $ministry->id = Uuid::generate()->string;
+        $ministry->id = (string)Str::uuid();
     }
 
     /**
@@ -65,6 +65,7 @@ class MinistryObserver
 
         try {
             $this->deleteFiles($ministry);
-        } catch (\Exception $e) { }
+        } catch (\Exception $e) {
+        }
     }
 }

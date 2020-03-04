@@ -12,7 +12,6 @@
     "minimum-stability": "dev",
     "require": {
         "php": "^7.4",
-        "webpatser/laravel-uuid": "^3.0",
         "intervention/image": "^2.5",
         "crazybooot/base64-validation": "^1.0",
         "innoflash/larastart": "^2.0",

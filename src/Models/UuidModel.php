@@ -5,7 +5,7 @@ namespace FaithGen\SDK\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
-use Webpatser\Uuid\Uuid;
+use Illuminate\Support\Str;
 
 class UuidModel extends Model
 {
@@ -18,7 +18,7 @@ class UuidModel extends Model
     {
         parent::boot();
         self::creating(function ($user) {
-            $user->id = str_shuffle((string) Uuid::generate());
+            $user->id = str_shuffle((string) Str::uuid());
         });
     }
 }
