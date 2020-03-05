@@ -123,7 +123,6 @@ class MinistryController extends Controller
 
     function updateProfile(UpdateProfileRequest $request)
     {
-        return $request->all();
         $ministryParams = $request->only(['name', 'email', 'phone']);
         try {
             auth()->user()->update($ministryParams);
@@ -133,7 +132,11 @@ class MinistryController extends Controller
 
         $links = ['website', 'facebook', 'youtube', 'twitter', 'instagram'];
         $statements = ['vision', 'mission', 'about_us'];
-        $params = [];
+
+        $params = [
+	    'color' => $request->color
+	];
+
         $params = array_merge($params, array_filter($request->links, function ($link) use ($links) {
             return in_array($link, $links);
         }, ARRAY_FILTER_USE_KEY));
@@ -145,14 +148,18 @@ class MinistryController extends Controller
         $params = array_merge($params, [
             'emails' => $request->emails
         ]);
+
         $params = array_merge($params, [
             'phones' => $request->phones
         ]);
+
         if ($request->has('location'))
             $params = array_merge($params, [
                 'location' => $request->location
             ]);
+
         $this->saveServices($request, auth()->user());
+
         return $this->profileService->update($params, 'Profile updated successfully!');
     }
 
