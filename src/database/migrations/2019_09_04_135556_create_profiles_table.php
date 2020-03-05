@@ -27,6 +27,7 @@ class CreateProfilesTable extends Migration
             $table->string('twitter')->nullable();
             $table->string('instagram')->nullable();
             $table->json('location')->nullable();
+            $table->string('color')->default('#8a043c');
             $table->timestamps();
 
             $table->foreign('ministry_id')->references('id')->on('ministries')->onDelete('cascade');
