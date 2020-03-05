@@ -18,4 +18,5 @@ Route::name('modules.')
     ->prefix('modules/')
     ->group(function () {
         Route::get('', [ModuleController::class, 'index']);
+        Route::post('', [ModuleController::class, 'addModules']);
     });

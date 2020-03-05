@@ -2,13 +2,15 @@
 
 namespace FaithGen\SDK\Http\Controllers;
 
-use FaithGen\SDK\Services\ModuleService;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use FaithGen\SDK\Http\Requests\AddModulesRequest;
 use FaithGen\SDK\Http\Resources\Module as ModuleResource;
+use FaithGen\SDK\Services\ModuleService;
+use Illuminate\Routing\Controller;
+use InnoFlash\LaraStart\Traits\APIResponses;
 
 class ModuleController extends Controller
 {
+    use APIResponses;
     /**
      * @var ModuleService
      */
@@ -36,5 +38,13 @@ class ModuleController extends Controller
         $modules = $this->moduleService->getModel()->get();
         ModuleResource::wrap('modules');
         return ModuleResource::collection($modules);
+    }
+
+    public function addModules(AddModulesRequest $request)
+    {
+        $this->moduleService->invalidateModules();
+
+        if ($this->moduleService->addModules($request->modules))
+            return $this->successResponse('Modules updated successfully');
     }
 }
