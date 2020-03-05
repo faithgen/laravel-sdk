@@ -33,6 +33,8 @@ class ModuleController extends Controller
      */
     public function index()
     {
-
+        $modules = $this->moduleService->getModel()->get();
+        ModuleResource::wrap('modules');
+        return ModuleResource::collection($modules);
     }
 }
