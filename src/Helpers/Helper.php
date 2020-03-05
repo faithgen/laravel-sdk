@@ -22,13 +22,4 @@ class Helper
         'Saturday',
         'Sunday',
     ];
-
-    public static function getDates(Carbon $date)
-    {
-        return [
-            'approx' => $date->diffForHumans(),
-            'formatted' => $date->format('D d M Y'),
-            'exact' => $date
-        ];
-    }
 }

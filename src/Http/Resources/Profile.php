@@ -4,6 +4,7 @@ namespace FaithGen\SDK\Http\Resources;
 
 use FaithGen\SDK\Helpers\MinistryHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
+use InnoFlash\LaraStart\Http\Helper;
 
 class Profile extends JsonResource
 {
@@ -28,7 +29,7 @@ class Profile extends JsonResource
                 '_100' => $this->image()->exists() ? MinistryHelper::getImageLink($this->image->name, 100) : MinistryHelper::getImageLink(null, 100),
                 'original' => $this->image()->exists() ? MinistryHelper::getImageLink($this->image->name, 0) : MinistryHelper::getImageLink(null, 0),
             ],
-            'date' => MinistryHelper::getDates($this->created_at),
+            'date' => Helper::getDates($this->created_at),
             'users' => [
                 'count' => $this->ministryUsers()->count()
             ],
