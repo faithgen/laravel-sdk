@@ -123,6 +123,7 @@ class MinistryController extends Controller
 
     function updateProfile(UpdateProfileRequest $request)
     {
+        return $request->all();
         $ministryParams = $request->only(['name', 'email', 'phone']);
         try {
             auth()->user()->update($ministryParams);

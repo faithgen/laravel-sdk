@@ -29,6 +29,7 @@ class UpdateProfileRequest extends FormRequest
             'email' => 'required|email',
             'phone' => 'required', //todo write a regex to serve,
             'links' => 'array',
+            'color' => 'required|'.Helper::$hexColorRegex,
             'location' => 'array',
             'links.*' => 'url',
             'statement' => 'array',

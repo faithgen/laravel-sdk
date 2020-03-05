@@ -20,6 +20,7 @@ class Profile extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
+            'color' => $this->profile->color,
             'active' => (bool)$this->activation->active,
             'api_key' => $this->apiKey->api_key,
             'avatar' => [
