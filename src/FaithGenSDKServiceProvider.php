@@ -5,7 +5,6 @@ namespace FaithGen\SDK;
 use FaithGen\SDK\Http\Middleware\ActivatedMinistryMiddleware;
 use FaithGen\SDK\Http\Middleware\SourceSiteMiddleware;
 use FaithGen\SDK\Services\ImageService;
-use FaithGen\SDK\Services\ModuleService;
 use FaithGen\SDK\Services\ProfileService;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -51,7 +50,6 @@ class FaithGenSDKServiceProvider extends ServiceProvider
 
         $this->app->singleton(ProfileService::class, ProfileService::class);
         $this->app->singleton(ImageService::class, ImageService::class);
-        $this->app->singleton(ModuleService::class, ModuleService::class);
     }
 
     private function apiRouteConfiguration()

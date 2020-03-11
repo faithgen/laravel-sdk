@@ -1,7 +1,6 @@
 <?php
 
 use FaithGen\SDK\Http\Controllers\MinistryController;
-use FaithGen\SDK\Http\Controllers\ModuleController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('ministry.')->prefix('ministry/')->group(function () {
@@ -13,10 +12,3 @@ Route::name('ministry.')->prefix('ministry/')->group(function () {
     Route::post('users/toggle-activity', [MinistryController::class, 'toggleActivity']);
     Route::delete('/', [MinistryController::class, 'deleteProfile']);
 });
-
-Route::name('modules.')
-    ->prefix('modules/')
-    ->group(function () {
-        Route::get('', [ModuleController::class, 'index']);
-        Route::post('', [ModuleController::class, 'addModules']);
-    });

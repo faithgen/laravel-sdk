@@ -12,4 +12,9 @@ trait ActiveTrait
     {
         return (bool)$val;
     }
+
+    function scopeActive($query)
+    {
+        return $query->whereActive(true);
+    }
 }

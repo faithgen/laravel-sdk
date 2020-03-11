@@ -7,7 +7,6 @@ use FaithGen\SDK\Models\Ministry\Activation;
 use FaithGen\SDK\Models\Ministry\APIKey;
 use FaithGen\SDK\Models\Ministry\DailyService;
 use FaithGen\SDK\Models\Ministry\Profile;
-use FaithGen\SDK\Traits\Relationships\Has\ManyMinistryModules;
 use FaithGen\SDK\Traits\Relationships\Has\ManyMinistryUsers;
 use FaithGen\SDK\Traits\Relationships\Morphs\CreatableTrait;
 use FaithGen\SDK\Traits\Relationships\Morphs\ImageableTrait;
@@ -18,7 +17,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Ministry extends Authenticatable implements JWTSubject
 {
-    use Notifiable, ImageableTrait, StorageTrait, ManyMinistryUsers, CreatableTrait, ManyMinistryModules;
+    use Notifiable, ImageableTrait, StorageTrait, ManyMinistryUsers, CreatableTrait;
 
     protected $guarded = ['id'];
     public $incrementing = false;
