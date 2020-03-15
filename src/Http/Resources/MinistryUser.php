@@ -2,6 +2,8 @@
 
 namespace FaithGen\SDK\Http\Resources;
 
+use FaithGen\SDK\Helpers\MinistryHelper;
+use FaithGen\SDK\SDK;
 use Illuminate\Http\Resources\Json\JsonResource;
 use InnoFlash\LaraStart\Http\Helper;
 
@@ -15,7 +17,7 @@ class MinistryUser extends JsonResource
             'name' => $this->user->name,
             'email' => $this->user->email,
             'provider' => $this->user->provider,
-            'picture' => $this->user->picture,
+            'picture' => $this->user->image()->exists() ? MinistryHelper::getImageLink($this->user->image->name, 50, 'users') : MinistryHelper::getImageLink(null, 50, 'users'),
             'joined' => Helper::getDates($this->created_at)
         ];
     }

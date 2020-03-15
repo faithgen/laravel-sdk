@@ -4,12 +4,16 @@ namespace FaithGen\SDK\Models;
 
 use FaithGen\SDK\Traits\Relationships\Has\ManyMinistryUsers;
 use FaithGen\SDK\Traits\Relationships\Morphs\CreatableTrait;
+use FaithGen\SDK\Traits\Relationships\Morphs\ImageableTrait;
+use FaithGen\SDK\Traits\StorageTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     use ManyMinistryUsers, CreatableTrait, Notifiable;
+    use ImageableTrait;
+    use StorageTrait;
 
     protected $guarded = ['id'];
     public $incrementing = false;
@@ -52,7 +56,25 @@ class User extends Authenticatable
     public function getActiveAttribute(): bool
     {
         if ($user = $this->ministryUsers()->where('ministry_id', auth()->user()->id)->first())
-            return (bool) $user->active;
+            return (bool)$user->active;
         return false;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    function filesDir()
+    {
+        return 'users';
+    }
+
+    function getFileName()
+    {
+        return $this->image->name;
+    }
+
+    function getImageDimensions()
+    {
+        return [0, 50];
     }
 }

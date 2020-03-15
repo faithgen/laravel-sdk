@@ -16,12 +16,9 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->string('id', 150)->primary();
             $table->string('name');
-            $table->string('picture');
-            $table->string('email', 150)->unique();
-            $table->enum('provider', ['facebook.com', 'google.com'])->default('facebook.com');
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('email', 150)->nullable();
+            $table->string('provider')->default('faithgen');
+            $table->string('password')->default('secret');
             $table->timestamps();
         });
     }

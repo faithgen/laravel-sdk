@@ -136,14 +136,4 @@ class Ministry extends Authenticatable implements JWTSubject
             ->map(fn($minUser) => $minUser->user)
             ->flatten();
     }
-
-    /**
-     * The modules this ministry is gonna be using on the app
-     *
-     * @return mixed
-     */
-    public function getModulesAttribute()
-    {
-
-    }
 }
