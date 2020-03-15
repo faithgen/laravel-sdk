@@ -2,6 +2,9 @@
 
 namespace FaithGen\SDK\Observers;
 
+use FaithGen\SDK\Jobs\Users\ProcessImage;
+use FaithGen\SDK\Jobs\Users\S3Upload;
+use FaithGen\SDK\Jobs\Users\UploadImage;
 use FaithGen\SDK\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -24,7 +27,11 @@ class UserObserver
 
     public function created(User $user)
     {
-        //
+        if (request()->has('image'))
+            UploadImage::withChain([
+                new ProcessImage($user),
+                new S3Upload($user)
+            ])->dispatch($user, request('image'));
     }
 
     /**

@@ -95,7 +95,6 @@ class FaithGenSDKServiceProvider extends ServiceProvider
         }
     }
 
-
     private function authRouteConfiguration()
     {
         return [
