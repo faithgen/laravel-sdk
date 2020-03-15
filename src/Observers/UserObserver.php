@@ -6,12 +6,15 @@ use FaithGen\SDK\Jobs\Users\ProcessImage;
 use FaithGen\SDK\Jobs\Users\S3Upload;
 use FaithGen\SDK\Jobs\Users\UploadImage;
 use FaithGen\SDK\Models\User;
+use FaithGen\SDK\Traits\FileTraits;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 
 class UserObserver
 {
+    use FileTraits;
+
     /**
      * Handle the user "created" event.
      *
@@ -42,7 +45,13 @@ class UserObserver
      */
     public function updated(User $user)
     {
-        //
+        if (request()->has('image')) {
+            $this->deleteFiles($user);
+            UploadImage::withChain([
+                new ProcessImage($user),
+                new S3Upload($user)
+            ])->dispatch($user, request('image'));
+        }
     }
 
     /**
@@ -53,7 +62,7 @@ class UserObserver
      */
     public function deleted(User $user)
     {
-        //
+        $this->deleteFiles($user);
     }
 
     /**

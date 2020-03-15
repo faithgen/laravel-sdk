@@ -26,9 +26,37 @@ class UsersController extends Controller
             'user_id' => $user->id
         ]);
 
-        if (!$request->has(image))
-            return $this->successResponse('Account logged successfully.');
+        return $this->processResponse($request);
+    }
+
+    /**
+     * Updates a user account.
+     *
+     * @param SaveRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    function update(SaveRequest $request)
+    {
+        $updated = auth('web')->user()
+            ->update($request->only('name', 'email'));
+
+        return $this->processResponse($request, 'Account updated successfully.');
+    }
+
+    /**
+     * Processes the response to give to the user.
+     *
+     * @param $request
+     * @param string $messagePrefix
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function processResponse($request, string $messagePrefix = 'Account logged successfully.')
+    {
+        if (!$request->has('image'))
+            return $this->successResponse($messagePrefix);
         else
-            return $this->successResponse('Account logged successfully, we are uploading your picture now');
+            return $this->successResponse($messagePrefix . ' We are uploading your picture now');
     }
 }
