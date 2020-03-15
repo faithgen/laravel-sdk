@@ -21,35 +21,30 @@ class FaithGenSDKServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->mergeConfigFrom(__DIR__ . '/config/faithgen-sdk.php', 'faithgen-sdk');
-
 
         $this->registerApiRoutes();
         $this->registerParentRoutes();
 
         if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
             $this->publishes([
-                __DIR__ . '/config/faithgen-sdk.php' => config_path('faithgen-sdk.php'),
+                __DIR__ . '/../config/faithgen-sdk.php' => config_path('faithgen-sdk.php'),
             ], 'faithgen-sdk-config');
 
             if (config('faithgen-sdk.source')) {
                 $this->publishes([
-                    __DIR__ . '/database/migrations/' => database_path('migrations'),
+                    __DIR__ . '/../database/migrations/' => database_path('migrations'),
                 ], 'faithgen-sdk-migrations');
 
                 $this->publishes([
-                    __DIR__ . '/storage/profile/' => storage_path('app/public/profile'),
+                    __DIR__ . '/../storage/profile/' => storage_path('app/public/profile'),
                 ], 'faithgen-sdk-storage');
             }
         }
 
         app('router')->aliasMiddleware('ministry.activated', ActivatedMinistryMiddleware::class);
         app('router')->aliasMiddleware('source.site', SourceSiteMiddleware::class);
-
-        $this->app->singleton(ProfileService::class, ProfileService::class);
-        $this->app->singleton(ImageService::class, ImageService::class);
     }
 
     private function apiRouteConfiguration()
@@ -68,7 +63,7 @@ class FaithGenSDKServiceProvider extends ServiceProvider
     private function registerApiRoutes()
     {
         Route::group($this->apiRouteConfiguration(), function () {
-            $this->loadRoutesFrom(__DIR__ . '/routes/api.php');
+            $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
         });
     }
 
@@ -91,12 +86,12 @@ class FaithGenSDKServiceProvider extends ServiceProvider
     {
         if (config('faithgen-sdk.source')) {
             Route::group($this->parentRouteConfiguration(), function () {
-                $this->loadRoutesFrom(__DIR__ . '/routes/source.php');
+                $this->loadRoutesFrom(__DIR__ . '/../routes/source.php');
             });
 
             $this->registerAuthRoutes();
 
-            $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
+            $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         }
     }
 
@@ -113,7 +108,7 @@ class FaithGenSDKServiceProvider extends ServiceProvider
     private function registerAuthRoutes()
     {
         Route::group($this->authRouteConfiguration(), function () {
-            $this->loadRoutesFrom(__DIR__ . '/routes/auth.php');
+            $this->loadRoutesFrom(__DIR__ . '/../routes/auth.php');
         });
     }
 
@@ -124,6 +119,9 @@ class FaithGenSDKServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->mergeConfigFrom(__DIR__ . '/../config/faithgen-sdk.php', 'faithgen-sdk');
+
+        $this->app->singleton(ProfileService::class);
+        $this->app->singleton(ImageService::class);
     }
 }
