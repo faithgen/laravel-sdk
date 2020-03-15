@@ -13,6 +13,8 @@ class Helper
     public static $hexColorRegex = 'regex:/^#([a-fA-F0-9]{6})$/i';
 
     public static $freeMessagesCount = 10;
+    public static $reviewTypes = ['feedback','report'];
+
     public static $weekDays = [
         'Monday',
         'Tuesday',
