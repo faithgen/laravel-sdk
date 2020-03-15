@@ -7,6 +7,7 @@ use FaithGen\SDK\Models\Ministry\Activation;
 use FaithGen\SDK\Models\Ministry\APIKey;
 use FaithGen\SDK\Models\Ministry\DailyService;
 use FaithGen\SDK\Models\Ministry\Profile;
+use FaithGen\SDK\Models\Ministry\Review;
 use FaithGen\SDK\Traits\Relationships\Has\ManyMinistryUsers;
 use FaithGen\SDK\Traits\Relationships\Morphs\CreatableTrait;
 use FaithGen\SDK\Traits\Relationships\Morphs\ImageableTrait;
@@ -45,14 +46,20 @@ class Ministry extends Authenticatable implements JWTSubject
     {
         return ucwords($val);
     }
-
-    /**
-     * MODEL RELATIONSHIPS
-     */
     /**
      * Links the profile to a ministry
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
+
+    /**
+     * MODEL RELATIONSHIPS
+     */
+
+    function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
     function profile()
     {
         return $this->hasOne(Profile::class);
