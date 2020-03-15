@@ -19,7 +19,7 @@ class CreateReviewsTable extends Migration
             $table->string('ministry_id', 150)->index();
             $table->enum('type', Helper::$reviewTypes);
             $table->text('review');
-            $table->boolean('read');
+            $table->boolean('read')->default(false);
             $table->timestamps();
 
             $table->foreign('ministry_id')->references('id')->on('ministries')->onDelete('cascade');
