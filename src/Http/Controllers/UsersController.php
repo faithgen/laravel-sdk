@@ -3,6 +3,7 @@
 namespace FaithGen\SDK\Http\Controllers;
 
 use FaithGen\SDK\Http\Requests\Users\SaveRequest;
+use FaithGen\SDK\Http\Resources\MinistryUser;
 use FaithGen\SDK\Models\User;
 use Illuminate\Routing\Controller;
 use InnoFlash\LaraStart\Traits\APIResponses;
@@ -22,11 +23,14 @@ class UsersController extends Controller
     {
         $user = User::create($request->only('name', 'email'));
 
-        auth()->user()->ministryUsers()->create([
+        $ministryUser = auth()->user()->ministryUsers()->create([
             'user_id' => $user->id
         ]);
 
-        return $this->processResponse($request);
+        return $this->processResponse($request, 'Account updated successfully.', [
+            'user' => new MinistryUser($ministryUser),
+            'processing_image' => $request->has('image')
+        ]);
     }
 
     /**
@@ -49,14 +53,27 @@ class UsersController extends Controller
      *
      * @param $request
      * @param string $messagePrefix
+     * @param array $data
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    private function processResponse($request, string $messagePrefix = 'Account logged successfully.')
+    private function processResponse($request, string $messagePrefix = 'Account logged successfully.', array $data = [])
     {
         if (!$request->has('image'))
-            return $this->successResponse($messagePrefix);
+            return $this->successResponse($messagePrefix, $data);
         else
-            return $this->successResponse($messagePrefix . ' We are uploading your picture now');
+            return $this->successResponse($messagePrefix . ' We are uploading your picture now', $data);
+    }
+
+    /**
+     * Deletes a user account.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    function deleteUserAccount()
+    {
+        auth('web')->user()->delete();
+
+        return $this->successResponse('Account deleted successfully.');
     }
 }

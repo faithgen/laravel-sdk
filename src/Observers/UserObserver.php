@@ -62,7 +62,8 @@ class UserObserver
      */
     public function deleted(User $user)
     {
-        $this->deleteFiles($user);
+        if ($user->image()->exists())
+            $this->deleteFiles($user);
     }
 
     /**

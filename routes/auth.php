@@ -18,4 +18,5 @@ Route::prefix('users')
     ->group(function (){
         Route::post('register', [UsersController::class, 'register'])->name('users.register');
         Route::post('update', [UsersController::class, 'update']);
+        Route::delete('', [UsersController::class, 'deleteUserAccount']);
     });
