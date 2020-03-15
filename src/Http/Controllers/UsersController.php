@@ -76,4 +76,19 @@ class UsersController extends Controller
 
         return $this->successResponse('Account deleted successfully.');
     }
+
+    /**
+     * Fetches the complete user profile.
+     *
+     * @return MinistryUser
+     */
+    function getUser()
+    {
+        $ministryUser = auth()->user()->ministryUsers()
+            ->where('user_id', request()->headers->get('x-user-key'))
+            ->first();
+
+        MinistryUser::withoutWrapping();
+        return new MinistryUser($ministryUser);
+    }
 }

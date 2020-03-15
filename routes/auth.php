@@ -19,4 +19,5 @@ Route::prefix('users')
         Route::post('register', [UsersController::class, 'register'])->name('users.register');
         Route::post('update', [UsersController::class, 'update']);
         Route::delete('', [UsersController::class, 'deleteUserAccount']);
+        Route::get('user', [UsersController::class, 'getUser']);
     });
