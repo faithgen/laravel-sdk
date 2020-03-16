@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->string('id', 150)->primary();
             $table->string('name');
             $table->string('email', 150)->nullable();
+            $table->string('phone', 150)->unique();
             $table->string('provider')->default('faithgen');
             $table->string('password')->default('secret');
             $table->timestamps();
