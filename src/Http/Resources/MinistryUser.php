@@ -16,6 +16,7 @@ class MinistryUser extends JsonResource
             'active' => (bool) $this->active,
             'name' => $this->user->name,
             'email' => $this->user->email,
+            'phone' => $this->user->phone,
             'provider' => $this->user->provider,
             'picture' => $this->user->image()->exists() ? MinistryHelper::getImageLink($this->user->image->name, 50, 'users') : MinistryHelper::getImageLink(null, 50, 'users'),
             'joined' => Helper::getDates($this->created_at)

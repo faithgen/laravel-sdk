@@ -2,9 +2,11 @@
 
 namespace FaithGen\SDK\Http\Controllers;
 
+use FaithGen\SDK\Http\Requests\Users\LoginRequest;
 use FaithGen\SDK\Http\Requests\Users\SaveRequest;
 use FaithGen\SDK\Http\Resources\MinistryUser;
 use FaithGen\SDK\Models\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Routing\Controller;
 use InnoFlash\LaraStart\Traits\APIResponses;
 
@@ -27,7 +29,7 @@ class UsersController extends Controller
             'user_id' => $user->id
         ]);
 
-        return $this->processResponse($request, $ministryUser, 'Account updated successfully.');
+        return $this->processResponse($request, $ministryUser, 'Account created successfully.');
     }
 
     /**
@@ -48,6 +50,26 @@ class UsersController extends Controller
             ->first();
 
         return $this->processResponse($request, $ministryUser, 'Account updated successfully.');
+    }
+
+    /**
+     * Logs in the user into the app.
+     *
+     * @param LoginRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @throws ModelNotFoundException
+     */
+    public function login(LoginRequest $request)
+    {
+        $ministryUser = auth()->user()
+            ->ministryUsers()
+            ->whereHas('user', fn($user) => $user->where($request->validated()))
+            ->first();
+
+        if ($ministryUser)
+            return $this->processResponse($request, $ministryUser, 'Login successful.');
+        else abort(401, 'This phone number is not valid for this app');
     }
 
     /**

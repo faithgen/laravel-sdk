@@ -18,6 +18,11 @@ class SaveRequest extends FormRequest
         else return auth('web')->user();
     }
 
+    /**
+     * Base rules for a save request.
+     *
+     * @var array
+     */
     private $baseRules = [
         'name' => 'required|string',
         'email' => 'email',
@@ -32,7 +37,11 @@ class SaveRequest extends FormRequest
      */
     public function rules()
     {
-        return $this->baseRules;
+        if ($this->route()->getName() === 'users.register')
+            return $this->baseRules;
+        else return array_merge($this->baseRules, [
+            'phone' => 'required|string'
+        ]);
     }
 
     public function messages()
