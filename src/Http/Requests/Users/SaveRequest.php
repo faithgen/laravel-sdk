@@ -21,6 +21,7 @@ class SaveRequest extends FormRequest
     private $baseRules = [
         'name' => 'required|string',
         'email' => 'email',
+        'phone' => 'required|string|unique:users,phone',
         'image' => 'base64image'
     ];
 
@@ -32,5 +33,12 @@ class SaveRequest extends FormRequest
     public function rules()
     {
         return $this->baseRules;
+    }
+
+    public function messages()
+    {
+        return [
+            'phone.unique' => 'Number already used, try logging in instead'
+        ];
     }
 }

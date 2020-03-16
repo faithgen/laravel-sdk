@@ -21,16 +21,13 @@ class UsersController extends Controller
      */
     function register(SaveRequest $request)
     {
-        $user = User::create($request->only('name', 'email'));
+        $user = User::create($request->only('name', 'email', 'phone'));
 
         $ministryUser = auth()->user()->ministryUsers()->create([
             'user_id' => $user->id
         ]);
 
-        return $this->processResponse($request, 'Account updated successfully.', [
-            'user' => new MinistryUser($ministryUser),
-            'processing_image' => $request->has('image')
-        ]);
+        return $this->processResponse($request, $ministryUser, 'Account updated successfully.');
     }
 
     /**
@@ -43,22 +40,31 @@ class UsersController extends Controller
     function update(SaveRequest $request)
     {
         $updated = auth('web')->user()
-            ->update($request->only('name', 'email'));
+            ->update($request->only('name', 'email', 'phone'));
 
-        return $this->processResponse($request, 'Account updated successfully.');
+        $ministryUser = auth()->user()
+            ->ministryUsers()
+            ->where('user_id', auth('web')->user()->id)
+            ->first();
+
+        return $this->processResponse($request, $ministryUser, 'Account updated successfully.');
     }
 
     /**
      * Processes the response to give to the user.
      *
      * @param $request
+     * @param MinistryUser $ministryUser
      * @param string $messagePrefix
-     * @param array $data
-     *
      * @return \Illuminate\Http\JsonResponse
      */
-    private function processResponse($request, string $messagePrefix = 'Account logged successfully.', array $data = [])
+    private function processResponse($request, \FaithGen\SDK\Models\Pivots\MinistryUser $ministryUser, string $messagePrefix = 'Account logged successfully.')
     {
+        $data = [
+            'user' => new MinistryUser($ministryUser),
+            'processing_image' => $request->has('image')
+        ];
+
         if (!$request->has('image'))
             return $this->successResponse($messagePrefix, $data);
         else
