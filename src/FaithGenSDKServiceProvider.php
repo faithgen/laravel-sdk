@@ -24,6 +24,7 @@ class FaithGenSDKServiceProvider extends ServiceProvider
 
         $this->registerApiRoutes();
         $this->registerParentRoutes();
+        $this->registerUserAuthRoutes();
 
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
@@ -67,7 +68,6 @@ class FaithGenSDKServiceProvider extends ServiceProvider
         });
     }
 
-
     private function parentRouteConfiguration()
     {
         return [
@@ -108,6 +108,13 @@ class FaithGenSDKServiceProvider extends ServiceProvider
     {
         Route::group($this->authRouteConfiguration(), function () {
             $this->loadRoutesFrom(__DIR__ . '/../routes/auth.php');
+        });
+    }
+
+    private function registerUserAuthRoutes()
+    {
+        Route::group($this->authRouteConfiguration(), function () {
+            $this->loadRoutesFrom(__DIR__ . '/../routes/users-auth.php');
         });
     }
 

@@ -12,13 +12,3 @@ Route::prefix('auth/')->name('auth.')->group(function () {
     Route::delete('delete-account', [AuthController::class, 'deleteAccount'])->name('deleteAccount')->middleware('auth:api');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth:api');
 });
-
-Route::prefix('users')
-    ->middleware('auth:api')
-    ->group(function () {
-        Route::post('register', [UsersController::class, 'register'])->name('users.register');
-        Route::post('update', [UsersController::class, 'update']);
-        Route::post('login', [UsersController::class, 'login']);
-        Route::delete('', [UsersController::class, 'deleteUserAccount']);
-        Route::get('user', [UsersController::class, 'getUser']);
-    });
