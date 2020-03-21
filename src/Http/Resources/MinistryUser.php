@@ -13,12 +13,15 @@ class MinistryUser extends JsonResource
     {
         return [
             'id' => $this->user_id,
-            'active' => (bool) $this->active,
+            'active' => (bool)$this->active,
             'name' => $this->user->name,
             'email' => $this->user->email,
             'phone' => $this->user->phone,
             'provider' => $this->user->provider,
-            'picture' => $this->user->image()->exists() ? MinistryHelper::getImageLink($this->user->image->name, 50, 'users') : MinistryHelper::getImageLink(null, 50, 'users'),
+            'avatar' => [
+                '_50' => $this->user->image()->exists() ? MinistryHelper::getImageLink($this->user->image->name, 50, 'users') : MinistryHelper::getImageLink(null, 50, 'users'),
+                'original' => $this->user->image()->exists() ? MinistryHelper::getImageLink($this->user->image->name, 0, 'users') : MinistryHelper::getImageLink(null, 0, 'users'),
+            ],
             'joined' => Helper::getDates($this->created_at)
         ];
     }
