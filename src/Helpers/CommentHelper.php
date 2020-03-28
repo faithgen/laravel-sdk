@@ -3,12 +3,19 @@
 namespace FaithGen\SDK\Helpers;
 
 use Illuminate\Http\Request;
-use InnoFlash\LaraStart\Http\Helper;
+use InnoFlash\LaraStart\Helper;
 use FaithGen\SDK\Http\Resources\Comment as CommentsResource;
 
 class CommentHelper
 {
 
+    /**
+     * Creates a comment for the given model.
+     *
+     * @param $model
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     static function createComment($model, Request $request)
     {
         try {
@@ -36,6 +43,13 @@ class CommentHelper
         }
     }
 
+    /**
+     * Gets the comments for the given model.
+     *
+     * @param $model
+     * @param Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     static function getComments($model, Request $request)
     {
         $comments = $model->comments()->latest()->paginate(Helper::getLimit($request));

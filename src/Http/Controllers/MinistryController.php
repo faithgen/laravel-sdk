@@ -25,7 +25,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use InnoFlash\LaraStart\Http\Helper;
+use InnoFlash\LaraStart\Helper;
 use InnoFlash\LaraStart\Traits\APIResponses;
 use Intervention\Image\ImageManager;
 

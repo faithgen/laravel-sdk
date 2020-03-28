@@ -4,7 +4,7 @@ namespace FaithGen\SDK\Http\Resources;
 
 use FaithGen\SDK\Helpers\MinistryHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
-use InnoFlash\LaraStart\Http\Helper;
+use InnoFlash\LaraStart\Helper;
 
 class Profile extends JsonResource
 {

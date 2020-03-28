@@ -7,6 +7,15 @@ use FaithGen\SDK\SDK;
 
 class MinistryHelper extends Helper
 {
+    /**
+     * Get the image link for the provided paths.
+     *
+     * @param $imageName
+     * @param int $dimen
+     * @param string $folder
+     * @param bool $source
+     * @return string
+     */
     public static function getImageLink($imageName, int $dimen = 0, string $folder = 'profile', bool $source = false)
     {
         if ($imageName instanceof Ministry) {
@@ -18,6 +27,7 @@ class MinistryHelper extends Helper
                 $dimen = 'original';
             return SDK::getAsset('images/logo-' . $dimen . '.png', $source);
         }
+
         if (!$dimen)
             return SDK::getAsset('storage/' . $folder . '/original/' . $imageName, $source);
         else

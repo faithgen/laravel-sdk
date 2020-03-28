@@ -5,7 +5,7 @@ namespace FaithGen\SDK\Http\Resources;
 use FaithGen\SDK\Helpers\MinistryHelper;
 use FaithGen\SDK\SDK;
 use Illuminate\Http\Resources\Json\JsonResource;
-use InnoFlash\LaraStart\Http\Helper;
+use InnoFlash\LaraStart\Helper;
 
 class MinistryUser extends JsonResource
 {
