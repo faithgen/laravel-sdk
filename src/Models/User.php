@@ -11,7 +11,9 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use ManyMinistryUsers, CreatableTrait, Notifiable;
+    use ManyMinistryUsers;
+    use CreatableTrait;
+    use Notifiable;
     use ImageableTrait;
     use StorageTrait;
 

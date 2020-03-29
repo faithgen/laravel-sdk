@@ -18,7 +18,11 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Ministry extends Authenticatable implements JWTSubject
 {
-    use Notifiable, ImageableTrait, StorageTrait, ManyMinistryUsers, CreatableTrait;
+    use Notifiable;
+    use ImageableTrait;
+    use StorageTrait;
+    use ManyMinistryUsers;
+    use CreatableTrait;
 
     protected $guarded = ['id'];
     public $incrementing = false;
