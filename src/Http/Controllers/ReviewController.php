@@ -14,13 +14,13 @@ class ReviewController extends Controller
     /**
      * Sends a review by the given ministry.
      *
-     * @param SendRevealRequest $request
-     *
+     * @param SendRevealRequest $request     *
      * @return \Illuminate\Http\JsonResponse
      */
     function sendReview(SendRevealRequest $request)
     {
         auth()->user()->reviews()->create($request->validated());
+
         return $this->successResponse('We received your review, thanks for getting in touch');
     }
 }

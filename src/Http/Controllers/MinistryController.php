@@ -89,6 +89,7 @@ class MinistryController extends Controller
     {
         ProfileResource::withoutWrapping();
         MinistryResource::withoutWrapping();
+
         if (request()->has('complete') && request()->complete)
             return new ProfileResource(auth()->user());
         else
@@ -113,7 +114,9 @@ class MinistryController extends Controller
         $image = auth()->user()->image()->updateOrCreate([], [
             'name' => $fileName
         ]);
+
         event(new ImageSaved($image));
+
         return $this->successResponse('Photo changed, refresh page to effect changes');
     }
 
@@ -237,12 +240,18 @@ class MinistryController extends Controller
         return auth()->user()->account->level;
     }
 
+    /**
+     * Gets the users for a ministry.
+     *
+     * @param IndexRequest $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function users(IndexRequest $request)
     {
         $ministryUsers = auth()->user()
             ->ministryUsers()
             ->where(fn($ministryUser) => $ministryUser->whereHas('user', fn($user) => $user->search(['name', 'email'], $request->filter_text)))
-            ->with('user')
+            ->with('user.image')
             ->latest()
             ->paginate(Helper::getLimit($request));
 
@@ -254,13 +263,16 @@ class MinistryController extends Controller
     /**
      * Blocks or unblock a user
      *
+     * @param ToggleActivityRequest $request
      * @return void
      */
     public function toggleActivity(ToggleActivityRequest $request)
     {
         $ministryUser = auth()->user()->ministryUsers()->where('user_id', $request->user_id)->first();
+
         if ($ministryUser) {
             $ministryUser->update($request->validated());
+
             return $this->successResponse('This user`s active status has been changed');
         }
         return abort(403, 'You are not allowed to alter that user, they do not belong to your following');
