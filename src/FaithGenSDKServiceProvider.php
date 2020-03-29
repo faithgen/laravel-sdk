@@ -79,7 +79,6 @@ class FaithGenSDKServiceProvider extends ServiceProvider
     {
         return [
             'prefix' => config('faithgen-sdk.prefix'),
-            'namespace' => $this->namespace,
             'middleware' => [
                 'auth:api',
                 'ministry.activated',
