@@ -7,23 +7,17 @@ use FaithGen\SDK\Http\Middleware\SourceSiteMiddleware;
 use FaithGen\SDK\Mixins\DatabaseBuilder;
 use FaithGen\SDK\Services\ImageService;
 use FaithGen\SDK\Services\ProfileService;
+use FaithGen\SDK\Traits\ConfigTrait;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class FaithGenSDKServiceProvider extends ServiceProvider
 {
+    use ConfigTrait;
 
-    private $namespace = "FaithGen\SDK\Http\Controllers";
-
-    /**
-     * Bootstrap services.
-     *
-     * @return void
-     */
     public function boot()
     {
-
         $this->registerApiRoutes();
         $this->registerParentRoutes();
         $this->registerUserAuthRoutes();
@@ -35,7 +29,7 @@ class FaithGenSDKServiceProvider extends ServiceProvider
                 __DIR__ . '/../config/faithgen-sdk.php' => config_path('faithgen-sdk.php'),
             ], 'faithgen-sdk-config');
 
-            if (config('faithgen-sdk.source')) {
+            $this->setUpSourceFiles(function (){
                 $this->publishes([
                     __DIR__ . '/../database/migrations/' => database_path('migrations'),
                 ], 'faithgen-sdk-migrations');
@@ -43,11 +37,17 @@ class FaithGenSDKServiceProvider extends ServiceProvider
                 $this->publishes([
                     __DIR__ . '/../storage/profile/' => storage_path('app/public/profile'),
                 ], 'faithgen-sdk-storage');
-            }else{
+            });
+
+            if (!config('faithgen-sdk.source')) {
                 $this->publishes([
                     __DIR__ . '/../storage/users/' => storage_path('app/public/users'),
                 ], 'faithgen-sdk-storage');
             }
+
+            $this->publishes([
+                __DIR__ . '/../storage/logo/' => public_path('images'),
+            ], 'faithgen-logo');
         }
 
         app('router')->aliasMiddleware('ministry.activated', ActivatedMinistryMiddleware::class);
@@ -60,7 +60,6 @@ class FaithGenSDKServiceProvider extends ServiceProvider
     {
         return [
             'prefix' => config('faithgen-sdk.prefix'),
-            'namespace' => $this->namespace,
             'middleware' => [
                 'auth:api',
                 'ministry.activated',
@@ -107,7 +106,6 @@ class FaithGenSDKServiceProvider extends ServiceProvider
     {
         return [
             'prefix' => config('faithgen-sdk.prefix'),
-            'namespace' => $this->namespace,
             'middleware' => ['bindings']
         ];
     }
@@ -137,5 +135,13 @@ class FaithGenSDKServiceProvider extends ServiceProvider
 
         $this->app->singleton(ProfileService::class);
         $this->app->singleton(ImageService::class);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    function routeConfiguration(): array
+    {
+        // TODO: Implement routeConfiguration() method.
     }
 }
