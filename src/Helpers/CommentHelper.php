@@ -38,7 +38,7 @@ class CommentHelper
                 'success' => true,
                 'message' => 'Comment posted',
                 'comment' => new CommentsResource($comment)
-            ], 200);
+            ], 201);
         } catch (\Exception $e) {
             abort(500, $e->getMessage());
         }
