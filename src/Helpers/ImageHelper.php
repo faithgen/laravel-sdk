@@ -52,7 +52,7 @@ class ImageHelper
     public static function getImage(string $folder, ?Image $image, ?string $server = null)
     {
         if (!$server)
-            $server = $_SERVER['HTTP_HOST'];
+            $server = config('faithgen-sdk.ministries-server');
 
         return static::getImages($server, $folder, $image);
     }
