@@ -2,7 +2,7 @@
 
 namespace FaithGen\SDK\Http\Resources;
 
-use FaithGen\SDK\Helpers\MinistryHelper;
+use FaithGen\SDK\Helpers\ImageHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 use InnoFlash\LaraStart\Helper;
 
@@ -24,11 +24,7 @@ class Profile extends JsonResource
             'color' => $this->profile->color,
             'active' => (bool)$this->activation->active,
             'api_key' => $this->apiKey->api_key,
-            'avatar' => [
-                '_50' => $this->image()->exists() ? MinistryHelper::getImageLink($this->image->name, 50) : MinistryHelper::getImageLink(null, 50),
-                '_100' => $this->image()->exists() ? MinistryHelper::getImageLink($this->image->name, 100) : MinistryHelper::getImageLink(null, 100),
-                'original' => $this->image()->exists() ? MinistryHelper::getImageLink($this->image->name, 0) : MinistryHelper::getImageLink(null, 0),
-            ],
+            'avatar' => ImageHelper::getImage('profile', $this->image, config('faithgen-sdk.ministries-server')),
             'date' => Helper::getDates($this->created_at),
             'users' => [
                 'count' => $this->ministryUsers()->count()
