@@ -14,7 +14,7 @@ class ReviewController extends Controller
     /**
      * Sends a review by the given ministry.
      *
-     * @param SendRevealRequest $request     *
+     * @param SendRevealRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     function sendReview(SendRevealRequest $request)
