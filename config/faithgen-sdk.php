@@ -22,20 +22,16 @@ return [
      * This is the remote url linked to the public folder of a remote server peradventure you are not looking for stored files from the current website
      * Eg. "http://localhost:8001/"
      */
-    'user_server' => 'https://faithgen.com/',
+    'users-server' => 'https://faithgen.com/',
 
     /**
      * The server of the admin.
      */
-    'admin_server' => 'https://faithgen.com/',
+    'admin-server' => 'https://faithgen.com/',
 
     /**
      * The server serving ministries
      */
-    'ministry_server' => 'https://faithgen.com/',
+    'ministries-server' => 'https://faithgen.com/',
 
-    /**
-     * The redirect URL when a ministry is successfully activated
-     */
-    'ministriesDomain' => 'http://localhost:8080',
 ];

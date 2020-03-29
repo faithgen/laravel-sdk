@@ -2,6 +2,7 @@
 
 namespace FaithGen\SDK\Http\Resources;
 
+use FaithGen\SDK\Helpers\ImageHelper;
 use FaithGen\SDK\Helpers\MinistryHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 use InnoFlash\LaraStart\Helper;
@@ -19,16 +20,9 @@ class Comment extends JsonResource
         $is_admin = $this->creatable_type === 'App\\Models\\Ministry';
 
         if ($is_admin)
-            $avatar = [
-                '_50' => $this->creatable->image()->exists() ? MinistryHelper::getImageLink($this->creatable->image->name, 50) : MinistryHelper::getImageLink(null, 50),
-                '_100' => $this->creatable->image()->exists() ? MinistryHelper::getImageLink($this->creatable->image->name, 100) : MinistryHelper::getImageLink(null, 100),
-                'original' => $this->creatable->image()->exists() ? MinistryHelper::getImageLink($this->creatable->image->name, 0) : MinistryHelper::getImageLink(null, 0),
-            ];
+            $avatar = ImageHelper::getImage('profile', $this->creatable->image, config('faithgen-sdk.ministry_server'));
         else
-            $avatar = [
-                '_50' => $this->creatable->image()->exists() ? MinistryHelper::getImageLink($this->creatable->image->name, 50, 'users') : MinistryHelper::getImageLink(null, 50, 'users'),
-                'original' => $this->creatable->image()->exists() ? MinistryHelper::getImageLink($this->creatable->image->name, 0, 'users') : MinistryHelper::getImageLink(null, 0, 'users'),
-            ];
+            $avatar = ImageHelper::getImage('profile', $this->creatable->image, config('faithgen-sdk.user_server'));
 
         return [
             'id' => $this->id,
