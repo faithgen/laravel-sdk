@@ -33,6 +33,7 @@ class CommentHelper
                     'creatable_id' => auth()->user()->id,
                     'creatable_type' => get_class(auth()->user()),
                 ]);
+
             return response()->json([
                 'success' => true,
                 'message' => 'Comment posted',
@@ -53,7 +54,9 @@ class CommentHelper
     static function getComments($model, Request $request)
     {
         $comments = $model->comments()->latest()->paginate(Helper::getLimit($request));
+
         CommentsResource::wrap('comments');
+
         return CommentsResource::collection($comments);
     }
 }

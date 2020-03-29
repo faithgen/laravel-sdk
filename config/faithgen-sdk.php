@@ -30,6 +30,11 @@ return [
     'admin_server' => 'https://faithgen.com/',
 
     /**
+     * The server serving ministries
+     */
+    'ministry_server' => 'https://faithgen.com/',
+
+    /**
      * The redirect URL when a ministry is successfully activated
      */
     'ministriesDomain' => 'http://localhost:8080',
