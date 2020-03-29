@@ -47,6 +47,12 @@ class MinistryController extends Controller
         $this->profileService = $profileService;
     }
 
+    /**
+     * Get the social link profile.
+     *
+     * @param GetRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     function getSocialLink(GetRequest $request)
     {
         return response()->json([
@@ -54,6 +60,12 @@ class MinistryController extends Controller
         ]);
     }
 
+    /**
+     * Saves a social link.
+     *
+     * @param UpdateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     function saveSocialLink(UpdateRequest $request)
     {
         $profile = auth()->user()->profile;
@@ -68,6 +80,11 @@ class MinistryController extends Controller
         }
     }
 
+    /**
+     * Get the profile of a ministry.
+     *
+     * @return MinistryResource|ProfileResource
+     */
     function getProfile()
     {
         ProfileResource::withoutWrapping();
@@ -78,6 +95,13 @@ class MinistryController extends Controller
             return new MinistryResource(auth()->user());
     }
 
+    /**
+     * Changes the profile pic.
+     *
+     * @param UpdateImageRequest $request
+     * @param ImageManager $imageManager
+     * @return mixed
+     */
     function updatePhoto(UpdateImageRequest $request, ImageManager $imageManager)
     {
         if (auth()->user()->image()->exists())
@@ -93,6 +117,12 @@ class MinistryController extends Controller
         return $this->successResponse('Photo changed, refresh page to effect changes');
     }
 
+    /**
+     * Update ministry password.
+     *
+     * @param UpdatePasswordRequest $request
+     * @return mixed
+     */
     function updatePassword(UpdatePasswordRequest $request)
     {
         if (Hash::check($request->current, auth()->user()->password)) {
@@ -109,6 +139,12 @@ class MinistryController extends Controller
         } else abort(500, 'Current password is incorrect!');
     }
 
+    /**
+     * Delete ministry profile.
+     *
+     * @param DeleteRequest $request
+     * @return mixed
+     */
     function deleteProfile(DeleteRequest $request)
     {
         if (Hash::check($request->password, auth()->user()->password)) {
@@ -121,55 +157,55 @@ class MinistryController extends Controller
         } else abort(500, 'Password is incorrect!');
     }
 
+    /**
+     * Updates ministry profile.
+     *
+     * @param UpdateProfileRequest $request
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
     function updateProfile(UpdateProfileRequest $request)
     {
         $ministryParams = $request->only(['name', 'email', 'phone']);
-        try {
-            auth()->user()->update($ministryParams);
-        } catch (\Exception $e) {
-            abort(500, $e->getMessage());
-        }
+
+        auth()->user()->update($ministryParams);
 
         $links = ['website', 'facebook', 'youtube', 'twitter', 'instagram'];
         $statements = ['vision', 'mission', 'about_us'];
 
-        $params = [
-	    'color' => $request->color
-	];
+        $params = ['color' => $request->color];
 
-        $params = array_merge($params, array_filter($request->links, function ($link) use ($links) {
-            return in_array($link, $links);
-        }, ARRAY_FILTER_USE_KEY));
+        $params = array_merge($params, array_filter($request->links, fn($link) => in_array($link, $links), ARRAY_FILTER_USE_KEY));
 
-        $params = array_merge($params, array_filter($request->statement, function ($link) use ($statements) {
-            return in_array($link, $statements);
-        }, ARRAY_FILTER_USE_KEY));
+        $params = array_merge($params, array_filter($request->statement, fn($link) => in_array($link, $statements), ARRAY_FILTER_USE_KEY));
 
-        $params = array_merge($params, [
-            'emails' => $request->emails
-        ]);
+        $params = array_merge($params, ['emails' => $request->emails]);
 
-        $params = array_merge($params, [
-            'phones' => $request->phones
-        ]);
+        $params = array_merge($params, ['phones' => $request->phones]);
 
         if ($request->has('location'))
-            $params = array_merge($params, [
-                'location' => $request->location
-            ]);
+            $params = array_merge($params, ['location' => $request->location]);
 
         $this->saveServices($request, auth()->user());
 
         return $this->profileService->update($params, 'Profile updated successfully!');
     }
 
+    /**
+     * Saves the church services.
+     *
+     * @param Request $request
+     * @param Ministry $ministry
+     */
     private function saveServices(Request $request, Ministry $ministry)
     {
         if ($request->has('services')) {
-            DB::table('daily_services')->whereIn('id', $ministry->services()->pluck('id')->toArray())->delete();
+            DB::table('daily_services')
+                ->whereIn('id', $ministry->services()->pluck('id')->toArray())
+                ->delete();
+
             $services = array_map(function ($service) {
                 return array_merge($service, [
-                    'id' => str_shuffle((string) Str::uuid()),
+                    'id' => str_shuffle((string)Str::uuid()),
                     'ministry_id' => auth()->user()->id,
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -179,12 +215,23 @@ class MinistryController extends Controller
         }
     }
 
+    /**
+     * Gets the links.
+     *
+     * @param $links
+     * @return bool
+     */
     function getLinks($links)
     {
         $_links = ['website', 'facebook', 'youtube', 'twitter', 'instagram'];
         return array_key_exists($links, $_links);
     }
 
+    /**
+     * Gets the account subscription level.
+     *
+     * @return mixed
+     */
     function accountType()
     {
         return auth()->user()->account->level;
@@ -203,7 +250,9 @@ class MinistryController extends Controller
             ->with('user')
             ->latest()
             ->paginate(Helper::getLimit($request));
+
         ResourcesMinistryUser::wrap('users');
+
         return ResourcesMinistryUser::collection($ministryUsers);
     }
 
