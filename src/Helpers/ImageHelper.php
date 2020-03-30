@@ -3,6 +3,8 @@
 namespace FaithGen\SDK\Helpers;
 
 use FaithGen\SDK\Models\Image;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
 class ImageHelper
 {
@@ -34,10 +36,15 @@ class ImageHelper
      */
     private static function getDefaultImage()
     {
+        $protocol = 'http://';
+
+        if (Str::of(URL::current())->startsWith('https'))
+            $protocol = 'https://';
+
         return (object)[
-            '_50' => $_SERVER['HTTP_HOST'] . '/images/logo-50.png',
-            '_100' => $_SERVER['HTTP_HOST'] . '/images/logo-100.png',
-            'original' => $_SERVER['HTTP_HOST'] . '/images/logo-original.png',
+            '_50' => $protocol . $_SERVER['HTTP_HOST'] . '/images/logo-50.png',
+            '_100' => $protocol . $_SERVER['HTTP_HOST'] . '/images/logo-100.png',
+            'original' => $protocol . $_SERVER['HTTP_HOST'] . '/images/logo-original.png',
         ];
     }
 
