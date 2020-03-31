@@ -248,13 +248,14 @@ class MinistryController extends Controller
      */
     public function users(IndexRequest $request)
     {
-        dd($_SERVER['HTTP_HOST']);
         $ministryUsers = auth()->user()
             ->ministryUsers()
-            ->where(fn($ministryUser) => $ministryUser->whereHas('user', fn($user) => $user->search(['name', 'email'], $request->filter_text)))
-            ->with('user.image')
             ->latest()
+            //->with(['user.image'])
+            ->where(fn($ministryUser) => $ministryUser->whereHas('user', fn($user) => $user->search(['name', 'email'], $request->filter_text)))
             ->paginate(Helper::getLimit($request));
+
+        //return $ministryUsers;
 
         ResourcesMinistryUser::wrap('users');
 

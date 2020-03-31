@@ -17,7 +17,7 @@ class MinistryUser extends JsonResource
             'email' => $this->user->email,
             'phone' => $this->user->phone,
             'provider' => $this->user->provider,
-            'avatar' => ImageHelper::getImage('users', $this->image, config('faithgen-sdk.users-server')),
+            'avatar' => ImageHelper::getImage('users', $this->user->image, config('faithgen-sdk.users-server')),
             'joined' => Helper::getDates($this->created_at)
         ];
     }
