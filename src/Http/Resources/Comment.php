@@ -5,6 +5,7 @@ namespace FaithGen\SDK\Http\Resources;
 use FaithGen\SDK\Helpers\ImageHelper;
 use FaithGen\SDK\Helpers\MinistryHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
 use InnoFlash\LaraStart\Helper;
 
 class Comment extends JsonResource
@@ -17,9 +18,7 @@ class Comment extends JsonResource
      */
     public function toArray($request)
     {
-        $is_admin = $this->creatable_type === 'App\\Models\\Ministry';
-
-        if ($is_admin)
+        if ($is_admin = Str::of($this->creatable_type)->contains('Ministry'))
             $avatar = ImageHelper::getImage('profile', $this->creatable->image, config('faithgen-sdk.ministries-server'));
         else
             $avatar = ImageHelper::getImage('users', $this->creatable->image, config('faithgen-sdk.users-server'));
@@ -32,7 +31,6 @@ class Comment extends JsonResource
                 'name' => $this->creatable->name,
                 'is_admin' => $is_admin,
                 'avatar' => $avatar,
-                //$this->creatable->picture ?? MinistryHelper::getImageLink($this->creatable, 50)
             ],
             'date' => Helper::getDates($this->created_at)
         ];
