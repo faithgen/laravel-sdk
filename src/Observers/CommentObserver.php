@@ -10,7 +10,7 @@ class CommentObserver
     /**
      * Handle the comment "created" event.
      *
-     * @param  \App\Comment  $comment
+     * @param  Comment  $comment
      *
      * @return void
      */
@@ -19,29 +19,5 @@ class CommentObserver
         if (!config('faithgen-sdk.source')) {
             event(new CommentCreated($comment));
         }
-    }
-
-    /**
-     * Handle the comment "updated" event.
-     *
-     * @param  \App\Comment  $comment
-     *
-     * @return void
-     */
-    public function updated(Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Handle the comment "deleted" event.
-     *
-     * @param  \App\Comment  $comment
-     *
-     * @return void
-     */
-    public function deleted(Comment $comment)
-    {
-        //
     }
 }
