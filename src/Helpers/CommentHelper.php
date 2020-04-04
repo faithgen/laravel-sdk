@@ -56,7 +56,12 @@ class CommentHelper
      */
     static function getComments($model, Request $request)
     {
-        $comments = $model->comments()->latest()->paginate(Helper::getLimit($request));
+        $comments = $model->comments()
+            ->latest()
+            ->with(['creatable.image'])
+            ->paginate(Helper::getLimit($request));
+
+        return $comments;
 
         CommentsResource::wrap('comments');
 
