@@ -20,7 +20,7 @@ class CommentHelper
     {
         try {
             if ($user = auth('web')->user())
-                if (!$user->active)
+                if ($user->active)
                     $comment = $model->comments()->create([
                         'comment' => $request->comment,
                         'creatable_id' => auth('web')->user()->id,
