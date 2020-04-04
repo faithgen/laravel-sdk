@@ -20,9 +20,9 @@ class Comment extends JsonResource
         $is_admin = $this->creatable_type === 'App\\Models\\Ministry';
 
         if ($is_admin)
-            $avatar = ImageHelper::getImage('profile', $this->creatable->image, config('faithgen-sdk.ministry_server'));
+            $avatar = ImageHelper::getImage('profile', $this->creatable->image, config('faithgen-sdk.ministries-server'));
         else
-            $avatar = ImageHelper::getImage('profile', $this->creatable->image, config('faithgen-sdk.user_server'));
+            $avatar = ImageHelper::getImage('users', $this->creatable->image, config('faithgen-sdk.users-server'));
 
         return [
             'id' => $this->id,

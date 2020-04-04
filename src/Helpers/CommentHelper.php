@@ -61,8 +61,6 @@ class CommentHelper
             ->with(['creatable.image'])
             ->paginate(Helper::getLimit($request));
 
-        return $comments;
-
         CommentsResource::wrap('comments');
 
         return CommentsResource::collection($comments);
