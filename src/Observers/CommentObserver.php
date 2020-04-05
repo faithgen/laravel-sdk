@@ -18,9 +18,7 @@ class CommentObserver
      */
     public function created(Comment $comment)
     {
-        if (!config('faithgen-sdk.source')) {
-            event(new CommentCreated($comment));
-        }
+        event(new CommentCreated($comment));
     }
 
     /**
