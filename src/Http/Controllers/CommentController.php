@@ -2,9 +2,9 @@
 
 namespace FaithGen\SDK\Http\Controllers;
 
-use FaithGen\SDK\Events\CommenterPresence;
+use FaithGen\SDK\Events\Commenter\TypingRegistered;
+use FaithGen\SDK\Events\Commenter\UserPresent;
 use FaithGen\SDK\Http\Requests\PresenceRegistryRequest;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class CommentController extends Controller
@@ -17,7 +17,14 @@ class CommentController extends Controller
     public function presenceRegister(PresenceRegistryRequest $request)
     {
         if (!config('faithgen-sdk.source')) {
-            event(new CommenterPresence($request->validated()));
+            event(new UserPresent($request->validated()));
+        }
+    }
+
+    public function showTyping(PresenceRegistryRequest $request)
+    {
+        if (!config('faithgen-sdk.source')) {
+            event(new TypingRegistered($request->validated()));
         }
     }
 }

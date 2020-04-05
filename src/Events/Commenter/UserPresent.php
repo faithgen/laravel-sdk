@@ -1,13 +1,13 @@
 <?php
 
-namespace FaithGen\SDK\Events;
+namespace FaithGen\SDK\Events\Commenter;
 
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class CommenterPresence
+class UserPresent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     /**

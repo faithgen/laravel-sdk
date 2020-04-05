@@ -26,5 +26,6 @@ if (!config('faithgen-sdk.source')) {
     Route::prefix('comments')
         ->group(function () {
             Route::post('presence', [CommentController::class, 'presenceRegister']);
+            Route::post('typing', [CommentController::class, 'showTyping']);
         });
 }
