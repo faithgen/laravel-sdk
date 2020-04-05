@@ -21,6 +21,11 @@ class CommentController extends Controller
         }
     }
 
+    /**
+     * Registers to other users when one is typing a comment.
+     *
+     * @param  PresenceRegistryRequest  $request
+     */
     public function showTyping(PresenceRegistryRequest $request)
     {
         if (!config('faithgen-sdk.source')) {
