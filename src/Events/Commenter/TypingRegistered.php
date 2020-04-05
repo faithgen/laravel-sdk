@@ -2,15 +2,13 @@
 
 namespace FaithGen\SDK\Events\Commenter;
 
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class TypingRegistered implements ShouldBroadcast
+class TypingRegistered implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     /**
@@ -38,11 +36,16 @@ class TypingRegistered implements ShouldBroadcast
         return new PrivateChannel('comments-'.$this->data['category'].'-'.$this->data['item_id']);
     }
 
-    function broadcastWith()
+    public function broadcastWith()
     {
         return [
-            'user' => auth('web')->user(),
-            'status' => auth('web')->user()->name .' is typing'
+            'user'   => auth('web')->user(),
+            'status' => auth('web')->user()->name.' is typing',
         ];
+    }
+
+    public function broadcastAs()
+    {
+        return 'user.typing';
     }
 }

@@ -4,11 +4,11 @@ namespace FaithGen\SDK\Events\Commenter;
 
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UserPresent implements ShouldBroadcast
+class UserPresent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     /**
@@ -36,11 +36,16 @@ class UserPresent implements ShouldBroadcast
         return new PrivateChannel('comments-'.$this->data['category'].'-'.$this->data['item_id']);
     }
 
-    function broadcastWith()
+    public function broadcastWith()
     {
         return [
-            'user' => auth('web')->user(),
-            'coming_in' => (bool) $this->data['presence']
+            'user'      => auth('web')->user(),
+            'coming_in' => (bool) $this->data['presence'],
         ];
+    }
+
+    public function broadcastAs()
+    {
+        return 'user.joined';
     }
 }
