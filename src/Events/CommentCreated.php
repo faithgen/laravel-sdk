@@ -40,13 +40,13 @@ class CommentCreated implements ShouldBroadcast
         $namePieces = explode('\\', $this->comment->commentable_type);
         $requiredName = Str::lower(Arr::last($namePieces));
         $requiredName = Str::plural($requiredName);
-        return new Channel('comments-' . $requiredName . '-' . $this->comment->commentable_id);
+        return new PrivateChannel('comments-' . $requiredName . '-' . $this->comment->commentable_id);
     }
 
     function broadcastWith()
     {
         return [
-            'data' => new CommentsResource($this->comment)
+            'comment' => new CommentsResource($this->comment)
         ];
     }
 }
