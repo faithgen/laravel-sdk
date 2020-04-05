@@ -1,5 +1,6 @@
 <?php
 
+use FaithGen\SDK\Http\Controllers\CommentController;
 use FaithGen\SDK\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 use FaithGen\SDK\Http\Controllers\ImageController;
@@ -20,3 +21,10 @@ Route::prefix('reviews')
     ->group(function () {
         Route::post('', [ReviewController::class, 'sendReview']);
     });
+
+if (!config('faithgen-sdk.source')) {
+    Route::prefix('comments')
+        ->group(function () {
+            Route::post('presence', [CommentController::class, 'presenceRegister']);
+        });
+}
