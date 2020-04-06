@@ -17,7 +17,7 @@ class CommentController extends Controller
     public function presenceRegister(PresenceRegistryRequest $request)
     {
         if (!config('faithgen-sdk.source')) {
-            event(new UserPresent($request->validated()));
+            event(new UserPresent(auth('web')->user(), $request->validated()));
         }
     }
 
@@ -29,7 +29,7 @@ class CommentController extends Controller
     public function showTyping(PresenceRegistryRequest $request)
     {
         if (!config('faithgen-sdk.source')) {
-            event(new TypingRegistered($request->validated()));
+            event(new TypingRegistered(auth('web')->user(), $request->validated()));
         }
     }
 }

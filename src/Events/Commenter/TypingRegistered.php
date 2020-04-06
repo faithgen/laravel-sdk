@@ -2,6 +2,7 @@
 
 namespace FaithGen\SDK\Events\Commenter;
 
+use FaithGen\SDK\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
@@ -15,15 +16,21 @@ class TypingRegistered implements ShouldBroadcastNow
      * @var array
      */
     private array $data;
+    /**
+     * @var User
+     */
+    private User $user;
 
     /**
      * Create a new event instance.
      *
+     * @param  User  $user
      * @param  array  $data
      */
-    public function __construct(array $data)
+    public function __construct(User $user, array $data)
     {
         $this->data = $data;
+        $this->user = $user;
     }
 
     /**
@@ -39,11 +46,16 @@ class TypingRegistered implements ShouldBroadcastNow
     public function broadcastWith()
     {
         return [
-            'user'   => auth('web')->user(),
-            'status' => auth('web')->user()->name.' is typing',
+            'user'   => $this->user,
+            'status' => $this->name.' is typing',
         ];
     }
 
+    /**
+     * Broadcast event name.
+     *
+     * @return string
+     */
     public function broadcastAs()
     {
         return 'user.typing';

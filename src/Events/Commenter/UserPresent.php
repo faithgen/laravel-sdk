@@ -2,6 +2,7 @@
 
 namespace FaithGen\SDK\Events\Commenter;
 
+use FaithGen\SDK\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
@@ -15,15 +16,21 @@ class UserPresent implements ShouldBroadcastNow
      * @var array
      */
     private array $data;
+    /**
+     * @var User
+     */
+    private User $user;
 
     /**
      * Create a new event instance.
      *
+     * @param  User  $user
      * @param  array  $data
      */
-    public function __construct(array $data)
+    public function __construct(User $user, array $data)
     {
         $this->data = $data;
+        $this->user = $user;
     }
 
     /**
@@ -39,11 +46,16 @@ class UserPresent implements ShouldBroadcastNow
     public function broadcastWith()
     {
         return [
-            'user'      => auth('web')->user(),
+            'user'      => $this->user,
             'coming_in' => (bool) $this->data['presence'],
         ];
     }
 
+    /**
+     * Broadcast event name.
+     *
+     * @return string
+     */
     public function broadcastAs()
     {
         return 'user.joined';
