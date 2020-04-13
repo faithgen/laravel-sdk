@@ -17,6 +17,7 @@ class User extends Authenticatable
     use ImageableTrait;
     use StorageTrait;
 
+    protected $table = 'fg_users';
     protected $guarded = ['id'];
     public $incrementing = false;
     protected $hidden = [
