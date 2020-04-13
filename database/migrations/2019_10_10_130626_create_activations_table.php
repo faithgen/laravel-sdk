@@ -13,7 +13,7 @@ class CreateActivationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('activations', function (Blueprint $table) {
+        Schema::create('fg_activations', function (Blueprint $table) {
             $table->string('id')->index();
             $table->string('ministry_id', 150)->unique()->index();
             $table->string('code')->unique();
@@ -31,6 +31,6 @@ class CreateActivationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activations');
+        Schema::dropIfExists('fg_activations');
     }
 }
