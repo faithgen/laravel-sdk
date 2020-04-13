@@ -10,5 +10,5 @@ class MinistryUser extends UuidModel
 {
     use BelongsToUserTrait, BelongsToMinistryTrait;
 
-    protected $table = 'ministry_users';
+    protected $table = 'fg_ministry_users';
 }

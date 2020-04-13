@@ -13,7 +13,7 @@ class CreateMinistryUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('ministry_users', function (Blueprint $table) {
+        Schema::create('fg_ministry_users', function (Blueprint $table) {
             $table->string('id', 150)->primary();
             $table->string('ministry_id', 150)->index();
             $table->string('user_id', 150)->index();
@@ -32,6 +32,6 @@ class CreateMinistryUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ministry_users');
+        Schema::dropIfExists('fg_ministry_users');
     }
 }
