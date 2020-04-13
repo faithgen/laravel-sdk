@@ -13,7 +13,7 @@ class CreateAPIKeysTable extends Migration
      */
     public function up()
     {
-        Schema::create('a_p_i_keys', function (Blueprint $table) {
+        Schema::create('fg_a_p_i_keys', function (Blueprint $table) {
             $table->string('id');
             $table->string('ministry_id', 150)->unique()->index();
             $table->string('api_key')->unique();
@@ -30,6 +30,6 @@ class CreateAPIKeysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('a_p_i_keys');
+        Schema::dropIfExists('fg_a_p_i_keys');
     }
 }
