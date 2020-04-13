@@ -9,6 +9,7 @@ class DailyService extends UuidModel
 {
     use BelongsToMinistryTrait;
 
+    protected $table = 'fg_daily_services';
     protected $hidden = [
         'created_at',
         'updated_at',

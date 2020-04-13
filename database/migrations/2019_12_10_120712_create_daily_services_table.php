@@ -14,7 +14,7 @@ class CreateDailyServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('daily_services', function (Blueprint $table) {
+        Schema::create('fg_daily_services', function (Blueprint $table) {
             $table->string('id')->index();
             $table->string('ministry_id', 150)->index();
             $table->enum('day', Helper::$weekDays);
@@ -34,6 +34,6 @@ class CreateDailyServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('daily_services');
+        Schema::dropIfExists('fg_daily_services');
     }
 }
