@@ -3,7 +3,6 @@
 namespace FaithGen\SDK\Listeners\Ministry\Profile\ImageSaved;
 
 use FaithGen\SDK\Events\Ministry\Profile\ImageSaved;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Intervention\Image\ImageManager;
 
@@ -32,9 +31,9 @@ class ProcessImage implements ShouldQueue
      */
     public function handle(ImageSaved $event)
     {
-        $ogImage = storage_path('app/public/profile/original/') . $event->getImage()->name;
-        $thumb100 = storage_path('app/public/profile/100-100/') . $event->getImage()->name;
-        $thumb50 = storage_path('app/public/profile/50-50/') . $event->getImage()->name;
+        $ogImage = storage_path('app/public/profile/original/').$event->getImage()->name;
+        $thumb100 = storage_path('app/public/profile/100-100/').$event->getImage()->name;
+        $thumb50 = storage_path('app/public/profile/50-50/').$event->getImage()->name;
 
         $this->imageManager->make($ogImage)->fit(100, 100, function ($constraint) {
             $constraint->upsize();

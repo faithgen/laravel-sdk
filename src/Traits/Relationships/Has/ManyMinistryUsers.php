@@ -7,10 +7,10 @@ use FaithGen\SDK\Models\Pivots\MinistryUser;
 trait ManyMinistryUsers
 {
     /**
-     * This links this model to its ministry users entries
+     * This links this model to its ministry users entries.
      * @return mixed
      */
-    function ministryUsers()
+    public function ministryUsers()
     {
         return $this->hasMany(MinistryUser::class);
     }

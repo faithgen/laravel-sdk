@@ -12,7 +12,7 @@ class UuidModel extends Model
 
     public $incrementing = false;
     protected $guarded = [
-        'id'
+        'id',
     ];
 
     protected static function boot()

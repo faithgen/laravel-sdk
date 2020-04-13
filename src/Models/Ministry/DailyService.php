@@ -13,7 +13,7 @@ class DailyService extends UuidModel
         'created_at',
         'updated_at',
         'ministry_id',
-        'id'
+        'id',
     ];
 
     public function getAliasAttribute($val)

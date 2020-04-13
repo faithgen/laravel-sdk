@@ -46,7 +46,7 @@ class ForgotPassword extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->greeting('Hello ' . $this->ministry->name)
+            ->greeting('Hello '.$this->ministry->name)
             ->line('You have requested for a password change, Please click the link below to update it!')
             ->action('Reset Password', url('/'))
             ->from('no-reply@faithgen.com', 'Faith Gen')

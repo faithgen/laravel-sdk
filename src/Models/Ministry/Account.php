@@ -10,10 +10,10 @@ class Account extends UuidModel
     use  BelongsToMinistryTrait;
 
     /**
-     * MODEL ATTRIBUTES
+     * MODEL ATTRIBUTES.
      */
 
     /**
-     * MODEL RELATIONSHIPS
+     * MODEL RELATIONSHIPS.
      */
 }

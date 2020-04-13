@@ -8,7 +8,6 @@ use InnoFlash\LaraStart\Helper;
 
 class CommentHelper
 {
-
     /**
      * Creates a comment for the given model.
      *
@@ -17,7 +16,7 @@ class CommentHelper
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    static function createComment($model, Request $request)
+    public static function createComment($model, Request $request)
     {
         try {
             if ($user = auth('web')->user()) {
@@ -27,7 +26,9 @@ class CommentHelper
                         'creatable_id'   => auth('web')->user()->id,
                         'creatable_type' => get_class(auth('web')->user()),
                     ]);
-                } else abort(403, 'You are not permitted to comment on this');
+                } else {
+                    abort(403, 'You are not permitted to comment on this');
+                }
             } else {
                 $comment = $model->comments()->create([
                     'comment'        => $request->comment,
@@ -54,7 +55,7 @@ class CommentHelper
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    static function getComments($model, Request $request)
+    public static function getComments($model, Request $request)
     {
         $comments = $model->comments()
             ->latest()

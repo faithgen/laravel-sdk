@@ -6,7 +6,7 @@ use FaithGen\SDK\Models\Comment;
 
 trait CreatableTrait
 {
-    function comments()
+    public function comments()
     {
         return $this->morphMany(Comment::class, 'creatable');
     }

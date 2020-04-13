@@ -10,7 +10,6 @@ use FaithGen\SDK\Traits\FileTraits;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-
 class UserObserver
 {
     use FileTraits;
@@ -21,20 +20,20 @@ class UserObserver
      * @param \App\User $user
      * @return void
      */
-
-    function creating(User $user)
+    public function creating(User $user)
     {
-        $user->id = (string)Str::uuid();
+        $user->id = (string) Str::uuid();
         $user->password = Hash::make(env('DEFAULT_PASSWORD', 'secret'));
     }
 
     public function created(User $user)
     {
-        if (request()->has('image'))
+        if (request()->has('image')) {
             UploadImage::withChain([
                 new ProcessImage($user),
-                new S3Upload($user)
+                new S3Upload($user),
             ])->dispatch($user, request('image'));
+        }
     }
 
     /**
@@ -49,7 +48,7 @@ class UserObserver
             $this->deleteFiles($user);
             UploadImage::withChain([
                 new ProcessImage($user),
-                new S3Upload($user)
+                new S3Upload($user),
             ])->dispatch($user, request('image'));
         }
     }
@@ -62,8 +61,9 @@ class UserObserver
      */
     public function deleted(User $user)
     {
-        if ($user->image()->exists())
+        if ($user->image()->exists()) {
             $this->deleteFiles($user);
+        }
     }
 
     /**

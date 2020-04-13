@@ -12,13 +12,13 @@ class MinistryUser extends JsonResource
     {
         return [
             'id' => $this->user_id,
-            'active' => (bool)$this->active,
+            'active' => (bool) $this->active,
             'name' => $this->user->name,
             'email' => $this->user->email,
             'phone' => $this->user->phone,
             'provider' => $this->user->provider,
             'avatar' => ImageHelper::getImage('users', $this->user->image, config('faithgen-sdk.users-server')),
-            'joined' => Helper::getDates($this->created_at)
+            'joined' => Helper::getDates($this->created_at),
         ];
     }
 }

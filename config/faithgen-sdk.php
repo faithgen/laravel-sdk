@@ -1,15 +1,15 @@
 <?php
+
 return [
     /**
-     * The prefix you would want to use on the the routes
+     * The prefix you would want to use on the the routes.
      */
     'prefix' => 'api',
 
     /**
-     * The guard you used for authentication
+     * The guard you used for authentication.
      */
     'guard' => 'api',
-
 
     /**
      * @Bool
@@ -30,7 +30,7 @@ return [
     'admin-server' =>  env('ADMIN_SERVER', 'https://faithgen.com/'),
 
     /**
-     * The server serving ministries
+     * The server serving ministries.
      */
     'ministries-server' => env('MINISTRIES_SERVER', 'https://faithgen.com/'),
 

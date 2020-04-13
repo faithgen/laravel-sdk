@@ -18,14 +18,16 @@ class ImageHelper
      */
     private static function getImages(string $server, string $folder, ?Image $image): object
     {
-        if ($image)
+        if ($image) {
             $imageName = $image->name;
-        else return static::getDefaultImage();
+        } else {
+            return static::getDefaultImage();
+        }
 
-        return (object)[
-            '_50' => $server . '/storage/' . $folder . '/50-50/' . $imageName,
-            '_100' => $server . '/storage/' . $folder . '/100-100/' . $imageName,
-            'original' => $server . '/storage/' . $folder . '/original/' . $imageName,
+        return (object) [
+            '_50' => $server.'/storage/'.$folder.'/50-50/'.$imageName,
+            '_100' => $server.'/storage/'.$folder.'/100-100/'.$imageName,
+            'original' => $server.'/storage/'.$folder.'/original/'.$imageName,
         ];
     }
 
@@ -38,13 +40,14 @@ class ImageHelper
     {
         $protocol = 'http://';
 
-        if (Str::of(URL::current())->startsWith('https'))
+        if (Str::of(URL::current())->startsWith('https')) {
             $protocol = 'https://';
+        }
 
-        return (object)[
-            '_50' => $protocol . $_SERVER['HTTP_HOST'] . '/images/logo-50.png',
-            '_100' => $protocol . $_SERVER['HTTP_HOST'] . '/images/logo-100.png',
-            'original' => $protocol . $_SERVER['HTTP_HOST'] . '/images/logo-original.png',
+        return (object) [
+            '_50' => $protocol.$_SERVER['HTTP_HOST'].'/images/logo-50.png',
+            '_100' => $protocol.$_SERVER['HTTP_HOST'].'/images/logo-100.png',
+            'original' => $protocol.$_SERVER['HTTP_HOST'].'/images/logo-original.png',
         ];
     }
 
@@ -58,8 +61,9 @@ class ImageHelper
      */
     public static function getImage(string $folder, ?Image $image, ?string $server = null)
     {
-        if (!$server)
+        if (! $server) {
             $server = config('faithgen-sdk.ministries-server');
+        }
 
         return static::getImages($server, $folder, $image);
     }

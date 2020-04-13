@@ -47,7 +47,7 @@ class AccountActivated extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->greeting('Hello ' . $this->ministry->name)
+            ->greeting('Hello '.$this->ministry->name)
             ->subject('Account activated')
             ->line('Your FaithGen account has been activated.')
             ->line('Please feel free to use our platform and always contact support if you miss something.')

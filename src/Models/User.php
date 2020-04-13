@@ -23,14 +23,14 @@ class User extends Authenticatable
         'password',
         'created_at',
         'updated_at',
-        'remember_token'
+        'remember_token',
     ];
 
     //****************************************************************************//
     //***************************** MODEL ATTRIBUTES *****************************//
     //****************************************************************************//
 
-    function getNameAttribute($val)
+    public function getNameAttribute($val)
     {
         return ucwords($val);
     }
@@ -40,15 +40,15 @@ class User extends Authenticatable
     //****************************************************************************//
 
     /**
-     * Links comments to this user
+     * Links comments to this user.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    function comments()
+    public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
-    function getMinistriesAttribute()
+    public function getMinistriesAttribute()
     {
         return Ministry::whereHas('ministryUsers', function ($minUser) {
             return $minUser->where('user_id', $this->id);
@@ -57,25 +57,27 @@ class User extends Authenticatable
 
     public function getActiveAttribute(): bool
     {
-        if ($user = $this->ministryUsers()->where('ministry_id', auth()->user()->id)->first())
-            return (bool)$user->active;
+        if ($user = $this->ministryUsers()->where('ministry_id', auth()->user()->id)->first()) {
+            return (bool) $user->active;
+        }
+
         return false;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
-    function filesDir()
+    public function filesDir()
     {
         return 'users';
     }
 
-    function getFileName()
+    public function getFileName()
     {
         return $this->image->name;
     }
 
-    function getImageDimensions()
+    public function getImageDimensions()
     {
         return [0, 50];
     }

@@ -29,7 +29,6 @@ class S3Upload implements ShouldQueue
         $this->user = $user;
     }
 
-
     /**
      * Execute the job.
      *

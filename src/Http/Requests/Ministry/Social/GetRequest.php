@@ -24,7 +24,7 @@ class GetRequest extends FormRequest
     public function rules()
     {
         return [
-            'platform' => 'required|in:facebook,youtube'
+            'platform' => 'required|in:facebook,youtube',
         ];
     }
 }

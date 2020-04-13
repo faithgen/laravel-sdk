@@ -38,7 +38,7 @@ class UpdateProfileRequest extends FormRequest
             'phones' => 'array',
             'emails.*' => 'email',
             'services' => 'array',
-            'services.*.day' => 'required|in:' . implode(',', Helper::$weekDays),
+            'services.*.day' => 'required|in:'.implode(',', Helper::$weekDays),
             'services.*.start' => ['required', 'date_format:H:i', 'regex:/^((([01]?[0-9]|2[0-3]):[0-5][0-9])?)$/'],
             'services.*.finish' => ['required', 'date_format:H:i', 'regex:/^((([01]?[0-9]|2[0-3]):[0-5][0-9])?)$/'],
             'services.*.alias' => 'nullable',

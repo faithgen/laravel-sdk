@@ -2,7 +2,6 @@
 
 namespace FaithGen\SDK\Observers;
 
-
 use FaithGen\SDK\Models\Image;
 
 class ImageObserver

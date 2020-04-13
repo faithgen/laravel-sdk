@@ -24,7 +24,7 @@ class UpdateImageRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|base64image'
+            'image' => 'required|base64image',
         ];
     }
 }

@@ -26,7 +26,7 @@ class ToggleActivityRequest extends FormRequest
     {
         return [
             'user_id' => Helper::$idValidation,
-            'active' => 'required|boolean'
+            'active' => 'required|boolean',
         ];
     }
 }

@@ -26,7 +26,7 @@ class SendRevealRequest extends FormRequest
     {
         return [
             'review' => 'required|string',
-            'type' => 'required|in:' . implode(',', Helper::$reviewTypes)
+            'type' => 'required|in:'.implode(',', Helper::$reviewTypes),
         ];
     }
 }

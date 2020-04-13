@@ -15,9 +15,10 @@ class ActivatedMinistryMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (auth(config('faithgen-sdk.guard'))->user()->activation->active)
+        if (auth(config('faithgen-sdk.guard'))->user()->activation->active) {
             return $next($request);
-        else
+        } else {
             abort(403, 'You need to activate you account first to access this part');
+        }
     }
 }

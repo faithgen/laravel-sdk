@@ -2,8 +2,8 @@
 
 namespace FaithGen\SDK\Models\Ministry;
 
-use FaithGen\SDK\Traits\Relationships\Belongs\BelongsToMinistryTrait;
 use FaithGen\SDK\Models\UuidModel;
+use FaithGen\SDK\Traits\Relationships\Belongs\BelongsToMinistryTrait;
 
 class Profile extends UuidModel
 {
@@ -19,12 +19,12 @@ class Profile extends UuidModel
     //***************************** MODEL ATTRIBUTES *****************************//
     //****************************************************************************///
 
-    function getVisionAttribute($val)
+    public function getVisionAttribute($val)
     {
         return ucfirst($val);
     }
 
-    function getMissionAttribute($val)
+    public function getMissionAttribute($val)
     {
         return ucfirst($val);
     }
@@ -32,5 +32,4 @@ class Profile extends UuidModel
     //****************************************************************************//
     //***************************** MODEL ATTRIBUTES *****************************//
     //****************************************************************************//
-
 }

@@ -53,10 +53,10 @@ class MinistryController extends Controller
      * @param GetRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    function getSocialLink(GetRequest $request)
+    public function getSocialLink(GetRequest $request)
     {
         return response()->json([
-            'link' => auth()->user()->profile[$request->platform]
+            'link' => auth()->user()->profile[$request->platform],
         ]);
     }
 
@@ -66,14 +66,15 @@ class MinistryController extends Controller
      * @param UpdateRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    function saveSocialLink(UpdateRequest $request)
+    public function saveSocialLink(UpdateRequest $request)
     {
         $profile = auth()->user()->profile;
         $profile[$request->platform] = $request->link;
         try {
             $profile->save();
+
             return response()->json([
-                'link' => $request->link
+                'link' => $request->link,
             ]);
         } catch (\Exception $e) {
             abort(500, $e->getMessage());
@@ -85,15 +86,16 @@ class MinistryController extends Controller
      *
      * @return MinistryResource|ProfileResource
      */
-    function getProfile()
+    public function getProfile()
     {
         ProfileResource::withoutWrapping();
         MinistryResource::withoutWrapping();
 
-        if (request()->has('complete') && request()->complete)
+        if (request()->has('complete') && request()->complete) {
             return new ProfileResource(auth()->user());
-        else
+        } else {
             return new MinistryResource(auth()->user());
+        }
     }
 
     /**
@@ -103,16 +105,17 @@ class MinistryController extends Controller
      * @param ImageManager $imageManager
      * @return mixed
      */
-    function updatePhoto(UpdateImageRequest $request, ImageManager $imageManager)
+    public function updatePhoto(UpdateImageRequest $request, ImageManager $imageManager)
     {
-        if (auth()->user()->image()->exists())
+        if (auth()->user()->image()->exists()) {
             $this->deleteFiles(auth()->user());
+        }
 
-        $fileName = str_shuffle(auth()->user()->id . time() . time()) . '.png';
-        $ogSave = storage_path('app/public/profile/original/') . $fileName;
+        $fileName = str_shuffle(auth()->user()->id.time().time()).'.png';
+        $ogSave = storage_path('app/public/profile/original/').$fileName;
         $imageManager->make($request->image)->save($ogSave);
         $image = auth()->user()->image()->updateOrCreate([], [
-            'name' => $fileName
+            'name' => $fileName,
         ]);
 
         event(new ImageSaved($image));
@@ -126,7 +129,7 @@ class MinistryController extends Controller
      * @param UpdatePasswordRequest $request
      * @return mixed
      */
-    function updatePassword(UpdatePasswordRequest $request)
+    public function updatePassword(UpdatePasswordRequest $request)
     {
         if (Hash::check($request->current, auth()->user()->password)) {
             if (strcmp($request->_new, $request->confirm) === 0) {
@@ -134,12 +137,17 @@ class MinistryController extends Controller
                 $user->password = Hash::make($request->_new);
                 try {
                     $user->save();
+
                     return $this->successResponse('Password change successful');
                 } catch (\Exception $e) {
                     abort(500, $e->getMessage());
                 }
-            } else abort(500, 'News passwords did not match!');
-        } else abort(500, 'Current password is incorrect!');
+            } else {
+                abort(500, 'News passwords did not match!');
+            }
+        } else {
+            abort(500, 'Current password is incorrect!');
+        }
     }
 
     /**
@@ -148,16 +156,19 @@ class MinistryController extends Controller
      * @param DeleteRequest $request
      * @return mixed
      */
-    function deleteProfile(DeleteRequest $request)
+    public function deleteProfile(DeleteRequest $request)
     {
         if (Hash::check($request->password, auth()->user()->password)) {
             try {
                 auth()->user()->delete();
+
                 return $this->successResponse('Your profile has been deleted, it was good having you on our platform. Hope to see you again soon');
             } catch (\Exception $e) {
                 abort(500, $e->getMessage());
             }
-        } else abort(500, 'Password is incorrect!');
+        } else {
+            abort(500, 'Password is incorrect!');
+        }
     }
 
     /**
@@ -166,7 +177,7 @@ class MinistryController extends Controller
      * @param UpdateProfileRequest $request
      * @return \Illuminate\Http\JsonResponse|mixed
      */
-    function updateProfile(UpdateProfileRequest $request)
+    public function updateProfile(UpdateProfileRequest $request)
     {
         $ministryParams = $request->only(['name', 'email', 'phone']);
 
@@ -177,16 +188,17 @@ class MinistryController extends Controller
 
         $params = ['color' => $request->color];
 
-        $params = array_merge($params, array_filter($request->links, fn($link) => in_array($link, $links), ARRAY_FILTER_USE_KEY));
+        $params = array_merge($params, array_filter($request->links, fn ($link) => in_array($link, $links), ARRAY_FILTER_USE_KEY));
 
-        $params = array_merge($params, array_filter($request->statement, fn($link) => in_array($link, $statements), ARRAY_FILTER_USE_KEY));
+        $params = array_merge($params, array_filter($request->statement, fn ($link) => in_array($link, $statements), ARRAY_FILTER_USE_KEY));
 
         $params = array_merge($params, ['emails' => $request->emails]);
 
         $params = array_merge($params, ['phones' => $request->phones]);
 
-        if ($request->has('location'))
+        if ($request->has('location')) {
             $params = array_merge($params, ['location' => $request->location]);
+        }
 
         $this->saveServices($request, auth()->user());
 
@@ -208,7 +220,7 @@ class MinistryController extends Controller
 
             $services = array_map(function ($service) {
                 return array_merge($service, [
-                    'id' => str_shuffle((string)Str::uuid()),
+                    'id' => str_shuffle((string) Str::uuid()),
                     'ministry_id' => auth()->user()->id,
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -224,9 +236,10 @@ class MinistryController extends Controller
      * @param $links
      * @return bool
      */
-    function getLinks($links)
+    public function getLinks($links)
     {
         $_links = ['website', 'facebook', 'youtube', 'twitter', 'instagram'];
+
         return array_key_exists($links, $_links);
     }
 
@@ -235,7 +248,7 @@ class MinistryController extends Controller
      *
      * @return mixed
      */
-    function accountType()
+    public function accountType()
     {
         return auth()->user()->account->level;
     }
@@ -252,7 +265,7 @@ class MinistryController extends Controller
             ->ministryUsers()
             ->latest()
             //->with(['user.image'])
-            ->where(fn($ministryUser) => $ministryUser->whereHas('user', fn($user) => $user->search(['name', 'email'], $request->filter_text)))
+            ->where(fn ($ministryUser) => $ministryUser->whereHas('user', fn ($user) => $user->search(['name', 'email'], $request->filter_text)))
             ->paginate(Helper::getLimit($request));
 
         //return $ministryUsers;
@@ -263,7 +276,7 @@ class MinistryController extends Controller
     }
 
     /**
-     * Blocks or unblock a user
+     * Blocks or unblock a user.
      *
      * @param ToggleActivityRequest $request
      * @return void
@@ -277,6 +290,7 @@ class MinistryController extends Controller
 
             return $this->successResponse('This user`s active status has been changed');
         }
+
         return abort(403, 'You are not allowed to alter that user, they do not belong to your following');
     }
 }
