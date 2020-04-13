@@ -9,11 +9,5 @@ class Account extends UuidModel
 {
     use  BelongsToMinistryTrait;
 
-    /**
-     * MODEL ATTRIBUTES.
-     */
-
-    /**
-     * MODEL RELATIONSHIPS.
-     */
+    protected $table = 'fg_accounts';
 }
