@@ -2,8 +2,8 @@
 
 namespace FaithGen\SDK\Providers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 
 final class AuthServiceProvider extends ServiceProvider
 {
@@ -13,6 +13,7 @@ final class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [];
+
     /**
      * Register services.
      *
@@ -35,13 +36,15 @@ final class AuthServiceProvider extends ServiceProvider
             Auth::guard('web')->loginUsingId($user_id);
         }
 
-        if (!config('faithgen-sdk.source'))
+        if (! config('faithgen-sdk.source')) {
             Auth::viaRequest('api-key', function ($request) {
                 $api_key = request()->headers->get('x-api-key');
                 $class = config('auth.providers.ministries.model');
+
                 return $class::whereHas('apiKey', function ($apiKey) use ($api_key) {
                     return $apiKey->where('api_key', $api_key);
                 })->first();
             });
+        }
     }
 }

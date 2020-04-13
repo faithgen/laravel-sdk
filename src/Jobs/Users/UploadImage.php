@@ -36,7 +36,6 @@ class UploadImage implements ShouldQueue
         $this->image = $image;
     }
 
-
     /**
      * Execute the job.
      *
@@ -46,16 +45,17 @@ class UploadImage implements ShouldQueue
     public function handle(ImageManager $imageManager)
     {
         if ($this->image) {
-            if ($this->user->image()->exists())
+            if ($this->user->image()->exists()) {
                 $fileName = $this->user->image->name;
-            else
-                $fileName = str_shuffle($this->user->id . time() . time()) . '.png';
-            $ogSave = storage_path('app/public/users/original/') . $fileName;
+            } else {
+                $fileName = str_shuffle($this->user->id.time().time()).'.png';
+            }
+            $ogSave = storage_path('app/public/users/original/').$fileName;
             $imageManager->make($this->image)->save($ogSave);
             $this->user->image()->updateOrcreate([
-                'imageable_id' => $this->user->id
+                'imageable_id' => $this->user->id,
             ], [
-                'name' => $fileName
+                'name' => $fileName,
             ]);
         }
     }

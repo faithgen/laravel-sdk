@@ -1,10 +1,10 @@
 <?php
 
 use FaithGen\SDK\Http\Controllers\CommentController;
-use FaithGen\SDK\Http\Controllers\ReviewController;
-use Illuminate\Support\Facades\Route;
 use FaithGen\SDK\Http\Controllers\ImageController;
 use FaithGen\SDK\Http\Controllers\MinistryController;
+use FaithGen\SDK\Http\Controllers\ReviewController;
+use Illuminate\Support\Facades\Route;
 
 Route::name('ministry.')->prefix('ministry/')->group(function () {
     Route::post('social-link', [MinistryController::class, 'getSocialLink']);
@@ -22,7 +22,7 @@ Route::prefix('reviews')
         Route::post('', [ReviewController::class, 'sendReview']);
     });
 
-if (!config('faithgen-sdk.source')) {
+if (! config('faithgen-sdk.source')) {
     Route::prefix('comments')
         ->group(function () {
             Route::post('presence', [CommentController::class, 'presenceRegister']);

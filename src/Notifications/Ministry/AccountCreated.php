@@ -46,10 +46,10 @@ class AccountCreated extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url('/auth/activate/'.$this->ministry->id . '/' . $this->ministry->activation->code);
+        $url = url('/auth/activate/'.$this->ministry->id.'/'.$this->ministry->activation->code);
 
         return (new MailMessage)
-            ->greeting('Hello ' . $this->ministry->name)
+            ->greeting('Hello '.$this->ministry->name)
             ->subject('FaithGen account created!')
             ->from('accounts@faitghen.com', 'Faith Gen')
             ->line('We have received your account registration request, please just activate your account to get started with us')

@@ -24,7 +24,7 @@ class DeleteRequest extends FormRequest
     public function rules()
     {
         return [
-            'password' => 'required|string|min:6'
+            'password' => 'required|string|min:6',
         ];
     }
 }

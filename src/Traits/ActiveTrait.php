@@ -1,6 +1,5 @@
 <?php
 
-
 namespace FaithGen\SDK\Traits;
 
 /**
@@ -10,10 +9,10 @@ trait ActiveTrait
 {
     public function getActiveAttribute($val)
     {
-        return (bool)$val;
+        return (bool) $val;
     }
 
-    function scopeActive($query)
+    public function scopeActive($query)
     {
         return $query->whereActive(true);
     }

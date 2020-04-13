@@ -15,7 +15,7 @@ trait ExcludesColumns
     {
         $tableColumns = $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
 
-        $requiredColumns = collect($tableColumns)->filter(fn($column) => !in_array($column, $columns))->toArray();
+        $requiredColumns = collect($tableColumns)->filter(fn ($column) => ! in_array($column, $columns))->toArray();
 
         return $query->select($requiredColumns);
     }

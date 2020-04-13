@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Schema;
 
 class EventServiceProvider extends ServiceProvider
 {
-
     protected $listen = [
         \FaithGen\SDK\Events\Ministry\Profile\ImageSaved::class => [
             \FaithGen\SDK\Listeners\Ministry\Profile\ImageSaved\ProcessImage::class,

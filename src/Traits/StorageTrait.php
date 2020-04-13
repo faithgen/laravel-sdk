@@ -1,27 +1,25 @@
 <?php
 
-
 namespace FaithGen\SDK\Traits;
-
 
 trait StorageTrait
 {
     /**
-     * The name of the directory in storage that has files for this model
+     * The name of the directory in storage that has files for this model.
      * @return mixed
      */
-    abstract function filesDir();
+    abstract public function filesDir();
 
     /**
-     * The file name fo this model
+     * The file name fo this model.
      * @return mixed
      */
-    abstract function getFileName();
+    abstract public function getFileName();
 
-    function getImageDimensions()
+    public function getImageDimensions()
     {
         return [
-            0, 50, 100
+            0, 50, 100,
         ];
     }
 }

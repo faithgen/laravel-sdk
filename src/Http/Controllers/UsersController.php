@@ -21,12 +21,12 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    function register(SaveRequest $request)
+    public function register(SaveRequest $request)
     {
         $user = User::create($request->only('name', 'email', 'phone'));
 
         $ministryUser = auth()->user()->ministryUsers()->create([
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
 
         return $this->processResponse($request, $ministryUser, 'Account created successfully.');
@@ -39,7 +39,7 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    function update(SaveRequest $request)
+    public function update(SaveRequest $request)
     {
         $updated = auth('web')->user()
             ->update($request->only('name', 'email', 'phone'));
@@ -64,12 +64,14 @@ class UsersController extends Controller
     {
         $ministryUser = auth()->user()
             ->ministryUsers()
-            ->whereHas('user', fn($user) => $user->where($request->validated()))
+            ->whereHas('user', fn ($user) => $user->where($request->validated()))
             ->first();
 
-        if ($ministryUser)
+        if ($ministryUser) {
             return $this->processResponse($request, $ministryUser, 'Login successful.');
-        else abort(401, 'This phone number is not valid for this app');
+        } else {
+            abort(401, 'This phone number is not valid for this app');
+        }
     }
 
     /**
@@ -84,13 +86,14 @@ class UsersController extends Controller
     {
         $data = [
             'user' => new MinistryUser($ministryUser),
-            'processing_image' => $request->has('image')
+            'processing_image' => $request->has('image'),
         ];
 
-        if (!$request->has('image'))
+        if (! $request->has('image')) {
             return $this->successResponse($messagePrefix, $data);
-        else
-            return $this->successResponse($messagePrefix . ' We are uploading your picture now', $data);
+        } else {
+            return $this->successResponse($messagePrefix.' We are uploading your picture now', $data);
+        }
     }
 
     /**
@@ -98,7 +101,7 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    function deleteUserAccount()
+    public function deleteUserAccount()
     {
         auth('web')->user()->delete();
 
@@ -110,13 +113,14 @@ class UsersController extends Controller
      *
      * @return MinistryUser
      */
-    function getUser()
+    public function getUser()
     {
         $ministryUser = auth()->user()->ministryUsers()
             ->where('user_id', request()->headers->get('x-user-key'))
             ->first();
 
         MinistryUser::withoutWrapping();
+
         return new MinistryUser($ministryUser);
     }
 }

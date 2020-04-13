@@ -15,8 +15,10 @@ class SourceSiteMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (config('faithgen-sdk.source'))
+        if (config('faithgen-sdk.source')) {
             return $next($request);
-        else abort(403, 'You are not allowed to perform this action');
+        } else {
+            abort(403, 'You are not allowed to perform this action');
+        }
     }
 }

@@ -7,16 +7,17 @@ use FaithGen\SDK\Traits\Relationships\Morphs\CommentableTrait;
 class Image extends UuidModel
 {
     use CommentableTrait;
+
     /**
-     * This relates all models to the image
+     * This relates all models to the image.
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    function imageable()
+    public function imageable()
     {
         return $this->morphTo();
     }
 
-    function getCaptionAttribute($val)
+    public function getCaptionAttribute($val)
     {
         return ucfirst($val);
     }

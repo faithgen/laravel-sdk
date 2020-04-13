@@ -27,7 +27,7 @@ class PresenceRegistryRequest extends FormRequest
         return [
             'item_id'=>Helper::$idValidation,
             'category'=>'required|string',
-            'coming_in' => 'required|boolean'
+            'coming_in' => 'required|boolean',
         ];
     }
 }

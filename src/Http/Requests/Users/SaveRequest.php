@@ -13,9 +13,11 @@ class SaveRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route()->getName() === 'users.register')
+        if ($this->route()->getName() === 'users.register') {
             return true;
-        else return auth('web')->user();
+        } else {
+            return auth('web')->user();
+        }
     }
 
     /**
@@ -27,7 +29,7 @@ class SaveRequest extends FormRequest
         'name' => 'required|string',
         'email' => 'email',
         'phone' => 'required|string|unique:users,phone',
-        'image' => 'base64image'
+        'image' => 'base64image',
     ];
 
     /**
@@ -37,17 +39,19 @@ class SaveRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->route()->getName() === 'users.register')
+        if ($this->route()->getName() === 'users.register') {
             return $this->baseRules;
-        else return array_merge($this->baseRules, [
-            'phone' => 'required|string'
-        ]);
+        } else {
+            return array_merge($this->baseRules, [
+                'phone' => 'required|string',
+            ]);
+        }
     }
 
     public function messages()
     {
         return [
-            'phone.unique' => 'Number already used, try logging in instead'
+            'phone.unique' => 'Number already used, try logging in instead',
         ];
     }
 }

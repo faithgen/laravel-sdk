@@ -11,7 +11,7 @@ trait ImageableTrait
      *
      * @return mixed
      */
-    function images()
+    public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
     }
@@ -21,7 +21,7 @@ trait ImageableTrait
      *
      * @return mixed
      */
-    function image()
+    public function image()
     {
         return $this->morphOne(Image::class, 'imageable');
     }

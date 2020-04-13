@@ -12,10 +12,10 @@ class MinistryObserver
 {
     use FileTraits;
 
-    function creating(Ministry $ministry)
+    public function creating(Ministry $ministry)
     {
         $ministry->password = Hash::make(request()->password);
-        $ministry->id = (string)Str::uuid();
+        $ministry->id = (string) Str::uuid();
     }
 
     /**
@@ -31,7 +31,7 @@ class MinistryObserver
         $ministry->account()->save(new Ministry\Account());
         $ministry->activation()->save(new Ministry\Activation());
         $ministry->apiKey()->save(new Ministry\APIKey([
-            'api_key' => str_shuffle(Uuid::generate()->string)
+            'api_key' => str_shuffle(Uuid::generate()->string),
         ]));
 
         $ministry->notify(new AccountCreated($ministry));
@@ -60,8 +60,9 @@ class MinistryObserver
     public function deleted(Ministry $ministry)
     {
         //todo remove aa lotta staff related to this ministry
-        if ($ministry->image()->exists())
+        if ($ministry->image()->exists()) {
             $ministry->image()->delete();
+        }
 
         try {
             $this->deleteFiles($ministry);

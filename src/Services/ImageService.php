@@ -8,15 +8,18 @@ use InnoFlash\LaraStart\Services\CRUDServices;
 class ImageService extends CRUDServices
 {
     private $image;
-    function __construct(Image $image)
+
+    public function __construct(Image $image)
     {
-        if (request()->has('image_id'))
+        if (request()->has('image_id')) {
             $this->image = Image::findOrFail(request('image_id'));
-        else $this->image = $image;
+        } else {
+            $this->image = $image;
+        }
     }
 
     /**
-     * Retrives an instance of image
+     * Retrives an instance of image.
      */
     public function getImage(): Image
     {
@@ -26,18 +29,18 @@ class ImageService extends CRUDServices
     /**
      * Makes a list of fields that you do not want to be sent
      * to the create or update methods
-     * Its mainly the fields that you do not have in the images table
+     * Its mainly the fields that you do not have in the images table.
      */
-    function getUnsetFields()
+    public function getUnsetFields()
     {
         return ['image_id'];
     }
 
     /**
-     * This returns the model found in the constructor 
-     * or an instance of the class if no image is found
+     * This returns the model found in the constructor
+     * or an instance of the class if no image is found.
      */
-    function getModel()
+    public function getModel()
     {
         return $this->getImage();
     }

@@ -2,12 +2,12 @@
 
 namespace FaithGen\SDK\Http\Controllers;
 
-use Illuminate\Http\Request;
-use FaithGen\SDK\Models\Image;
-use Illuminate\Routing\Controller;
-use FaithGen\SDK\Helpers\CommentHelper;
-use FaithGen\SDK\Services\ImageService;
 use FaithGen\Gallery\Http\Requests\ImageCommentRequest;
+use FaithGen\SDK\Helpers\CommentHelper;
+use FaithGen\SDK\Models\Image;
+use FaithGen\SDK\Services\ImageService;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class ImageController extends Controller
 {

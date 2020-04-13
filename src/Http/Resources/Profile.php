@@ -22,12 +22,12 @@ class Profile extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'color' => $this->profile->color,
-            'active' => (bool)$this->activation->active,
+            'active' => (bool) $this->activation->active,
             'api_key' => $this->apiKey->api_key,
             'avatar' => ImageHelper::getImage('profile', $this->image, config('faithgen-sdk.ministries-server')),
             'date' => Helper::getDates($this->created_at),
             'users' => [
-                'count' => $this->ministryUsers()->count()
+                'count' => $this->ministryUsers()->count(),
             ],
             'location' => $this->profile->location,
             'links' => [

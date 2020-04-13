@@ -1,21 +1,19 @@
 <?php
 
-
 namespace FaithGen\SDK\Traits;
-
 
 use Illuminate\Support\Facades\Route;
 
 trait ConfigTrait
 {
     /**
-     * The config you want to be applied onto your routes
+     * The config you want to be applied onto your routes.
      * @return array the rules eg, middleware, prefix, namespace
      */
-    abstract function routeConfiguration(): array;
+    abstract public function routeConfiguration(): array;
 
     /**
-     * This configures the routes with the given routes
+     * This configures the routes with the given routes.
      * @param string|array $primaryRoute the primary route(s) files to be loaded whatsoever
      * @param string|array $secondaryRoute the route(s) files to be loaded when in source mode
      */
@@ -31,13 +29,15 @@ trait ConfigTrait
 
     private function loadRoutes($routes)
     {
-        if ($routes)
-            if (is_string($routes))
+        if ($routes) {
+            if (is_string($routes)) {
                 $this->loadRoutesFrom($routes);
-            else if (is_array($routes))
+            } elseif (is_array($routes)) {
                 foreach ($routes as $route) {
                     $this->loadRoutesFrom($route);
                 }
+            }
+        }
     }
 
     /*
@@ -45,8 +45,10 @@ trait ConfigTrait
      */
     protected function setUpSourceFiles(\Closure $closure)
     {
-        if ($this->app->runningInConsole())
-            if (config('faithgen-sdk.source'))
+        if ($this->app->runningInConsole()) {
+            if (config('faithgen-sdk.source')) {
                 $closure->call($this);
+            }
+        }
     }
 }

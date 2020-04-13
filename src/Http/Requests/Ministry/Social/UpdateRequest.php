@@ -25,7 +25,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'platform' => 'required|in:facebook,youtube',
-            'link' => 'required|url'
+            'link' => 'required|url',
         ];
     }
 }
