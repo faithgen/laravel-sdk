@@ -24,6 +24,7 @@ class Ministry extends Authenticatable implements JWTSubject
     use ManyMinistryUsers;
     use CreatableTrait;
 
+    protected $table = 'fg_ministries';
     protected $guarded = ['id'];
     public $incrementing = false;
     protected $hidden = [

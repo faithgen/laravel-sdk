@@ -13,7 +13,7 @@ class CreateMinistriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ministries', function (Blueprint $table) {
+        Schema::create('fg_ministries', function (Blueprint $table) {
             $table->string('id', 150)->primary();
             $table->string('name');
             $table->string('email', 150)->unique();
@@ -30,6 +30,6 @@ class CreateMinistriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ministries');
+        Schema::dropIfExists('fg_ministries');
     }
 }
