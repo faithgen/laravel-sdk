@@ -13,7 +13,7 @@ class CreateProfilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('profiles', function (Blueprint $table) {
+        Schema::create('fg_profiles', function (Blueprint $table) {
             $table->string('id', 150)->primary();
             $table->string('ministry_id', 150)->index();
             $table->text('about_us')->nullable();
@@ -41,6 +41,6 @@ class CreateProfilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profiles');
+        Schema::dropIfExists('fg_profiles');
     }
 }

@@ -9,6 +9,8 @@ class Profile extends UuidModel
 {
     use  BelongsToMinistryTrait;
 
+    protected $table = 'fg_profiles';
+
     protected $casts = [
         'location' => 'array',
         'phones' => 'array',
