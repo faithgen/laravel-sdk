@@ -23,7 +23,7 @@ class CreateDailyServicesTable extends Migration
             $table->string('finish');
             $table->timestamps();
 
-            $table->foreign('ministry_id')->references('id')->on('ministries')->onDelete('cascade');
+            $table->foreign('ministry_id')->references('id')->on('fg_ministries')->onDelete('cascade');
         });
     }
 

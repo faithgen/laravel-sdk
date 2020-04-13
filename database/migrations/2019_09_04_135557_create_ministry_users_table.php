@@ -20,8 +20,8 @@ class CreateMinistryUsersTable extends Migration
             $table->boolean('active')->default(true);
             $table->timestamps();
 
-            $table->foreign('ministry_id')->references('id')->on('ministries')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('ministry_id')->references('id')->on('fg_ministries')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('fg_users')->onDelete('cascade');
         });
     }
 
