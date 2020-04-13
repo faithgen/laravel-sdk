@@ -13,7 +13,7 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('fg_comments', function (Blueprint $table) {
             $table->string('id', 150);
             $table->string('creatable_id', 150)->index();
             $table->string('creatable_type');
@@ -33,6 +33,6 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('fg_comments');
     }
 }

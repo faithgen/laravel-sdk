@@ -4,6 +4,8 @@ namespace FaithGen\SDK\Models;
 
 class Comment extends UuidModel
 {
+    protected $table = 'fg_comments';
+
     public function commentable()
     {
         return $this->morphTo();
