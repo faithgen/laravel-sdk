@@ -9,5 +9,6 @@ class Review extends UuidModel
 {
     use BelongsToMinistryTrait;
 
+    protected $table = 'fg_reviews';
     protected $guarded = ['id'];
 }

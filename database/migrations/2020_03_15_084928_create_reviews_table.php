@@ -14,7 +14,7 @@ class CreateReviewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('fg_reviews', function (Blueprint $table) {
             $table->string('id')->index();
             $table->string('ministry_id', 150)->index();
             $table->enum('type', Helper::$reviewTypes);
@@ -33,6 +33,6 @@ class CreateReviewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reviews');
+        Schema::dropIfExists('fg_reviews');
     }
 }
