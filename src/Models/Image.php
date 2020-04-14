@@ -9,6 +9,7 @@ class Image extends UuidModel
     use CommentableTrait;
 
     protected $table = 'fg_images';
+
     /**
      * This relates all models to the image.
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
