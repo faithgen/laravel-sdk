@@ -23,7 +23,7 @@ class ProcessImage implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @param User $user
+     * @param  User  $user
      */
     public function __construct(User $user)
     {
@@ -33,7 +33,8 @@ class ProcessImage implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @param ImageManager $imageManager
+     * @param  ImageManager  $imageManager
+     *
      * @return void
      */
     public function handle(ImageManager $imageManager)

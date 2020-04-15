@@ -53,6 +53,7 @@ class Ministry extends Authenticatable implements JWTSubject
 
     /**
      * Links the profile to a ministry.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
 
@@ -71,6 +72,7 @@ class Ministry extends Authenticatable implements JWTSubject
 
     /**
      * Links the account to the ministry.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function account()
@@ -80,6 +82,7 @@ class Ministry extends Authenticatable implements JWTSubject
 
     /**
      * Links the activation to this ministry.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function activation()
@@ -123,6 +126,7 @@ class Ministry extends Authenticatable implements JWTSubject
 
     /**
      * The name of the directory in storage that has files for this model.
+     *
      * @return mixed
      */
     public function filesDir()
@@ -132,6 +136,7 @@ class Ministry extends Authenticatable implements JWTSubject
 
     /**
      * The file name fo this model.
+     *
      * @return mixed
      */
     public function getFileName()
