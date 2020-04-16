@@ -125,4 +125,16 @@ class MinistryTest extends TestCase
         $this->assertEquals($ministry->activation->code, $activation->code);
         $this->assertEquals($ministry->activation->ministry_id, $activation->ministry_id);
     }
+
+    /**
+     * @test
+     */
+    public function it_can_create_ministry_account_from_url()
+    {
+        $postData = [
+            'name' => 'the name',
+        ];
+        $this->post('/api/ministry/auth/register', $postData)
+            ->assertStatus(422);
+    }
 }
