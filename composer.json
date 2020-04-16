@@ -3,6 +3,7 @@
     "description": "This is the SDK for the FaithGen system",
     "type": "library",
     "license": "MIT",
+    "homepage": "https://github.com/faithgen/laravel-sdk",
     "authors": [
         {
             "name": "Innocent Mazando",
