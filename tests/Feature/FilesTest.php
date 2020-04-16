@@ -11,9 +11,9 @@ class FilesTest extends TestCase
      */
     public function it_has_storage_files()
     {
-        $this->assertDirectoryExists(__DIR__.'/../../storage');
-        $this->assertDirectoryExists(__DIR__.'/../../storage/logo');
-        $this->assertDirectoryExists(__DIR__.'/../../storage/users');
+        $this->assertDirectoryExists(__DIR__.'/../../storage', 'Create the storage dir');
+        $this->assertDirectoryExists(__DIR__.'/../../storage/logo', 'Create the logo dir inside of storage');
+        $this->assertDirectoryExists(__DIR__.'/../../storage/users', 'Create a users dir inside of storage');
         $this->assertDirectoryExists(__DIR__.'/../../storage/profile');
     }
 
