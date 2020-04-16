@@ -43,6 +43,8 @@ class FaithGenSDKServiceProvider extends ServiceProvider
                 $this->publishes([
                     __DIR__.'/../storage/users/' => storage_path('app/public/users'),
                 ], 'faithgen-sdk-storage');
+
+                $this->loadFactoriesFrom(__DIR__.'/../database/factories');
             }
 
             $this->publishes([
@@ -59,7 +61,7 @@ class FaithGenSDKServiceProvider extends ServiceProvider
     private function apiRouteConfiguration()
     {
         return [
-            'prefix' => config('faithgen-sdk.prefix'),
+            'prefix'     => config('faithgen-sdk.prefix'),
             'middleware' => [
                 'auth:api',
                 'ministry.activated',
@@ -78,7 +80,7 @@ class FaithGenSDKServiceProvider extends ServiceProvider
     private function parentRouteConfiguration()
     {
         return [
-            'prefix' => config('faithgen-sdk.prefix'),
+            'prefix'     => config('faithgen-sdk.prefix'),
             'middleware' => [
                 'auth:api',
                 'ministry.activated',
@@ -104,7 +106,7 @@ class FaithGenSDKServiceProvider extends ServiceProvider
     private function authRouteConfiguration()
     {
         return [
-            'prefix' => config('faithgen-sdk.prefix'),
+            'prefix'     => config('faithgen-sdk.prefix'),
             'middleware' => ['bindings'],
         ];
     }
