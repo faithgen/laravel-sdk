@@ -11,5 +11,6 @@ $factory->define(Ministry::class, function (Faker $faker) {
         'email'    => $faker->safeEmail,
         'phone'    => $faker->phoneNumber,
         'password' => \Illuminate\Support\Facades\Hash::make('secret'),
+        'id'       => \Illuminate\Support\Str::uuid()->toString(),
     ];
 });

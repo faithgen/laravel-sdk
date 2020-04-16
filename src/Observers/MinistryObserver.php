@@ -21,9 +21,10 @@ class MinistryObserver
     /**
      * Handle the ministry "created" event.
      *
-     * @param \App\Models\Ministry $ministry
-     * @return void
+     * @param  \App\Models\Ministry  $ministry
+     *
      * @throws \Exception
+     * @return void
      */
     public function created(Ministry $ministry)
     {
@@ -31,7 +32,7 @@ class MinistryObserver
         $ministry->account()->save(new Ministry\Account());
         $ministry->activation()->save(new Ministry\Activation());
         $ministry->apiKey()->save(new Ministry\APIKey([
-            'api_key' => str_shuffle(Uuid::generate()->string),
+            'api_key' => str_shuffle(Str::uuid()->toString()),
         ]));
 
         $ministry->notify(new AccountCreated($ministry));
@@ -40,12 +41,12 @@ class MinistryObserver
     /**
      * Handle the ministry "updated" event.
      *
-     * @param Ministry $ministry
+     * @param  Ministry  $ministry
+     *
      * @return void
      */
     public function updated(Ministry $ministry)
     {
-        // dump('has services');
         if (request()->has('services')) {
             $ministry->services()->insert(request()->services);
         }
@@ -54,7 +55,8 @@ class MinistryObserver
     /**
      * Handle the ministry "deleted" event.
      *
-     * @param Ministry $ministry
+     * @param  Ministry  $ministry
+     *
      * @return void
      */
     public function deleted(Ministry $ministry)

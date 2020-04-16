@@ -2,7 +2,8 @@
 
 namespace FaithGen\SDK\Feature;
 
-use Tests\TestCase;
+
+use Orchestra\Testbench\TestCase;
 
 class ComposerTest extends TestCase
 {

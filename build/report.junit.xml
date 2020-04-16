@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="" tests="7" assertions="18" errors="2" warnings="0" failures="0" skipped="0" time="0.778310">
+    <testsuite name="Test Suite" tests="7" assertions="18" errors="2" warnings="0" failures="0" skipped="0" time="0.778310">
+      <testsuite name="FaithGen\SDK\Feature\ComposerTest" file="/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/tests/Feature/ComposerTest.php" tests="1" assertions="6" errors="0" warnings="0" failures="0" skipped="0" time="0.410033">
+        <testcase name="is_composer_setup_correct" class="FaithGen\SDK\Feature\ComposerTest" classname="FaithGen.SDK.Feature.ComposerTest" file="/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/tests/Feature/ComposerTest.php" line="14" assertions="6" time="0.410033"/>
+      </testsuite>
+      <testsuite name="FaithGen\SDK\Feature\FilesTest" file="/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/tests/Feature/FilesTest.php" tests="4" assertions="12" errors="0" warnings="0" failures="0" skipped="0" time="0.020003">
+        <testcase name="it_has_storage_files" class="FaithGen\SDK\Feature\FilesTest" classname="FaithGen.SDK.Feature.FilesTest" file="/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/tests/Feature/FilesTest.php" line="13" assertions="4" time="0.006785"/>
+        <testcase name="it_has_logo" class="FaithGen\SDK\Feature\FilesTest" classname="FaithGen.SDK.Feature.FilesTest" file="/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/tests/Feature/FilesTest.php" line="24" assertions="3" time="0.004485"/>
+        <testcase name="it_profiles_dir_ready" class="FaithGen\SDK\Feature\FilesTest" classname="FaithGen.SDK.Feature.FilesTest" file="/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/tests/Feature/FilesTest.php" line="34" assertions="3" time="0.004361"/>
+        <testcase name="it_users_dir_ready" class="FaithGen\SDK\Feature\FilesTest" classname="FaithGen.SDK.Feature.FilesTest" file="/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/tests/Feature/FilesTest.php" line="44" assertions="2" time="0.004372"/>
+      </testsuite>
+      <testsuite name="FaithGen\SDK\Tests\Feature\MinistryTest" file="/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/tests/Feature/MinistryTest.php" tests="2" assertions="0" errors="2" warnings="0" failures="0" skipped="0" time="0.348274">
+        <testcase name="model_has_relationships" class="FaithGen\SDK\Tests\Feature\MinistryTest" classname="FaithGen.SDK.Tests.Feature.MinistryTest" file="/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/tests/Feature/MinistryTest.php" line="32" assertions="0" time="0.338325">
+          <error type="Illuminate\Database\QueryException">FaithGen\SDK\Tests\Feature\MinistryTest::model_has_relationships
+Illuminate\Database\QueryException: could not find driver (SQL: PRAGMA foreign_keys = OFF;)
+
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Connection.php:671
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Connection.php:631
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Connection.php:465
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Schema/Builder.php:278
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/SQLiteConnection.php:34
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Connectors/ConnectionFactory.php:280
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Connectors/ConnectionFactory.php:76
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Connectors/ConnectionFactory.php:50
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php:131
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php:86
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Migrations/DatabaseMigrationRepository.php:199
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Migrations/DatabaseMigrationRepository.php:167
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php:608
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateCommand.php:93
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateCommand.php:64
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php:541
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateCommand.php:81
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php:32
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Container/Util.php:36
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php:90
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php:34
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Container/Container.php:592
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Console/Command.php:134
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/symfony/console/Command/Command.php:258
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Console/Command.php:121
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/symfony/console/Application.php:911
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/symfony/console/Application.php:264
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/symfony/console/Application.php:140
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Console/Application.php:93
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Console/Application.php:185
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php:263
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Testing/PendingCommand.php:169
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Testing/PendingCommand.php:287
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/InteractsWithConsole.php:52
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Foundation/Testing/RefreshDatabase.php:40
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Foundation/Testing/RefreshDatabase.php:17
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/orchestra/testbench-core/src/Concerns/Testing.php:141
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/orchestra/testbench-core/src/TestCase.php:63
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/orchestra/testbench-core/src/Concerns/Testing.php:71
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/orchestra/testbench-core/src/TestCase.php:41
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/tests/Feature/MinistryTest.php:21
+</error>
+        </testcase>
+        <testcase name="it_can_create_a_ministry" class="FaithGen\SDK\Tests\Feature\MinistryTest" classname="FaithGen.SDK.Tests.Feature.MinistryTest" file="/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/tests/Feature/MinistryTest.php" line="43" assertions="0" time="0.009949">
+          <error type="Illuminate\Database\QueryException">FaithGen\SDK\Tests\Feature\MinistryTest::it_can_create_a_ministry
+Illuminate\Database\QueryException: could not find driver (SQL: PRAGMA foreign_keys = OFF;)
+
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Connection.php:671
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Connection.php:631
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Connection.php:465
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Schema/Builder.php:278
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/SQLiteConnection.php:34
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Connectors/ConnectionFactory.php:280
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Connectors/ConnectionFactory.php:76
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Connectors/ConnectionFactory.php:50
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php:131
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php:86
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Migrations/DatabaseMigrationRepository.php:199
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Migrations/DatabaseMigrationRepository.php:167
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php:608
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateCommand.php:93
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateCommand.php:64
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php:541
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateCommand.php:81
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php:32
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Container/Util.php:36
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php:90
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php:34
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Container/Container.php:592
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Console/Command.php:134
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/symfony/console/Command/Command.php:258
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Console/Command.php:121
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/symfony/console/Application.php:911
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/symfony/console/Application.php:264
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/symfony/console/Application.php:140
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Console/Application.php:93
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Console/Application.php:185
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php:263
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Testing/PendingCommand.php:169
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Testing/PendingCommand.php:287
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/InteractsWithConsole.php:52
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Foundation/Testing/RefreshDatabase.php:40
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/laravel/framework/src/Illuminate/Foundation/Testing/RefreshDatabase.php:17
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/orchestra/testbench-core/src/Concerns/Testing.php:141
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/orchestra/testbench-core/src/TestCase.php:63
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/orchestra/testbench-core/src/Concerns/Testing.php:71
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/vendor/orchestra/testbench-core/src/TestCase.php:41
+/home/innoflash/Documents/work/faith-gen/laravel-packages/packages/sdk/tests/Feature/MinistryTest.php:21
+</error>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>
