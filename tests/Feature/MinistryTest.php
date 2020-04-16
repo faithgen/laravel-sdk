@@ -75,4 +75,19 @@ class MinistryTest extends TestCase
 
         $this->assertNull($ministry->profile->about_us);
     }
+
+    /**
+     * @test
+     */
+    public function created_ministry_has_api_key()
+    {
+        Notification::fake();
+        $ministry = factory(Ministry::class)->create();
+
+        $this->assertTrue($ministry->apiKey()->exists());
+
+        $this->assertEquals($ministry->id, $ministry->apiKey->ministry_id);
+
+      //  $this->assertEquals($ministry->profile->about_us);
+    }
 }
