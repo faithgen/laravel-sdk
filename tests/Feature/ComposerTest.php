@@ -17,11 +17,11 @@ class ComposerTest extends TestCase
         $this->assertFalse($composerData->name == 'faithgen/sdkk');
         $this->assertTrue($composerData->name == 'faithgen/sdk');
 
-        $this->assertArrayHasKey("homepage", (array) $composerData);
+        $this->assertArrayHasKey('homepage', (array) $composerData);
 
         $this->assertEquals($composerData->homepage, 'https://github.com/faithgen/laravel-sdk');
 
-        $this->assertArrayNotHasKey("damnit", (array) $composerData);
+        $this->assertArrayNotHasKey('damnit', (array) $composerData);
 
         $providers = $composerData->extra->laravel->providers;
 

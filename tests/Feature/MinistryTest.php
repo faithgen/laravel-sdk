@@ -4,7 +4,6 @@ namespace FaithGen\SDK\Feature;
 
 use FaithGen\SDK\FaithGenSDKServiceProvider;
 use FaithGen\SDK\Models\Ministry;
-use Faithgen\Testimonies\TestimoniesServiceProvider;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -48,10 +47,10 @@ class MinistryTest extends TestCase
         $this->assertCount(3, Ministry::all()->count());
 
         $insertData = [
-            'name'=>$this->faker->company,
-            'email'=>$this->faker->safeEmail,
-            'phone'=>$this->faker->phoneNumber,
-            'password'=>Hash::make('secret')
+            'name'     => $this->faker->company,
+            'email'    => $this->faker->safeEmail,
+            'phone'    => $this->faker->phoneNumber,
+            'password' => Hash::make('secret'),
         ];
         $ministry = Ministry::create($insertData);
 
