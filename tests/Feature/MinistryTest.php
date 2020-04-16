@@ -64,7 +64,7 @@ class MinistryTest extends TestCase
     /**
      * @test
      */
-    public function created_ministry_has_profile()
+    public function created_ministry_has_a_profile()
     {
         Notification::fake();
         $ministry = factory(Ministry::class)->create();
@@ -79,7 +79,7 @@ class MinistryTest extends TestCase
     /**
      * @test
      */
-    public function created_ministry_has_api_key()
+    public function created_ministry_has_an_api_key()
     {
         Notification::fake();
         $ministry = factory(Ministry::class)->create();
@@ -90,5 +90,39 @@ class MinistryTest extends TestCase
 
         $apiKey = Ministry\APIKey::first();
         $this->assertEquals($ministry->apiKey->api_key, $apiKey->api_key);
+    }
+
+    /**
+     * @test
+     */
+    public function created_ministry_has_an_account()
+    {
+        Notification::fake();
+        $ministry = factory(Ministry::class)->create();
+
+        $this->assertTrue($ministry->account()->exists());
+
+        $this->assertEquals($ministry->id, $ministry->account->ministry_id);
+
+        $account = Ministry\Account::first();
+        $this->assertEquals($ministry->account->level, $account->level);
+        $this->assertEquals($ministry->account->ministry_id, $account->ministry_id);
+    }
+
+    /**
+     * @test
+     */
+    public function created_ministry_has_an_activation()
+    {
+        Notification::fake();
+        $ministry = factory(Ministry::class)->create();
+
+        $this->assertTrue($ministry->activation()->exists());
+
+        $this->assertEquals($ministry->id, $ministry->activation->ministry_id);
+
+        $activation = Ministry\Activation::first();
+        $this->assertEquals($ministry->activation->code, $activation->code);
+        $this->assertEquals($ministry->activation->ministry_id, $activation->ministry_id);
     }
 }
