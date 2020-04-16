@@ -27,9 +27,6 @@ class MinistryTest extends TestCase
      */
     public function model_has_relationships()
     {
-        $model = $this->mock(Ministry::class);
-
-        //todo
         $this->assertTrue(true);
     }
 
@@ -129,12 +126,15 @@ class MinistryTest extends TestCase
     /**
      * @test
      */
-    public function it_can_create_ministry_account_from_url()
+    public function it_can_create_ministry_account_from_api_endpoint()
     {
         $postData = [
             'name' => 'the name',
         ];
-        $this->post('/api/ministry/auth/register', $postData)
-            ->assertStatus(422);
+        $this->json('POST','/api/ministry/auth/register', $postData)
+            ->assertResponseStatus(404);
+
+        $this->json('POST','/api/auth/register', $postData)
+            ->assertResponseStatus(422);
     }
 }

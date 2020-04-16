@@ -7,9 +7,11 @@ use FaithGen\SDK\Providers\AuthServiceProvider;
 use FaithGen\SDK\Providers\EventServiceProvider;
 use Illuminate\Foundation\Testing\WithFaker;
 
-class TestCase extends \Orchestra\Testbench\TestCase
+class TestCase extends \Orchestra\Testbench\BrowserKit\TestCase
 {
     use WithFaker;
+
+    public $baseUrl = 'http://localhost';
 
     protected function setUp(): void
     {
@@ -17,7 +19,6 @@ class TestCase extends \Orchestra\Testbench\TestCase
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         $this->withFactories(__DIR__.'/../database/factories');
-
     }
 
     protected function getPackageProviders($app)
