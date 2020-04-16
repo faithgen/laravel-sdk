@@ -88,6 +88,7 @@ class MinistryTest extends TestCase
 
         $this->assertEquals($ministry->id, $ministry->apiKey->ministry_id);
 
-      //  $this->assertEquals($ministry->profile->about_us);
+        $apiKey = Ministry\APIKey::first();
+        $this->assertEquals($ministry->apiKey->api_key, $apiKey->api_key);
     }
 }
