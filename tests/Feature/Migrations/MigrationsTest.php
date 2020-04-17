@@ -20,7 +20,7 @@ class MigrationsTest extends TestCase
     /**
      * @test
      */
-    public function it_runs_the_migration()
+    public function it_runs_the_ministries_migration()
     {
         $this->assertFalse(DB::table('fg_ministries')->exists());
 
