@@ -27,7 +27,7 @@ class CreateRequest extends FormRequest
             'name' => 'required|string|min:3',
             'password' => 'required|string|min:6',
             'confirm_password' => 'required|string|min:6',
-            'email' => 'required|email|unique:ministries',
+            'email' => 'required|email|unique:fg_ministries',
             'phone' => 'required', //todo write a regex to serve
         ];
     }
