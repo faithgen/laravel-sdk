@@ -12,7 +12,8 @@ class Comment extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return array
      */
     public function toArray($request)
@@ -24,15 +25,15 @@ class Comment extends JsonResource
         }
 
         return [
-            'id' => $this->id,
+            'id'      => $this->id,
             'comment' => $this->comment,
             'creator' => [
-                'id' => $this->creatable->id,
-                'name' => $this->creatable->name,
+                'id'       => $this->creatable->id,
+                'name'     => $this->creatable->name,
                 'is_admin' => $is_admin,
-                'avatar' => $avatar,
+                'avatar'   => $avatar,
             ],
-            'date' => Helper::getDates($this->created_at),
+            'date'    => Helper::getDates($this->created_at),
         ];
     }
 }
