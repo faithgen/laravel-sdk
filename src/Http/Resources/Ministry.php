@@ -10,7 +10,8 @@ class Ministry extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return array
      */
     public function toArray($request)
@@ -19,6 +20,7 @@ class Ministry extends JsonResource
         $results = array_merge($results, [
             'active' => (bool) $this->activation->active,
             'avatar' => ImageHelper::getImage('profile', $this->image),
+            'level'  => $this->account->level,
         ]);
 
         return $results;
