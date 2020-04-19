@@ -2,12 +2,10 @@
 
 namespace FaithGen\SDK\Feature;
 
-
 use Orchestra\Testbench\TestCase;
 
 class ComposerTest extends TestCase
 {
-
     /**
      * @test
      */

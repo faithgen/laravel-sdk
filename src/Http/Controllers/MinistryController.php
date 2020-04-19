@@ -196,10 +196,10 @@ class MinistryController extends Controller
         $params = ['color' => $request->color];
 
         $params = array_merge($params,
-            array_filter($request->links, fn($link) => in_array($link, $links), ARRAY_FILTER_USE_KEY));
+            array_filter($request->links, fn ($link) => in_array($link, $links), ARRAY_FILTER_USE_KEY));
 
         $params = array_merge($params,
-            array_filter($request->statement, fn($link) => in_array($link, $statements), ARRAY_FILTER_USE_KEY));
+            array_filter($request->statement, fn ($link) => in_array($link, $statements), ARRAY_FILTER_USE_KEY));
 
         $params = array_merge($params, ['emails' => $request->emails]);
 
@@ -276,8 +276,8 @@ class MinistryController extends Controller
             ->ministryUsers()
             ->latest()
             //->with(['user.image'])
-            ->where(fn($ministryUser) => $ministryUser->whereHas('user',
-                fn($user) => $user->search(['name', 'email'], $request->filter_text)))
+            ->where(fn ($ministryUser) => $ministryUser->whereHas('user',
+                fn ($user) => $user->search(['name', 'email'], $request->filter_text)))
             ->paginate(Helper::getLimit($request));
 
         //return $ministryUsers;

@@ -35,7 +35,7 @@ return [
     'ministries-server' => env('MINISTRIES_SERVER', 'https://faithgen.com/'),
 
     /**
-     * The link to the admin dashboard
+     * The link to the admin dashboard.
      */
-    'admin-dashboard'   => 'http://localhost:8080'
+    'admin-dashboard'   => 'http://localhost:8080',
 ];

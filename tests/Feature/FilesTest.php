@@ -2,7 +2,6 @@
 
 namespace FaithGen\SDK\Feature;
 
-
 use Orchestra\Testbench\TestCase;
 
 class FilesTest extends TestCase
