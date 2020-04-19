@@ -35,12 +35,12 @@ class Profile extends UuidModel
     {
         if (! $location) {
             return [
-                'address'  => [
+                'address'     => [
                     'name'      => 'not-set',
                     'formatted' => 'not-set',
                 ],
-                'locality' => 'not-set',
-                'country' => 'not-set',
+                'locality'    => 'not-set',
+                'country'     => 'not-set',
                 'postal_code' => 'not-set',
             ];
         }
