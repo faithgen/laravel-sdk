@@ -117,7 +117,7 @@ class AuthController extends Controller
     public function logout()
     {
         try {
-            auth()->user()->token()->revoke();
+            auth()->logout();
 
             return $this->successResponse('Logged out');
         } catch (\Exception $e) {
