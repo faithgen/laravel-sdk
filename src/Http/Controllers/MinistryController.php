@@ -40,7 +40,8 @@ class MinistryController extends Controller
 
     /**
      * MinistryController constructor.
-     * @param ProfileService $profileService
+     *
+     * @param  ProfileService  $profileService
      */
     public function __construct(ProfileService $profileService)
     {
@@ -50,7 +51,8 @@ class MinistryController extends Controller
     /**
      * Get the social link profile.
      *
-     * @param GetRequest $request
+     * @param  GetRequest  $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function getSocialLink(GetRequest $request)
@@ -63,7 +65,8 @@ class MinistryController extends Controller
     /**
      * Saves a social link.
      *
-     * @param UpdateRequest $request
+     * @param  UpdateRequest  $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function saveSocialLink(UpdateRequest $request)
@@ -101,8 +104,9 @@ class MinistryController extends Controller
     /**
      * Changes the profile pic.
      *
-     * @param UpdateImageRequest $request
-     * @param ImageManager $imageManager
+     * @param  UpdateImageRequest  $request
+     * @param  ImageManager  $imageManager
+     *
      * @return mixed
      */
     public function updatePhoto(UpdateImageRequest $request, ImageManager $imageManager)
@@ -126,7 +130,8 @@ class MinistryController extends Controller
     /**
      * Update ministry password.
      *
-     * @param UpdatePasswordRequest $request
+     * @param  UpdatePasswordRequest  $request
+     *
      * @return mixed
      */
     public function updatePassword(UpdatePasswordRequest $request)
@@ -153,7 +158,8 @@ class MinistryController extends Controller
     /**
      * Delete ministry profile.
      *
-     * @param DeleteRequest $request
+     * @param  DeleteRequest  $request
+     *
      * @return mixed
      */
     public function deleteProfile(DeleteRequest $request)
@@ -174,7 +180,8 @@ class MinistryController extends Controller
     /**
      * Updates ministry profile.
      *
-     * @param UpdateProfileRequest $request
+     * @param  UpdateProfileRequest  $request
+     *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function updateProfile(UpdateProfileRequest $request)
@@ -188,9 +195,11 @@ class MinistryController extends Controller
 
         $params = ['color' => $request->color];
 
-        $params = array_merge($params, array_filter($request->links, fn ($link) => in_array($link, $links), ARRAY_FILTER_USE_KEY));
+        $params = array_merge($params,
+            array_filter($request->links, fn($link) => in_array($link, $links), ARRAY_FILTER_USE_KEY));
 
-        $params = array_merge($params, array_filter($request->statement, fn ($link) => in_array($link, $statements), ARRAY_FILTER_USE_KEY));
+        $params = array_merge($params,
+            array_filter($request->statement, fn($link) => in_array($link, $statements), ARRAY_FILTER_USE_KEY));
 
         $params = array_merge($params, ['emails' => $request->emails]);
 
@@ -208,22 +217,22 @@ class MinistryController extends Controller
     /**
      * Saves the church services.
      *
-     * @param Request $request
-     * @param Ministry $ministry
+     * @param  Request  $request
+     * @param  Ministry  $ministry
      */
     private function saveServices(Request $request, Ministry $ministry)
     {
         if ($request->has('services')) {
-            DB::table('daily_services')
+            DB::table('fg_daily_services')
                 ->whereIn('id', $ministry->services()->pluck('id')->toArray())
                 ->delete();
 
             $services = array_map(function ($service) {
                 return array_merge($service, [
-                    'id' => str_shuffle((string) Str::uuid()),
+                    'id'          => str_shuffle((string) Str::uuid()),
                     'ministry_id' => auth()->user()->id,
-                    'created_at' => now(),
-                    'updated_at' => now(),
+                    'created_at'  => now(),
+                    'updated_at'  => now(),
                 ]);
             }, $request->services);
             $ministry->services()->insert($services);
@@ -234,6 +243,7 @@ class MinistryController extends Controller
      * Gets the links.
      *
      * @param $links
+     *
      * @return bool
      */
     public function getLinks($links)
@@ -256,7 +266,8 @@ class MinistryController extends Controller
     /**
      * Gets the users for a ministry.
      *
-     * @param IndexRequest $request
+     * @param  IndexRequest  $request
+     *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function users(IndexRequest $request)
@@ -265,7 +276,8 @@ class MinistryController extends Controller
             ->ministryUsers()
             ->latest()
             //->with(['user.image'])
-            ->where(fn ($ministryUser) => $ministryUser->whereHas('user', fn ($user) => $user->search(['name', 'email'], $request->filter_text)))
+            ->where(fn($ministryUser) => $ministryUser->whereHas('user',
+                fn($user) => $user->search(['name', 'email'], $request->filter_text)))
             ->paginate(Helper::getLimit($request));
 
         //return $ministryUsers;
@@ -278,7 +290,8 @@ class MinistryController extends Controller
     /**
      * Blocks or unblock a user.
      *
-     * @param ToggleActivityRequest $request
+     * @param  ToggleActivityRequest  $request
+     *
      * @return void
      */
     public function toggleActivity(ToggleActivityRequest $request)
