@@ -13,8 +13,8 @@ class Profile extends UuidModel
 
     protected $casts = [
         'location' => 'array',
-        'phones' => 'array',
-        'emails' => 'array',
+        'phones'   => 'array',
+        'emails'   => 'array',
     ];
 
     //****************************************************************************//
@@ -29,6 +29,23 @@ class Profile extends UuidModel
     public function getMissionAttribute($val)
     {
         return ucfirst($val);
+    }
+
+    public function getLocationAttribute($location)
+    {
+        if (! $location) {
+            return [
+                'address'  => [
+                    'name'      => 'not-set',
+                    'formatted' => 'not-set',
+                ],
+                'locality' => 'not-set',
+                'country' => 'not-set',
+                'postal_code' => 'not-set',
+            ];
+        }
+
+        return $location;
     }
 
     //****************************************************************************//
