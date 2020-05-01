@@ -122,7 +122,7 @@ class MinistryTest extends TestCase
             'email'    => $this->ministry->email,
             'password' => 'secret',
         ]);
-        dd($response);
+
         $response->assertStatus(200);
         $this->assertTrue(true);
     }
