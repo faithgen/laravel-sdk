@@ -19,7 +19,6 @@ class TestCase extends \Orchestra\Testbench\TestCase
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         $this->withFactories(__DIR__.'/../database/factories');
-
     }
 
     protected function getPackageProviders($app)
@@ -28,7 +27,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
             FaithGenSDKServiceProvider::class,
             AuthServiceProvider::class,
             EventServiceProvider::class,
-            LaravelServiceProvider::class
+            LaravelServiceProvider::class,
         ];
     }
 
@@ -37,7 +36,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
         parent::getEnvironmentSetUp($app);
 
         $app['config']->set('faithgen-sdk.source', true);
-        $app['config']->set('faithgen-sdk.ministries-server', "http://localhost");
+        $app['config']->set('faithgen-sdk.ministries-server', 'http://localhost');
 
         $app['config']->set('auth', [
             'defaults'  => [
@@ -72,14 +71,14 @@ class TestCase extends \Orchestra\Testbench\TestCase
                     'driver' => 'eloquent',
                     'model'  => Ministry::class,
                 ],
-            ]
+            ],
         ]);
 
         $app['config']->set('larastart', [
             'resource' => \FaithGen\SDK\Http\Resources\Ministry::class,
             'limit'    => 15,
             'guard'    => 'api',
-            'wrap'     => 'ministry'
+            'wrap'     => 'ministry',
         ]);
     }
 }
