@@ -2,6 +2,7 @@
 
 namespace FaithDen\SDK\Tests;
 
+use FaithDen\SDK\Tests\Models\Ministry;
 use FaithGen\SDK\FaithGenSDKServiceProvider;
 use FaithGen\SDK\Providers\AuthServiceProvider;
 use FaithGen\SDK\Providers\EventServiceProvider;
@@ -32,6 +33,21 @@ class TestCase extends \Orchestra\Testbench\TestCase
     protected function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
+
         $app['config']->set('faithgen-sdk.source', true);
+        $app['config']->set('auth.providers', [
+            'ministries' => [
+                'driver' => 'eloquent',
+                'model'  => Ministry::class,
+            ],
+        ]);
+
+        $app['config']->set('auth.guards', [
+            'api' => [
+                'driver'   => 'jwt',
+                'provider' => 'ministries',
+                'hash'     => false,
+            ],
+        ]);
     }
 }
