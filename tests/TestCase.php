@@ -2,8 +2,8 @@
 
 namespace FaithDen\SDK\Tests;
 
-use FaithDen\SDK\Tests\Models\Ministry;
 use FaithGen\SDK\FaithGenSDKServiceProvider;
+use FaithGen\SDK\Models\Ministry;
 use FaithGen\SDK\Providers\AuthServiceProvider;
 use FaithGen\SDK\Providers\EventServiceProvider;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -37,6 +37,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
         parent::getEnvironmentSetUp($app);
 
         $app['config']->set('faithgen-sdk.source', true);
+        $app['config']->set('faithgen-sdk.ministries-server', "http://localhost");
 
         $app['config']->set('auth', [
             'defaults'  => [
@@ -72,6 +73,13 @@ class TestCase extends \Orchestra\Testbench\TestCase
                     'model'  => Ministry::class,
                 ],
             ]
+        ]);
+
+        $app['config']->set('larastart', [
+            'resource' => \FaithGen\SDK\Http\Resources\Ministry::class,
+            'limit'    => 15,
+            'guard'    => 'api',
+            'wrap'     => 'ministry'
         ]);
     }
 }

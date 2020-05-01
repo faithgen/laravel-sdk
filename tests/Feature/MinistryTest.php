@@ -31,7 +31,10 @@ class MinistryTest extends TestCase
      */
     public function model_has_relationships()
     {
-        $this->assertTrue(true);
+        $this->assertTrue($this->ministry->activation()->exists());
+        $this->assertTrue($this->ministry->apiKey()->exists());
+        $this->assertTrue($this->ministry->account()->exists());
+        $this->assertTrue($this->ministry->profile()->exists());
     }
 
     /**
@@ -118,13 +121,28 @@ class MinistryTest extends TestCase
      */
     public function ministry_can_log_in()
     {
+        $insertData = [
+            'id'         => Str::uuid()->toString(),
+            'name'       => $this->faker->company,
+            'email'      => 'test@gmail.com',
+            'phone'      => $this->faker->phoneNumber,
+            'password'   => Hash::make('secret'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ];
+
+        Ministry::insert($insertData);
+
         $response = $this->post('api/auth/login', [
-            'email'    => $this->ministry->email,
+            'email'    => 'test@gmail.com',
             'password' => 'secret',
         ]);
 
         $response->assertStatus(200);
-        $this->assertTrue(true);
+
+        $responseContent = json_decode($response->content());
+        $this->assertArrayHasKey('ministry', (array) $responseContent);
+        $this->assertArrayHasKey('token', (array) $responseContent);
     }
 
     /**
@@ -135,6 +153,20 @@ class MinistryTest extends TestCase
         $postData = [
             'name' => 'the name',
         ];
-        $this->assertTrue(true);
+        $response = $this->post('api/auth/register', $postData);
+
+        $response->assertStatus(302);
+        $response->assertRedirect();
+
+        $postData = array_merge($postData, [
+            'email' => 'test@email.com',
+            'password'=>'secret',
+            'confirm_password'=>'secret',
+            'phone'=>'023456',
+        ]);
+
+        $response = $this->post('api/auth/register', $postData);
+
+        $response->assertStatus(200);
     }
 }

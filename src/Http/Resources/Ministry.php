@@ -18,9 +18,9 @@ class Ministry extends JsonResource
     {
         $results = parent::toArray($request);
         $results = array_merge($results, [
-            'active' => (bool) $this->activation->active,
+            'active' => (bool) optional($this->activation)->active,
             'avatar' => ImageHelper::getImage('profile', $this->image),
-            'level'  => $this->account->level,
+            'level'  => optional($this->account)->level,
         ]);
 
         return $results;
