@@ -18,7 +18,6 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
         $this->withFactories(__DIR__.'/../database/factories');
 
-        //$this->wit
     }
 
     protected function getPackageProviders($app)
@@ -28,5 +27,11 @@ class TestCase extends \Orchestra\Testbench\TestCase
             AuthServiceProvider::class,
             EventServiceProvider::class,
         ];
+    }
+
+    protected function getEnvironmentSetUp($app)
+    {
+        parent::getEnvironmentSetUp($app);
+        $app['config']->set('faithgen-sdk.source', true);
     }
 }

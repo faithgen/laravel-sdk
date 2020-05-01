@@ -17,9 +17,13 @@ class MinistryTest extends TestCase
     use DatabaseMigrations;
     use WithFaker;
 
+    private Ministry $ministry;
+
     protected function setUp(): void
     {
         parent::setUp();
+        Notification::fake();
+        $this->ministry = factory(Ministry::class)->create();
     }
 
     /**
@@ -35,11 +39,9 @@ class MinistryTest extends TestCase
      */
     public function it_can_create_a_ministry()
     {
-        Notification::fake();
-
         factory(Ministry::class, 3)->create();
 
-        $this->assertCount(3, Ministry::all());
+        $this->assertCount(4, Ministry::all());
 
         $insertData = [
             'id'         => Str::uuid()->toString(),
@@ -53,7 +55,7 @@ class MinistryTest extends TestCase
 
         $ministry = Ministry::insert($insertData);
 
-        $this->assertCount(4, Ministry::all());
+        $this->assertCount(5, Ministry::all());
 
         $lastMinistry = Ministry::latest()->first();
     }
@@ -63,14 +65,11 @@ class MinistryTest extends TestCase
      */
     public function created_ministry_has_a_profile()
     {
-        Notification::fake();
-        $ministry = factory(Ministry::class)->create();
+        $this->assertTrue($this->ministry->profile()->exists());
 
-        $this->assertTrue($ministry->profile()->exists());
+        $this->assertEquals($this->ministry->id, $this->ministry->profile->ministry_id);
 
-        $this->assertEquals($ministry->id, $ministry->profile->ministry_id);
-
-        $this->assertNull($ministry->profile->about_us);
+        $this->assertNull($this->ministry->profile->about_us);
     }
 
     /**
@@ -78,15 +77,12 @@ class MinistryTest extends TestCase
      */
     public function created_ministry_has_an_api_key()
     {
-        Notification::fake();
-        $ministry = factory(Ministry::class)->create();
+        $this->assertTrue($this->ministry->apiKey()->exists());
 
-        $this->assertTrue($ministry->apiKey()->exists());
-
-        $this->assertEquals($ministry->id, $ministry->apiKey->ministry_id);
+        $this->assertEquals($this->ministry->id, $this->ministry->apiKey->ministry_id);
 
         $apiKey = Ministry\APIKey::first();
-        $this->assertEquals($ministry->apiKey->api_key, $apiKey->api_key);
+        $this->assertEquals($this->ministry->apiKey->api_key, $apiKey->api_key);
     }
 
     /**
@@ -94,16 +90,13 @@ class MinistryTest extends TestCase
      */
     public function created_ministry_has_an_account()
     {
-        Notification::fake();
-        $ministry = factory(Ministry::class)->create();
+        $this->assertTrue($this->ministry->account()->exists());
 
-        $this->assertTrue($ministry->account()->exists());
-
-        $this->assertEquals($ministry->id, $ministry->account->ministry_id);
+        $this->assertEquals($this->ministry->id, $this->ministry->account->ministry_id);
 
         $account = Ministry\Account::first();
-        $this->assertEquals($ministry->account->level, $account->level);
-        $this->assertEquals($ministry->account->ministry_id, $account->ministry_id);
+        $this->assertEquals($this->ministry->account->level, $account->level);
+        $this->assertEquals($this->ministry->account->ministry_id, $account->ministry_id);
     }
 
     /**
@@ -111,16 +104,13 @@ class MinistryTest extends TestCase
      */
     public function created_ministry_has_an_activation()
     {
-        Notification::fake();
-        $ministry = factory(Ministry::class)->create();
+        $this->assertTrue($this->ministry->activation()->exists());
 
-        $this->assertTrue($ministry->activation()->exists());
-
-        $this->assertEquals($ministry->id, $ministry->activation->ministry_id);
+        $this->assertEquals($this->ministry->id, $this->ministry->activation->ministry_id);
 
         $activation = Ministry\Activation::first();
-        $this->assertEquals($ministry->activation->code, $activation->code);
-        $this->assertEquals($ministry->activation->ministry_id, $activation->ministry_id);
+        $this->assertEquals($this->ministry->activation->code, $activation->code);
+        $this->assertEquals($this->ministry->activation->ministry_id, $activation->ministry_id);
     }
 
     /**
@@ -128,13 +118,12 @@ class MinistryTest extends TestCase
      */
     public function ministry_can_log_in()
     {
-        Notification::fake();
-        $ministry = factory(Ministry::class)->create();
-
         $response = $this->post('api/auth/login', [
-            'email'    => $ministry->email,
+            'email'    => $this->ministry->email,
             'password' => 'secret',
         ]);
+        dd($response);
+        $response->assertStatus(200);
         $this->assertTrue(true);
     }
 
