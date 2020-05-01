@@ -7,6 +7,7 @@ use FaithGen\SDK\FaithGenSDKServiceProvider;
 use FaithGen\SDK\Providers\AuthServiceProvider;
 use FaithGen\SDK\Providers\EventServiceProvider;
 use Illuminate\Foundation\Testing\WithFaker;
+use Tymon\JWTAuth\Providers\LaravelServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -27,6 +28,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
             FaithGenSDKServiceProvider::class,
             AuthServiceProvider::class,
             EventServiceProvider::class,
+            LaravelServiceProvider::class
         ];
     }
 
@@ -35,19 +37,41 @@ class TestCase extends \Orchestra\Testbench\TestCase
         parent::getEnvironmentSetUp($app);
 
         $app['config']->set('faithgen-sdk.source', true);
-        $app['config']->set('auth.providers', [
-            'ministries' => [
-                'driver' => 'eloquent',
-                'model'  => Ministry::class,
-            ],
-        ]);
 
-        $app['config']->set('auth.guards', [
-            'api' => [
-                'driver'   => 'jwt',
-                'provider' => 'ministries',
-                'hash'     => false,
+        $app['config']->set('auth', [
+            'defaults'  => [
+                'guard'     => 'web',
+                'passwords' => 'users',
             ],
+            'guards'    => [
+                'api' => [
+                    'driver'   => 'jwt',
+                    'provider' => 'ministries',
+                    'hash'     => false,
+                ],
+                'web' => [
+                    'driver'   => 'session',
+                    'provider' => 'ministries',
+                ],
+            ],
+            'passwords' => [
+                'users'      => [
+                    'provider' => 'users',
+                    'table'    => 'password_resets',
+                    'expire'   => 60,
+                ],
+                'ministries' => [
+                    'provider' => 'ministries',
+                    'table'    => 'password_resets',
+                    'expire'   => 60,
+                ],
+            ],
+            'providers' => [
+                'ministries' => [
+                    'driver' => 'eloquent',
+                    'model'  => Ministry::class,
+                ],
+            ]
         ]);
     }
 }
