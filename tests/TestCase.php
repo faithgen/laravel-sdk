@@ -6,7 +6,6 @@ use FaithGen\SDK\FaithGenSDKServiceProvider;
 use FaithGen\SDK\Models\Ministry;
 use FaithGen\SDK\Providers\AuthServiceProvider;
 use FaithGen\SDK\Providers\EventServiceProvider;
-use Illuminate\Foundation\Exceptions\Handler;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tymon\JWTAuth\Providers\LaravelServiceProvider;
 
