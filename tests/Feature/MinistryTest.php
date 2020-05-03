@@ -155,18 +155,25 @@ class MinistryTest extends TestCase
         ];
         $response = $this->post('api/auth/register', $postData);
 
-        $response->assertStatus(302);
-        $response->assertRedirect();
+        $response->assertStatus(422);
+        $response->assertJson([
+
+        ]);
 
         $postData = array_merge($postData, [
-            'email' => 'test@email.com',
-            'password'=>'secret',
-            'confirm_password'=>'secret',
-            'phone'=>'023456',
+            'email'            => 'test@email.com',
+            'password'         => 'secret',
+            'confirm_password' => 'secret',
+            'phone'            => '023456',
         ]);
 
         $response = $this->post('api/auth/register', $postData);
 
         $response->assertStatus(200);
+        $response->assertJson([
+            'ministry' => [
+                'level' => 'Free',
+            ],
+        ]);
     }
 }

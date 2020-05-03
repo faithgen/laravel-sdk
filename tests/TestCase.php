@@ -6,6 +6,7 @@ use FaithGen\SDK\FaithGenSDKServiceProvider;
 use FaithGen\SDK\Models\Ministry;
 use FaithGen\SDK\Providers\AuthServiceProvider;
 use FaithGen\SDK\Providers\EventServiceProvider;
+use Illuminate\Foundation\Exceptions\Handler;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tymon\JWTAuth\Providers\LaravelServiceProvider;
 
@@ -29,6 +30,11 @@ class TestCase extends \Orchestra\Testbench\TestCase
             EventServiceProvider::class,
             LaravelServiceProvider::class,
         ];
+    }
+
+    protected function resolveApplicationExceptionHandler($app)
+    {
+        $app->singleton('Illuminate\Contracts\Debug\ExceptionHandler', ErrorHandler::class);
     }
 
     protected function getEnvironmentSetUp($app)
