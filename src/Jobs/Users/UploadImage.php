@@ -12,9 +12,12 @@ use Intervention\Image\ImageManager;
 
 class UploadImage implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable,
+        InteractsWithQueue,
+        Queueable,
+        SerializesModels;
 
-    public $deleteWhenMissingModels = true;
+    public bool $deleteWhenMissingModels = true;
     /**
      * @var User
      */
@@ -40,6 +43,7 @@ class UploadImage implements ShouldQueue
      * Execute the job.
      *
      * @param ImageManager $imageManager
+     *
      * @return void
      */
     public function handle(ImageManager $imageManager)

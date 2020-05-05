@@ -19,7 +19,7 @@ class S3Upload implements ShouldQueue
         SerializesModels,
         SavesToAmazonS3;
 
-    public $deleteWhenMissingModels = true;
+    public bool $deleteWhenMissingModels = true;
     /**
      * @var User
      */
