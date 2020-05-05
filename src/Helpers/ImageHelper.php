@@ -3,6 +3,7 @@
 namespace FaithGen\SDK\Helpers;
 
 use FaithGen\SDK\Models\Image;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
@@ -14,6 +15,7 @@ class ImageHelper
      * @param string $server
      * @param string $folder
      * @param Image|null $image
+     *
      * @return object
      */
     private static function getImages(string $server, string $folder, ?Image $image): object
@@ -24,10 +26,17 @@ class ImageHelper
             return static::getDefaultImage();
         }
 
+        $paths = [
+            'local'      => $server.'/storage/',
+            'production' => 'https://cloudfrontstaff/',
+        ];
+
+        $path = $paths[App::environment()];
+
         return (object) [
-            '_50' => $server.'/storage/'.$folder.'/50-50/'.$imageName,
-            '_100' => $server.'/storage/'.$folder.'/100-100/'.$imageName,
-            'original' => $server.'/storage/'.$folder.'/original/'.$imageName,
+            '_50'      => $path.$folder.'/50-50/'.$imageName,
+            '_100'     => $path.$folder.'/100-100/'.$imageName,
+            'original' => $path.$folder.'/original/'.$imageName,
         ];
     }
 
@@ -45,8 +54,8 @@ class ImageHelper
         }
 
         return (object) [
-            '_50' => $protocol.$_SERVER['HTTP_HOST'].'/images/logo-50.png',
-            '_100' => $protocol.$_SERVER['HTTP_HOST'].'/images/logo-100.png',
+            '_50'      => $protocol.$_SERVER['HTTP_HOST'].'/images/logo-50.png',
+            '_100'     => $protocol.$_SERVER['HTTP_HOST'].'/images/logo-100.png',
             'original' => $protocol.$_SERVER['HTTP_HOST'].'/images/logo-original.png',
         ];
     }
@@ -57,6 +66,7 @@ class ImageHelper
      * @param string $folder
      * @param Image|null $image
      * @param string|null $server
+     *
      * @return object
      */
     public static function getImage(string $folder, ?Image $image, ?string $server = null)
