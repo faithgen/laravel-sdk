@@ -9,6 +9,11 @@ trait SavesToAmazonS3
 {
     use FileTraits;
 
+    /**
+     * Saves model images to Amazon s3.
+     *
+     * @param $model
+     */
     protected function saveFiles($model)
     {
         foreach ($model->images as $image) {
