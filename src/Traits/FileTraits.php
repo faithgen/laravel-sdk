@@ -4,6 +4,8 @@ namespace FaithGen\SDK\Traits;
 
 trait FileTraits
 {
+    private $dimensions = [0, 50, 100];
+
     public function getFileName(string $path)
     {
         $pieces = explode('/', $path);
@@ -22,13 +24,15 @@ trait FileTraits
         return storage_path('app/public/'.$dir.'/'.$dimen.$imageName);
     }
 
-    public function getImages(string $dir, string $fileName)
+    public function getImages(string $dir, string $fileName, $dimensions = [])
     {
-        return [
-            $this->getImage($dir, $fileName, 0),
-            $this->getImage($dir, $fileName, 50),
-            $this->getImage($dir, $fileName, 100),
-        ];
+        if (! count($dimensions)) {
+            $dimensions = $this->dimensions;
+        }
+
+        return collect($dimensions)
+            ->map(fn ($dimension) => $this->getImage($dir, $fileName, $dimension))
+            ->toArray();
     }
 
     public function deleteFiles($model)
@@ -55,4 +59,5 @@ trait FileTraits
             return false;
         }
     }
+
 }

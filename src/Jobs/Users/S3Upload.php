@@ -3,15 +3,21 @@
 namespace FaithGen\SDK\Jobs\Users;
 
 use FaithGen\SDK\Models\User;
+use FaithGen\SDK\Traits\SavesToAmazonS3;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class S3Upload implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable,
+        InteractsWithQueue,
+        Queueable,
+        SerializesModels,
+        SavesToAmazonS3;
 
     public $deleteWhenMissingModels = true;
     /**
@@ -36,6 +42,10 @@ class S3Upload implements ShouldQueue
      */
     public function handle()
     {
-        //
+        try {
+            $this->saveFiles($this->user);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+        }
     }
 }
