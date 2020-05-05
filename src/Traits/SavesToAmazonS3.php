@@ -2,6 +2,7 @@
 
 namespace FaithGen\SDK\Traits;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
@@ -21,13 +22,17 @@ trait SavesToAmazonS3
             throw new InvalidArgumentException('The model you used does not use the Storage trait');
         }
 
-        foreach ($model->images as $image) {
-            $imageFiles = $this->getImages($model->filesDir(), $image->name, $model->getImageDimensions());
+        try {
+            foreach ($model->images as $image) {
+                $imageFiles = $this->getImages($model->filesDir(), $image->name, $model->getImageDimensions());
 
-            foreach ($imageFiles as $imageFile) {
-                Storage::disk('s3')->put(Str::of($imageFile)->after('public/'), fopen($imageFile, 'r+'), 'public');
+                foreach ($imageFiles as $imageFile) {
+                    Storage::disk('s3')->put(Str::of($imageFile)->after('public/'), fopen($imageFile, 'r+'), 'public');
+                }
             }
+            $this->deleteFiles($model);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
         }
-        $this->deleteFiles($model);
     }
 }
