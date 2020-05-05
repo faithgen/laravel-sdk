@@ -3,6 +3,7 @@
 namespace FaithGen\SDK\Jobs\Users;
 
 use FaithGen\SDK\Models\User;
+use FaithGen\SDK\Traits\ProcessesImages;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -15,7 +16,8 @@ class ProcessImage implements ShouldQueue
     use Dispatchable,
         InteractsWithQueue,
         Queueable,
-        SerializesModels;
+        SerializesModels,
+        ProcessesImages;
 
     public bool $deleteWhenMissingModels = true;
     /**
@@ -42,14 +44,6 @@ class ProcessImage implements ShouldQueue
      */
     public function handle(ImageManager $imageManager)
     {
-        if ($this->user->image()->exists()) {
-            $ogImage = storage_path('app/public/users/original/').$this->user->image->name;
-            $thumb50 = storage_path('app/public/users/50-50/').$this->user->image->name;
-
-            $imageManager->make($ogImage)->fit(50, 50, function ($constraint) {
-                $constraint->upsize();
-                $constraint->aspectRatio();
-            }, 'center')->save($thumb50);
-        }
+        $this->processImage($imageManager, $this->user);
     }
 }
