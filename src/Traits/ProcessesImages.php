@@ -17,6 +17,10 @@ trait ProcessesImages
      */
     protected function processImage(ImageManager $imageManager, $model)
     {
+        if (! in_array(StorageTrait::class, class_uses($model))) {
+            throw new InvalidArgumentException('The model you used does not use the Storage trait');
+        }
+
         if ($model->images()->exists()) {
             foreach ($model->images as $image) {
                 $originalFile = $this->getImage($model->filesDir(), $image->name);

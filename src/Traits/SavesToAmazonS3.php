@@ -4,6 +4,7 @@ namespace FaithGen\SDK\Traits;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 
 trait SavesToAmazonS3
 {
@@ -16,6 +17,10 @@ trait SavesToAmazonS3
      */
     protected function saveFiles($model)
     {
+        if (! in_array(StorageTrait::class, class_uses($model))) {
+            throw new InvalidArgumentException('The model you used does not use the Storage trait');
+        }
+
         foreach ($model->images as $image) {
             $imageFiles = $this->getImages($model->filesDir(), $image->name, $model->getImageDimensions());
 
