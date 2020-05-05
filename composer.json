@@ -13,16 +13,17 @@
     "minimum-stability": "dev",
     "require": {
         "php": "^7.4",
-        "intervention/image": "^2.5",
         "crazybooot/base64-validation": "^1.0",
-        "innoflash/larastart": "^2.0",
-        "illuminate/support": "^6.0|^7.0",
-        "illuminate/database": "^6.0|^7.0",
-        "illuminate/queue": "^6.0|^7.0",
-        "illuminate/contracts": "^6.0|^7.0",
         "illuminate/broadcasting": "^6.0|^7.0",
+        "illuminate/contracts": "^6.0|^7.0",
+        "illuminate/database": "^6.0|^7.0",
+        "illuminate/http": "^6.0|^7.0",
+        "illuminate/queue": "^6.0|^7.0",
         "illuminate/routing": "^6.0|^7.0",
-        "illuminate/http": "^6.0|^7.0"
+        "illuminate/support": "^6.0|^7.0",
+        "innoflash/larastart": "^2.0",
+        "intervention/image": "^2.5",
+        "league/flysystem-aws-s3-v3": "^1.0@dev"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.9@dev",
