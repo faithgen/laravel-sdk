@@ -2,6 +2,10 @@
 
 namespace FaithGen\SDK\Traits;
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 trait FileTraits
 {
     private $dimensions = [0, 50, 100];
@@ -31,7 +35,7 @@ trait FileTraits
         }
 
         return collect($dimensions)
-            ->map(fn ($dimension) => $this->getImage($dir, $fileName, $dimension))
+            ->map(fn($dimension) => $this->getImage($dir, $fileName, $dimension))
             ->toArray();
     }
 
@@ -52,6 +56,13 @@ trait FileTraits
         try {
             foreach ($images as $file) {
                 unlink($file);
+            }
+
+            if (App::environment('production')) {
+                foreach ($images as $image) {
+                    $imageName = Str::of($image)->after('public/');
+                    Storage::disk('s3')->delete($imageName);
+                }
             }
 
             return true;
