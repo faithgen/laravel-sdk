@@ -3,6 +3,7 @@
 namespace FaithGen\SDK\Jobs\Users;
 
 use FaithGen\SDK\Models\User;
+use FaithGen\SDK\Traits\UploadsImages;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -15,7 +16,8 @@ class UploadImage implements ShouldQueue
     use Dispatchable,
         InteractsWithQueue,
         Queueable,
-        SerializesModels;
+        SerializesModels,
+        UploadsImages;
 
     public bool $deleteWhenMissingModels = true;
     /**
@@ -51,16 +53,10 @@ class UploadImage implements ShouldQueue
         if ($this->image) {
             if ($this->user->image()->exists()) {
                 $fileName = $this->user->image->name;
+                $this->uploadImages($this->user, [$this->image], $imageManager, $fileName);
             } else {
-                $fileName = str_shuffle($this->user->id.time().time()).'.png';
+                $this->uploadImages($this->user, [$this->image], $imageManager);
             }
-            $ogSave = storage_path('app/public/users/original/').$fileName;
-            $imageManager->make($this->image)->save($ogSave);
-            $this->user->image()->updateOrcreate([
-                'imageable_id' => $this->user->id,
-            ], [
-                'name' => $fileName,
-            ]);
         }
     }
 }
