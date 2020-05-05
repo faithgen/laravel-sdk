@@ -27,16 +27,16 @@ class ImageHelper
         }
 
         $paths = [
-            'local'      => $server.'/storage/',
-            'production' => 'https://cloudfrontstaff/',
+            'local'      => $server.'/storage/'.$folder,
+            'production' => 'https://cloudfrontstaff/'.$folder,
         ];
 
         $path = $paths[App::environment()];
 
         return (object) [
-            '_50'      => $path.$folder.'/50-50/'.$imageName,
-            '_100'     => $path.$folder.'/100-100/'.$imageName,
-            'original' => $path.$folder.'/original/'.$imageName,
+            '_50'      => $path.'/50-50/'.$imageName,
+            '_100'     => $path.'/100-100/'.$imageName,
+            'original' => $path.'/original/'.$imageName,
         ];
     }
 
