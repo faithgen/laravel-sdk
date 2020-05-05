@@ -55,10 +55,11 @@ trait UploadsImages
      */
     private function createImage($model, $fileName)
     {
-        $model->images()->create([
-            'imageable_id' => $model->id,
-            'name'         => $fileName,
-        ]);
+        $model->images()
+            ->create([
+                'imageable_id' => $model->id,
+                'name'         => $fileName,
+            ]);
     }
 
     /**

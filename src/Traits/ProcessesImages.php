@@ -30,14 +30,16 @@ trait ProcessesImages
                     ->toArray();
 
                 foreach ($thumbNailsDimensions as $thumbNailsDimension) {
-
                     try {
                         $thumbNail = $this->getImage($model->filesDir(), $image->name, $thumbNailsDimension);
-                        $imageManager->make($originalFile)->fit($thumbNailsDimension, $thumbNailsDimension,
-                            function ($constraint) {
-                                $constraint->upsize();
-                                $constraint->aspectRatio();
-                            }, 'center')->save($thumbNail);
+                        $imageManager
+                            ->make($originalFile)
+                            ->fit($thumbNailsDimension, $thumbNailsDimension,
+                                function ($constraint) {
+                                    $constraint->upsize();
+                                    $constraint->aspectRatio();
+                                }, 'center')
+                            ->save($thumbNail);
                     } catch (\Exception $e) {
                         Log::error($e->getMessage());
                     }
