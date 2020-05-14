@@ -28,7 +28,7 @@ class SaveRequest extends FormRequest
     private $baseRules = [
         'name' => 'required|string',
         'email' => 'email',
-        'phone' => 'required|string|unique:users,phone',
+        'phone' => 'required|string|unique:fg_users,phone',
         'image' => 'base64image',
     ];
 
