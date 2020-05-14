@@ -28,7 +28,7 @@ class ImageHelper
 
         $paths = [
             'local'      => $server.'/storage/'.$folder,
-            'production' => 'https://cloudfrontstaff/'.$folder,
+            'production' => config('faithgen-sdk.faithgen-cloudfront').$folder,
         ];
 
         $path = $paths[App::environment()];

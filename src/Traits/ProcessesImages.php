@@ -4,6 +4,7 @@ namespace FaithGen\SDK\Traits;
 
 use Illuminate\Support\Facades\Log;
 use Intervention\Image\ImageManager;
+use InvalidArgumentException;
 
 trait ProcessesImages
 {
