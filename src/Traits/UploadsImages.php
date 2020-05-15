@@ -31,9 +31,12 @@ trait UploadsImages
         foreach ($images as $imageData) {
             if (! $fileName) {
                 $fileName = str_shuffle($model->id.time().time()).'.png';
+            } else {
                 $this->isNew = false;
             }
+
             $ogSave = storage_path('app/public/'.$model->filesDir().'/original/').$fileName;
+
             try {
                 $imageManager->make($imageData)->save($ogSave);
 

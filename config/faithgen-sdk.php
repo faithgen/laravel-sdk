@@ -40,7 +40,7 @@ return [
     'admin-dashboard'     => 'http://localhost:8080',
 
     /**
-     * The link to AWS cloudfront
+     * The link to AWS cloudfront.
      */
     'faithgen-cloudfront' => env('FG_CLOUDFRONT', 'https://clodfrontstaff/'),
 ];
