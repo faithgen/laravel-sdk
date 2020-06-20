@@ -2,11 +2,12 @@
 
 namespace FaithGen\SDK\Services;
 
+use FaithGen\SDK\Models\Ministry\Profile;
 use InnoFlash\LaraStart\Services\CRUDServices;
 
 class ProfileService extends CRUDServices
 {
-    private $profile;
+    protected Profile $profile;
 
     public function __construct()
     {
@@ -17,9 +18,11 @@ class ProfileService extends CRUDServices
     }
 
     /**
-     * @return mixed
+     * Retrieves an instance of profile.
+     *
+     * @return \FaithGen\SDK\Models\Ministry\Profile
      */
-    public function getProfile()
+    public function getProfile(): Profile
     {
         return $this->profile;
     }
@@ -31,14 +34,5 @@ class ProfileService extends CRUDServices
     public function getUnsetFields(): array
     {
         return ['name', 'email', 'phone'];
-    }
-
-    /**
-     * This get the model value or class of the model in the service.
-     * @return mixed
-     */
-    public function getModel()
-    {
-        return $this->getProfile();
     }
 }
