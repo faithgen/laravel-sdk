@@ -13,7 +13,7 @@ Route::name('ministry.')->prefix('ministry/')->group(function () {
 });
 
 Route::name('images.')->prefix('images')->group(function () {
-    Route::post('comment', [ImageController::class, 'comment']);
+    Route::post('comment/{image}', [ImageController::class, 'comment']);
     Route::get('comments/{image}', [ImageController::class, 'comments']);
 });
 
