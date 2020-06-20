@@ -31,7 +31,7 @@ class ImageService extends CRUDServices
      * to the create or update methods
      * Its mainly the fields that you do not have in the images table.
      */
-    public function getUnsetFields()
+    public function getUnsetFields():array
     {
         return ['image_id'];
     }
