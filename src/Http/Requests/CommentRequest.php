@@ -4,6 +4,7 @@ namespace FaithGen\SDK\Http\Requests;
 
 use FaithGen\SDK\Models\Ministry;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class CommentRequest extends FormRequest
 {
@@ -14,9 +15,22 @@ class CommentRequest extends FormRequest
      */
     public function authorize()
     {
-/*        if (auth()->user() instanceof Ministry) {
-            return $this->user()->can('view', $albumService->getAlbum());
-        }*/
+        if (auth()->user() instanceof Ministry) {
+            $routeModel = collect($this->route()->parameters());
+
+            $modelName = $routeModel->keys()->first();
+
+            $binding = collect(app()->getBindings())
+                ->filter(function ($binding, $key) use ($modelName) {
+                    return Str::contains($key, '\\'.ucfirst($modelName)) && Str::endsWith($key, 'Service');
+                })
+                ->keys()
+                ->first();
+
+            $modelMethod = 'get'.ucwords($modelName);
+
+            return $this->user()->can('view', app($binding)->$modelMethod());
+        }
 
         return true;
     }
@@ -33,4 +47,3 @@ class CommentRequest extends FormRequest
         ];
     }
 }
-
