@@ -33,6 +33,8 @@ class Ministry extends Authenticatable implements JWTSubject
         'updated_at',
     ];
 
+    public const ACCOUNT_LEVELS = ['Free', 'Premium', 'PremiumPlus'];
+
     public function getJWTIdentifier()
     {
         return $this->getKey();

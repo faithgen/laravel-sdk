@@ -1,5 +1,6 @@
 <?php
 
+use FaithGen\SDK\Models\Ministry;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +17,7 @@ class CreateAccountsTable extends Migration
         Schema::create('fg_accounts', function (Blueprint $table) {
             $table->string('id', 150)->primary();
             $table->string('ministry_id', 150)->index();
-            $table->enum('level', ['Free', 'Premium', 'PremiumPlus'])->default('Free');
+            $table->enum('level', Ministry::ACCOUNT_LEVELS)->default('Free');
             $table->dateTime('expiry_date')->default(now());
             $table->timestamps();
 

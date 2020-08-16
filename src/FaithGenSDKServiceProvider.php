@@ -37,14 +37,14 @@ class FaithGenSDKServiceProvider extends ServiceProvider
                 $this->publishes([
                     __DIR__.'/../storage/profile/' => storage_path('app/public/profile'),
                 ], 'faithgen-sdk-storage');
+
+                $this->loadFactoriesFrom(__DIR__.'/../database/factories');
             });
 
             if (! config('faithgen-sdk.source')) {
                 $this->publishes([
                     __DIR__.'/../storage/users/' => storage_path('app/public/users'),
                 ], 'faithgen-sdk-storage');
-
-                $this->loadFactoriesFrom(__DIR__.'/../database/factories');
             }
 
             $this->publishes([
